@@ -1,29 +1,48 @@
 <div class="admin-confessions">
-  <div class="confessions-header">
+  <div class="header-bar">
     <h2>Confessions</h2>
-    <input type="text" [(ngModel)]="search" placeholder="Search message..." class="search-input" />
+    <div class="export-buttons">
+      <button (click)="exportAsCSV()">Export CSV</button>
+      <button (click)="exportAsJSON()">Export JSON</button>
+    </div>
   </div>
 
-  <div *ngIf="loading" class="loader">Loading confessions...</div>
+  <input
+    type="text"
+    placeholder="Search confessions..."
+    [(ngModel)]="search"
+    class="search-input"
+  />
 
-  <table *ngIf="!loading && filteredConfessions.length > 0" class="confessions-table">
+  <div *ngIf="loading">Loading confessions...</div>
+  <table
+    *ngIf="!loading && filteredConfessions.length > 0"
+    class="confessions-table"
+  >
     <thead>
       <tr>
         <th>#</th>
         <th>Message</th>
-        <th>Submitted</th>
+        <th>Submitted At</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let c of filteredConfessions; let i = index">
+      <tr *ngFor="let c of filteredConfessions; index as i">
         <td>{{ i + 1 }}</td>
         <td>{{ c.message }}</td>
         <td>{{ c.created_at | date : "short" }}</td>
+        <td>
+          <button class="delete-btn" (click)="deleteConfession(c.id)">
+            🗑️
+          </button>
+          <button class="flag-btn" (click)="flagConfession(c)">🚩</button>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <div *ngIf="!loading && filteredConfessions.length === 0" class="no-data">
-    <p>No confessions found.</p>
+  <div *ngIf="!loading && filteredConfessions.length === 0">
+    No confessions available.
   </div>
 </div>

@@ -28,7 +28,7 @@ export class AdminConfessionsComponent implements OnInit {
       },
       error: (err) => {
         console.error('Failed to load confessions', err);
-        this.loadMockData(); // fallback
+        this.loadMockData();
       },
     });
   }
@@ -65,5 +65,43 @@ export class AdminConfessionsComponent implements OnInit {
     this.filteredConfessions = this.confessions.filter((c) =>
       c.message.toLowerCase().includes(this.search.toLowerCase())
     );
+  }
+
+  deleteConfession(id: number): void {
+    if (confirm('Are you sure you want to delete this confession?')) {
+      this.confessions = this.confessions.filter((c) => c.id !== id);
+      this.applySearch(); // update filtered view
+    }
+  }
+
+  flagConfession(confession: Confession): void {
+    alert(`Confession flagged:\n\n"${confession.message}"`);
+  }
+
+  exportAsJSON(): void {
+    const blob = new Blob([JSON.stringify(this.filteredConfessions, null, 2)], {
+      type: 'application/json',
+    });
+    this.downloadFile(blob, 'confessions.json');
+  }
+
+  exportAsCSV(): void {
+    const header = 'ID,Message,Created At\n';
+    const rows = this.filteredConfessions
+      .map((c) => `${c.id},"${c.message.replace(/"/g, '""')}",${c.created_at}`)
+      .join('\n');
+    const csv = header + rows;
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    this.downloadFile(blob, 'confessions.csv');
+  }
+
+  private downloadFile(blob: Blob, filename: string): void {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    window.URL.revokeObjectURL(url);
   }
 }
