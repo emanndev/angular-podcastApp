@@ -1,0 +1,25 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h2>Admin Login</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        class="auth-input"
+      />
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        class="auth-input"
+      />
+      <button type="submit" class="auth-button">Login</button>
+    </form>
+
+    <p class="auth-link">
+      Not a user? <a routerLink="/register">Register instead</a>
+    </p>
+  </div>
+</div>

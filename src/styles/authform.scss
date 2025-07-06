@@ -1,0 +1,43 @@
+.auth-wrapper {
+  @include flex-center;
+  height: 100vh;
+  background: $light-bg;
+}
+
+.auth-card {
+  @include card;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: $spacing-lg;
+    color: $primary-color;
+  }
+
+  .auth-input {
+    @include form-field;
+  }
+
+  .auth-button {
+    @include button;
+    width: 100%;
+    margin-top: $spacing-md;
+  }
+
+  .auth-link {
+    margin-top: $spacing-md;
+    font-size: 14px;
+
+    a {
+      color: $primary-color;
+      font-weight: 600;
+    }
+  }
+
+  .error-message {
+    color: $error-color;
+    margin-bottom: $spacing-md;
+    font-weight: 500;
+  }
+}
