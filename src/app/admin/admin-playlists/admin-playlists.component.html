@@ -1,1 +1,18 @@
-<p>admin-playlists works!</p>
+<div class="admin-playlists-container">
+  <h2>Playlists</h2>
+
+  <div *ngIf="loading">Loading playlists...</div>
+
+  <div class="playlist-grid" *ngIf="!loading && playlists.length > 0">
+    <div class="playlist-card" *ngFor="let playlist of playlists">
+      <h3>{{ playlist.title }}</h3>
+      <p>{{ playlist.description }}</p>
+      <p><strong>Episodes:</strong> {{ playlist.episodes.length }}</p>
+      <p>
+        <strong>Created:</strong> {{ playlist.created_at | date : "short" }}
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && playlists.length === 0">No playlists available.</div>
+</div>
