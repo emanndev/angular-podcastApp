@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,12 +18,35 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-  error: string = '';
+  errorMessage = '';
+  loading = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', Validators.required],
+    });
+  }
+
+  onSubmit() {
+    if (this.loginForm.invalid) return;
+
+    this.loading = true;
+    const { email, password } = this.loginForm.value;
+
+    this.auth.login(email!, password!).subscribe({
+      next: (res) => {
+        const isAdmin = this.auth.isAdmin();
+        this.router.navigate([isAdmin ? '/admin/dashboard' : '/confessions']);
+      },
+      error: (err) => {
+        this.errorMessage = err?.error?.message || 'Login failed';
+        this.loading = false;
+      },
     });
   }
 }
