@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConfessionsService } from '../../core/services/confessions.service';
 import { Confession } from '../../model/podcast.models';
+import { MOCK_CONFESSIONS } from '../../shared/mock-data';
 
 @Component({
   selector: 'app-confessions',
@@ -16,16 +17,20 @@ export class ConfessionsComponent implements OnInit {
 
   constructor(private confessionService: ConfessionsService) {}
 
+  // ngOnInit(): void {
+  //      this.confessionService.getAllConfessions().subscribe({
+  //     next: (data) => {
+  //       this.confessions = data;
+  //       this.loading = false;
+  //     },
+  //     error: (err) => {
+  //       console.error('Failed to load confessions', err);
+  //       this.loading = false;
+  //     },
+  //   });
+  // }
+
   ngOnInit(): void {
-       this.confessionService.getAllConfessions().subscribe({
-      next: (data) => {
-        this.confessions = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Failed to load confessions', err);
-        this.loading = false;
-      },
-    });
+    this.confessions = MOCK_CONFESSIONS;
   }
 }
