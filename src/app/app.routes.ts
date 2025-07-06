@@ -2,10 +2,11 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './admin/auth/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
 import { ConfessionsComponent } from './admin/admin-confessions/admin-confessions.component';
+import { AdminEpisodesComponent } from './admin/admin-episodes/admin-episodes.component';
 
 export const routes: Routes = [
   {
-    path: 'login',
+    path: '',
     loadComponent: () =>
       import('./admin/auth/login/login.component').then(
         (m) => m.LoginComponent
@@ -23,6 +24,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./admin/admin-confessions/admin-confessions.component').then(
         (m) => m.ConfessionsComponent
+      ),
+  },
+  {
+    path: 'admin/episodes',
+    loadComponent: () =>
+      import('./admin/admin-episodes/admin-episodes.component').then(
+        (m) => m.AdminEpisodesComponent
       ),
   },
   //   {

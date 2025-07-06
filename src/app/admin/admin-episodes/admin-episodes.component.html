@@ -1,0 +1,28 @@
+<div class="admin-episodes-container">
+  <h2>All Episodes</h2>
+  <!-- Episode Cards -->
+  <div class="episode-card-grid">
+    <div class="episode-card" *ngFor="let episode of paginatedEpisodes">
+      <h3>{{ episode.title }}</h3>
+      <p>{{ episode.description }}</p>
+      <audio controls [src]="episode.audio_url"></audio>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+
+    <button
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      (click)="goToPage(i + 1)"
+      [class.active]="currentPage === i + 1"
+    >
+      {{ i + 1 }}
+    </button>
+
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      Next
+    </button>
+  </div>
+</div>
