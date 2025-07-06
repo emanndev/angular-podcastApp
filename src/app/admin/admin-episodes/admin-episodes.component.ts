@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Episode } from '../../model/podcast.models';
 import { MOCK_EPISODES } from '../../shared/mock-data';
 import { CommonModule } from '@angular/common';
+import { EpisodeService } from '../../core/services/episode.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-episodes',
@@ -18,6 +20,8 @@ export class AdminEpisodesComponent implements OnInit {
   pageSize = 6;
 
   totalPages = 0;
+
+  constructor(private episodeService: EpisodeService, private router: Router) {}
 
   ngOnInit() {
     this.updatePagination();
@@ -46,6 +50,19 @@ export class AdminEpisodesComponent implements OnInit {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.updatePagination();
+    }
+  }
+
+  editEpisode(id: number): void {
+    this.router.navigate(['/admin/episodes/edit', id]);
+  }
+
+  deleteEpisode(id: number): void {
+    if (confirm('Are you sure you want to delete this episode?')) {
+      this.episodeService.deleteEpisode(id).subscribe(() => {
+        this.episodes = this.episodes.filter((e) => e.id !== id);
+        this.updatePagination();
+      });
     }
   }
 }

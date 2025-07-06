@@ -6,6 +6,10 @@
       <h3>{{ episode.title }}</h3>
       <p>{{ episode.description }}</p>
       <audio controls [src]="episode.audio_url"></audio>
+      <div class="episode-actions">
+  <button (click)="editEpisode(episode.id)">Edit</button>
+  <button (click)="deleteEpisode(episode.id)">Delete</button>
+</div>
     </div>
   </div>
 
