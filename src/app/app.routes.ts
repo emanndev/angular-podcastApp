@@ -19,12 +19,11 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'confessions',
+    path: 'admin/confessions',
     loadComponent: () =>
       import('./admin/admin-confessions/admin-confessions.component').then(
         (m) => m.ConfessionsComponent
       ),
-    canActivate: [authGuard],
   },
   //   {
   //     path: 'admin',

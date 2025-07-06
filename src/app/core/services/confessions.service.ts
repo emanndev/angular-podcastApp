@@ -9,13 +9,13 @@ import { ApiResponse } from '../../model/podcast.models';
   providedIn: 'root',
 })
 export class ConfessionsService {
-  private baseUrl = 'https://api.rantsnconfess.com/api';
+  private baseUrl = 'https://api.rantsnconfess.com';
 
   constructor(private http: HttpClient) {}
 
   getAllConfessions(): Observable<Confession[]> {
     return this.http
-      .get<ApiResponse<Confession[]>>(`${this.baseUrl}/admin/confessions`)
+      .get<ApiResponse<Confession[]>>(`${this.baseUrl}/v1/confessions`)
       .pipe(map((res) => res.data));
   }
 }

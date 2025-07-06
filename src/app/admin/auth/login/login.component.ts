@@ -33,7 +33,10 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.loginForm.invalid) return;
+    if (this.loginForm.invalid) {
+      this.errorMessage = 'Please enter a valid email and password';
+      return;
+    }
 
     this.loading = true;
     const { email, password } = this.loginForm.value;
@@ -41,7 +44,7 @@ export class LoginComponent {
     this.auth.login(email!, password!).subscribe({
       next: (res) => {
         const isAdmin = this.auth.isAdmin();
-        this.router.navigate([isAdmin ? '/admin/dashboard' : '/confessions']);
+        this.router.navigate([isAdmin ? '/admin/confessions' : '/confessions']);
       },
       error: (err) => {
         this.errorMessage = err?.error?.message || 'Login failed';

@@ -7,19 +7,17 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'https://api.rantsnconfess.com/api';
+  private baseUrl = 'https://api.rantsnconfess.com';
 
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
-    return this.http
-      .post(`${this.baseUrl}/auth/login`, { email, password })
-      .pipe(
-        tap((response: any) => {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('user', JSON.stringify(response.user));
-        })
-      );
+    return this.http.post(`${this.baseUrl}/v1/login`, { email, password }).pipe(
+      tap((response: any) => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
+      })
+    );
   }
 
   logout() {
@@ -45,11 +43,11 @@ export class AuthService {
   }
 
   register(data: {
-  name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-}): Observable<any> {
-  return this.http.post(`${this.baseUrl}/register`, data);
-}
+    name: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+  }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/register`, data);
+  }
 }
