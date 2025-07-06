@@ -14,7 +14,7 @@ import { AuthService } from '../../../core/services/auth.service';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrl: '../../../../styles/authform.scss',
 })
 export class LoginComponent {
   loginForm!: FormGroup;

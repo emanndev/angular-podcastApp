@@ -43,4 +43,13 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
+
+  register(data: {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}): Observable<any> {
+  return this.http.post(`${this.baseUrl}/register`, data);
+}
 }
