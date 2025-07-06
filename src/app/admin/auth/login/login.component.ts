@@ -36,9 +36,17 @@ export class LoginComponent {
     const { email, password } = this.loginForm.value;
 
     this.authService.login({ email, password }).subscribe({
-      next: () => {
-        const isAdmin = this.authService.isAdmin();
-        this.router.navigate([isAdmin ? '/admin/dashboard' : '/confessions']);
+      next: (res) => {
+        if (res.status === 'success') {
+          const user = res.data.user;
+          const role = user?.role;
+
+          this.router.navigate([
+            role === 'admin' ? '/admin/dashboard' : '/confessions',
+          ]);
+        } else {
+          alert('Login failed: ' + res.message);
+        }
       },
       error: (err) => {
         console.error('Login failed:', err);

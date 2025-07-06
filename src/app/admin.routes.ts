@@ -10,8 +10,6 @@ export const adminRoutes: Routes = [
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'confessions', component: AdminConfessionsComponent },
-      //   { path: 'episodes', component: AdminEpisodesComponent },
-  
     ],
   },
 ];

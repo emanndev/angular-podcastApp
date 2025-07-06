@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LoginResponse } from '../../model/podcast.models';
 
@@ -22,7 +22,7 @@ export class AuthService {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', JSON.stringify(res.data.user));
 
-            console.log('Bearer Token:', res.data.token);
+            //   console.log('Bearer Token:', res.data.token);
           }
         })
       );

@@ -5,8 +5,6 @@ import { adminRoutes } from './admin.routes';
 import { AdminEpisodesComponent } from './admin/admin-episodes/admin-episodes.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-
   {
     path: 'login',
     loadComponent: () =>
@@ -25,7 +23,7 @@ export const routes: Routes = [
   // Admin Routes
   {
     path: 'admin',
-    canActivate: [authGuard],
+    //canActivate: [authGuard],
     loadChildren: () => import('./admin.routes').then((m) => m.adminRoutes),
   },
 

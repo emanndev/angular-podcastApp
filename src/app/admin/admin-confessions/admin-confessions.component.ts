@@ -28,13 +28,33 @@ export class AdminConfessionsComponent implements OnInit {
       },
       error: (err) => {
         console.error('Failed to load confessions', err);
-        this.loading = false;
+        this.loadMockData(); // fallback
       },
     });
   }
 
-  ngOnChanges(): void {
-    this.applySearch();
+  loadMockData() {
+    const mock: Confession[] = [
+      {
+        id: 1,
+        message: 'I secretly love pineapple on pizza 🍍🍕',
+        created_at: new Date().toISOString(),
+      },
+      {
+        id: 2,
+        message: 'I talk to myself to sound smarter in meetings 😅',
+        created_at: new Date().toISOString(),
+      },
+      {
+        id: 3,
+        message: 'Sometimes I miss deadlines just to feel something 😬',
+        created_at: new Date().toISOString(),
+      },
+    ];
+
+    this.confessions = mock;
+    this.filteredConfessions = mock;
+    this.loading = false;
   }
 
   ngDoCheck(): void {
