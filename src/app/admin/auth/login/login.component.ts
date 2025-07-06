@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import {
-  ReactiveFormsModule,
   FormBuilder,
   FormGroup,
   Validators,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -14,16 +14,14 @@ import { AuthService } from '../../../core/services/auth.service';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: '../../../../styles/authform.scss',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  loginForm!: FormGroup;
-  errorMessage = '';
-  loading = false;
+  loginForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private auth: AuthService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -32,23 +30,19 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
-    if (this.loginForm.invalid) {
-      this.errorMessage = 'Please enter a valid email and password';
-      return;
-    }
+  onSubmit(): void {
+    if (this.loginForm.invalid) return;
 
-    this.loading = true;
     const { email, password } = this.loginForm.value;
 
-    this.auth.login(email!, password!).subscribe({
-      next: (res) => {
-        const isAdmin = this.auth.isAdmin();
-        this.router.navigate([isAdmin ? '/admin/confessions' : '/confessions']);
+    this.authService.login({ email, password }).subscribe({
+      next: () => {
+        const isAdmin = this.authService.isAdmin();
+        this.router.navigate([isAdmin ? '/admin' : '/confessions']);
       },
       error: (err) => {
-        this.errorMessage = err?.error?.message || 'Login failed';
-        this.loading = false;
+        console.error('Login failed:', err);
+        alert('Invalid credentials.');
       },
     });
   }

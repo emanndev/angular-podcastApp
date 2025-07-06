@@ -8,6 +8,21 @@ export interface User {
   token: string;
 }
 
+export interface LoginResponse {
+  status: 'success' | 'error';
+  message?: string;
+  data: {
+    token: string;
+    user: {
+      id: number;
+      name: string;
+      email: string;
+      role: 'admin' | 'user';
+    };
+  };
+}
+
+
 export interface LoginRequest {
   email: string;
   password: string;
