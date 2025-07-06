@@ -43,3 +43,20 @@ export const MOCK_EPISODES: Episode[] = [
     created_at: '2024-12-05T15:45:00Z',
   },
 ];
+
+export const MOCK_PLAYLISTS = [
+  {
+    id: 1,
+    title: 'Tech Trends',
+    description: 'Latest in tech',
+    episodes: [],
+    created_at: '2024-12-01T12:00:00Z',
+  },
+  {
+    id: 2,
+    title: 'Mindful Moments',
+    description: 'Meditation and wellness',
+    episodes: [],
+    created_at: '2024-12-05T08:30:00Z',
+  },
+];
