@@ -39,4 +39,8 @@ export class AuthService {
     const user = this.getUser();
     return user?.role === 'admin';
   }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
 }
