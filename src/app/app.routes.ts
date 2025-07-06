@@ -3,6 +3,7 @@ import { LoginComponent } from './admin/auth/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
 import { adminRoutes } from './admin.routes';
 import { AdminEpisodesComponent } from './admin/admin-episodes/admin-episodes.component';
+import { EpisodeFormComponent } from './admin/episodes/episode-form/episode-form.component';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,13 @@ export const routes: Routes = [
         (m) => m.EpisodeCreateComponent
       ),
     // canActivate: [authGuard],
+  },
+  {
+    path: 'admin/episodes/edit/:id',
+    loadComponent: () =>
+      import('./admin/episodes/episode-form/episode-form.component').then(
+        (m) => m.EpisodeFormComponent
+      ),
   },
 
   // Admin Routes
