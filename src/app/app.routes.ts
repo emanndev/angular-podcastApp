@@ -1,13 +1,12 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './admin/auth/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
-import { ConfessionsComponent } from './admin/admin-confessions/admin-confessions.component';
+import { adminRoutes } from './admin.routes';
 import { AdminEpisodesComponent } from './admin/admin-episodes/admin-episodes.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
-  // Public
   {
     path: 'login',
     loadComponent: () =>
@@ -23,43 +22,14 @@ export const routes: Routes = [
       ),
   },
 
-  // Admin Routes (Protected)
+  // Admin Routes
   {
     path: 'admin',
     canActivate: [authGuard],
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'dashboard',
-      },
-      {
-        path: 'dashboard',
-        loadComponent: () =>
-          import('./admin/admin-dashboard/admin-dashboard.component').then(
-            (m) => m.AdminDashboardComponent
-          ),
-      },
-      {
-        path: 'confessions',
-        loadComponent: () =>
-          import('./admin/admin-confessions/admin-confessions.component').then(
-            (m) => m.ConfessionsComponent
-          ),
-      },
-      {
-        path: 'episodes',
-        loadComponent: () =>
-          import('./admin/admin-episodes/admin-episodes.component').then(
-            (m) => m.AdminEpisodesComponent
-          ),
-      },
-    ],
+    loadChildren: () => import('./admin.routes').then((m) => m.adminRoutes),
   },
 
-  // Wildcard fallback
-  {
-    path: '**',
-    redirectTo: '',
-  },
+  // wildcard routes
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' },
 ];

@@ -1,107 +1,70 @@
-<!-- admin-dashboard.component.html -->
-<div class="admin-layout">
-  <!-- Mobile Menu Button -->
-  <button class="mobile-menu-button" (click)="toggleSidebar()">☰</button>
-  <!-- Sidebar -->
-  <nav class="sidebar">
-    <h2 class="sidebar-title">MicOn Admin</h2>
-    <ul class="nav-links">
-      <li>
-        <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+<h1 class="welcome-title">Welcome, Admin 👋</h1>
+<div class="dashboard-grid">
+  <a routerLink="/admin/confessions" class="dashboard-card">📬 Confessions</a>
+  <a routerLink="/admin/episodes" class="dashboard-card">🎙️ Episodes</a>
+  <a routerLink="/admin/playlists" class="dashboard-card">📁 Playlists</a>
+  <a routerLink="/admin/team" class="dashboard-card">👥 Team</a>
+</div>
+
+<div class="dashboard-container">
+  <!-- Summary Cards -->
+  <div class="dashboard-stats">
+    <div class="stat-card">
+      <h3>Total Episodes</h3>
+      <p>{{ stats.episodes }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Total Confessions</h3>
+      <p>{{ stats.confessions }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Total Playlists</h3>
+      <p>{{ stats.playlists }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Total Team</h3>
+      <p>{{ stats.team }}</p>
+    </div>
+  </div>
+
+  <!-- Latest Confessions -->
+  <div class="section">
+    <div class="section-header">
+      <h4>Recent Confessions</h4>
+      <button routerLink="/admin/confessions">View All</button>
+    </div>
+    <ul *ngIf="recentConfessions.length > 0; else noConfessions">
+      <li *ngFor="let confession of recentConfessions">
+        <p>{{ confession.message }}</p>
+        <span>{{ confession.created_at | date : "short" }}</span>
       </li>
-      <li>
-        <a routerLink="/admin/confessions" routerLinkActive="active"
-          >Confessions</a
-        >
-      </li>
-      <li>
-        <a routerLink="/admin/episodes" routerLinkActive="active">Episodes</a>
-      </li>
-      <li>
-        <a routerLink="/admin/playlists" routerLinkActive="active">Playlists</a>
-      </li>
-      <li><a routerLink="/admin/team" routerLinkActive="active">Team</a></li>
-      <li><a (click)="logout()">Logout</a></li>
     </ul>
-  </nav>
+    <ng-template #noConfessions>
+      <p>No recent confessions found.</p>
+    </ng-template>
+  </div>
 
-  <!-- Overlay for closing on mobile -->
-  <div class="overlay" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
-
-  <!-- Content Area -->
-  <div class="main-content">
-    <h1 class="welcome-title">Welcome, Admin 👋</h1>
-    <div class="dashboard-grid">
-      <a routerLink="/admin/confessions" class="dashboard-card"
-        >📬 Confessions</a
-      >
-      <a routerLink="/admin/episodes" class="dashboard-card">🎙️ Episodes</a>
-      <a routerLink="/admin/playlists" class="dashboard-card">📁 Playlists</a>
-      <a routerLink="/admin/team" class="dashboard-card">👥 Team</a>
+  <!-- Recent Episodes -->
+  <div class="section">
+    <div class="section-header">
+      <h4>Recent Episodes</h4>
+      <button routerLink="/admin/episodes">View All</button>
     </div>
+    <ul *ngIf="recentEpisodes.length > 0; else noEpisodes">
+      <li *ngFor="let episode of recentEpisodes">
+        <strong>{{ episode.title }}</strong>
+        <p>{{ episode.created_at | date : "short" }}</p>
+      </li>
+    </ul>
+    <ng-template #noEpisodes>
+      <p>No recent episodes available.</p>
+    </ng-template>
+  </div>
 
-    <!-- admin-dashboard.component.html -->
-    <div class="dashboard-container">
-      <!-- Summary Cards -->
-      <div class="dashboard-stats">
-        <div class="stat-card">
-          <h3>Total Episodes</h3>
-          <p>{{ stats.episodes }}</p>
-        </div>
-        <div class="stat-card">
-          <h3>Total Confessions</h3>
-          <p>{{ stats.confessions }}</p>
-        </div>
-        <div class="stat-card">
-          <h3>Total Playlists</h3>
-          <p>{{ stats.playlists }}</p>
-        </div>
-        <div class="stat-card">
-          <h3>Total Team</h3>
-          <p>{{ stats.team }}</p>
-        </div>
-      </div>
-
-      <!-- Latest Confessions -->
-      <div class="section">
-        <div class="section-header">
-          <h4>Recent Confessions</h4>
-          <button routerLink="/admin/confessions">View All</button>
-        </div>
-        <ul *ngIf="recentConfessions.length > 0; else noConfessions">
-          <li *ngFor="let confession of recentConfessions">
-            <p>{{ confession.message }}</p>
-            <span>{{ confession.created_at | date : "short" }}</span>
-          </li>
-        </ul>
-        <ng-template #noConfessions>
-          <p>No recent confessions found.</p>
-        </ng-template>
-      </div>
-
-      <!-- Recent Episodes -->
-      <div class="section">
-        <div class="section-header">
-          <h4>Recent Episodes</h4>
-          <button routerLink="/admin/episodes">View All</button>
-        </div>
-        <ul *ngIf="recentEpisodes.length > 0; else noEpisodes">
-          <li *ngFor="let episode of recentEpisodes">
-            <strong>{{ episode.title }}</strong>
-            <p>{{ episode.created_at | date : "short" }}</p>
-          </li>
-        </ul>
-        <ng-template #noEpisodes>
-          <p>No recent episodes available.</p>
-        </ng-template>
-      </div>
-
-      <!-- Quick Actions -->
-      <div class="quick-actions">
-        <button routerLink="/admin/episodes/create">+ New Episode</button>
-        <button routerLink="/admin/playlists/create">+ New Playlist</button>
-        <button routerLink="/admin/team/create">+ New Team Member</button>
-      </div>
-    </div>
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <button routerLink="/admin/episodes/create">+ New Episode</button>
+    <button routerLink="/admin/playlists/create">+ New Playlist</button>
+    <button routerLink="/admin/team/create">+ New Team Member</button>
   </div>
 </div>

@@ -19,7 +19,6 @@ export class AdminDashboardComponent implements OnInit {
     playlists: 0,
     team: 0,
   };
-  isSidebarOpen = false;
 
   recentConfessions: Confession[] = [];
   recentEpisodes: Episode[] = [];
@@ -39,15 +38,6 @@ export class AdminDashboardComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
-  }
-
-
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
-
-  closeSidebar() {
-    this.isSidebarOpen = false;
   }
 
   private loadStats() {

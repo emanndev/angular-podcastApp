@@ -11,7 +11,7 @@ import { MOCK_CONFESSIONS } from '../../shared/mock-data';
   templateUrl: './admin-confessions.component.html',
   styleUrl: './admin-confessions.component.scss',
 })
-export class ConfessionsComponent implements OnInit {
+export class AdminConfessionsComponent implements OnInit {
   confessions: Confession[] = [];
   loading = true;
 
