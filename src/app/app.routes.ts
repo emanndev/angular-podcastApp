@@ -25,7 +25,7 @@ export const routes: Routes = [
       import('./admin/episodes/episode-create/episode-create.component').then(
         (m) => m.EpisodeCreateComponent
       ),
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
 
   // Admin Routes
