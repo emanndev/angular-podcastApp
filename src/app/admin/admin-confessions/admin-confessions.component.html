@@ -1,18 +1,21 @@
 <div class="admin-confessions">
-  <h2>Confessions</h2>
+  <div class="confessions-header">
+    <h2>Confessions</h2>
+    <input type="text" [(ngModel)]="search" placeholder="Search message..." class="search-input" />
+  </div>
 
-  <div *ngIf="loading">Loading confessions...</div>
+  <div *ngIf="loading" class="loader">Loading confessions...</div>
 
-  <table *ngIf="!loading && confessions.length > 0">
+  <table *ngIf="!loading && filteredConfessions.length > 0" class="confessions-table">
     <thead>
       <tr>
         <th>#</th>
         <th>Message</th>
-        <th>Submitted At</th>
+        <th>Submitted</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let c of confessions; index as i">
+      <tr *ngFor="let c of filteredConfessions; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ c.message }}</td>
         <td>{{ c.created_at | date : "short" }}</td>
@@ -20,7 +23,7 @@
     </tbody>
   </table>
 
-  <div *ngIf="!loading && confessions.length === 0">
-    No confessions available.
+  <div *ngIf="!loading && filteredConfessions.length === 0" class="no-data">
+    <p>No confessions found.</p>
   </div>
 </div>
