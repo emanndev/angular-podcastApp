@@ -1,0 +1,26 @@
+<div class="admin-confessions">
+  <h2>Confessions</h2>
+
+  <div *ngIf="loading">Loading confessions...</div>
+
+  <table *ngIf="!loading && confessions.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Message</th>
+        <th>Submitted At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of confessions; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ c.message }}</td>
+        <td>{{ c.created_at | date : "short" }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && confessions.length === 0">
+    No confessions available.
+  </div>
+</div>

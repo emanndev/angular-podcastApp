@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './admin/auth/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
+import { ConfessionsComponent } from './admin/admin-confessions/admin-confessions.component';
 
 export const routes: Routes = [
   {
@@ -9,6 +10,21 @@ export const routes: Routes = [
       import('./admin/auth/login/login.component').then(
         (m) => m.LoginComponent
       ),
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./admin/auth/register/register.component').then(
+        (m) => m.RegisterComponent
+      ),
+  },
+  {
+    path: 'confessions',
+    loadComponent: () =>
+      import('./admin/admin-confessions/admin-confessions.component').then(
+        (m) => m.ConfessionsComponent
+      ),
+    canActivate: [authGuard],
   },
   //   {
   //     path: 'admin',

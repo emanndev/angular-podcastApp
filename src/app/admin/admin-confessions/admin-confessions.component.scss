@@ -1,0 +1,28 @@
+.admin-confessions {
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--element-bg);
+    color: var(--text-color);
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    th {
+      background-color: var(--bg-color);
+      font-weight: bold;
+    }
+  }
+
+  div[loading] {
+    margin-top: 20px;
+  }
+}
