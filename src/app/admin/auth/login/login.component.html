@@ -1,24 +1,25 @@
-<div class="login-wrapper">
-  <!-- login form -->
-  <form [formGroup]="loginForm">
+<div class="auth-wrapper">
+  <div class="auth-card">
     <h2>Admin Login</h2>
 
-    <div>
-      <label>Email</label>
-      <input type="email" placeholder="Email" formControlName="email" />
-    </div>
-
-    <div>
-      <label>Password</label>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        class="auth-input"
+      />
       <input
         type="password"
-        placeholder="Password"
         formControlName="password"
+        placeholder="Password"
+        class="auth-input"
       />
-    </div>
-    <!-- error message -->
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+      <button type="submit" class="auth-button">Login</button>
+    </form>
 
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
-  </form>
+    <p class="auth-link">
+      Not a user? <a routerLink="/register">Register instead</a>
+    </p>
+  </div>
 </div>
