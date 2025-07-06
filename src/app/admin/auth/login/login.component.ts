@@ -38,7 +38,7 @@ export class LoginComponent {
     this.authService.login({ email, password }).subscribe({
       next: () => {
         const isAdmin = this.authService.isAdmin();
-        this.router.navigate([isAdmin ? '/admin' : '/confessions']);
+        this.router.navigate([isAdmin ? '/admin/dashboard' : '/confessions']);
       },
       error: (err) => {
         console.error('Login failed:', err);
