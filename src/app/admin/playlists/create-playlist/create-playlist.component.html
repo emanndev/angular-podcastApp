@@ -1,0 +1,16 @@
+<h2>Create New Playlist</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label>Title</label>
+  <input type="text" formControlName="title" />
+
+  <label>Description</label>
+  <textarea formControlName="description"></textarea>
+
+  <label>Episodes</label>
+  <select formControlName="episode_ids" multiple>
+    <option *ngFor="let ep of episodes" [value]="ep.id">{{ ep.title }}</option>
+  </select>
+
+  <button type="submit" [disabled]="loading">Create Playlist</button>
+</form>
