@@ -9,6 +9,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { EpisodeService } from '../../../core/services/episode.service';
 import { Episode } from '../../../model/podcast.models';
+import { ToastService } from '../../../shared/utils/services/toast.service';
 
 @Component({
   selector: 'app-episode-form',
@@ -26,7 +27,8 @@ export class EpisodeFormComponent implements OnInit {
     private fb: FormBuilder,
     private episodeService: EpisodeService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -55,10 +57,12 @@ export class EpisodeFormComponent implements OnInit {
       this.episodeService
         .updateEpisode(this.episodeId!, episodeData)
         .subscribe(() => {
+          this.toast.show('Episode updated!', 'success');
           this.router.navigate(['/admin/episodes']);
         });
     } else {
       this.episodeService.createEpisode(episodeData).subscribe(() => {
+        this.toast.show('Failed to create playlist', 'error');
         this.router.navigate(['/admin/episodes']);
       });
     }

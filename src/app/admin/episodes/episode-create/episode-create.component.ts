@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ToastService } from '../../../shared/utils/services/toast.service';
 
 @Component({
   selector: 'app-episode-create',
@@ -18,7 +19,11 @@ import { CommonModule } from '@angular/common';
 export class EpisodeCreateComponent {
   episodeForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private toast: ToastService
+  ) {
     this.episodeForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -31,10 +36,10 @@ export class EpisodeCreateComponent {
 
   onSubmit(): void {
     if (this.episodeForm.invalid) return;
+
     console.log('New Episode:', this.episodeForm.value);
 
-    // TODO: Save to backend or local array
-    alert('Episode created successfully!');
+    this.toast.show('Episode created successfully!', 'success');
     this.router.navigate(['/admin/episodes']);
   }
 }

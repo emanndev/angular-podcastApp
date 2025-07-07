@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
+import { ToastService } from '../../../shared/utils/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toast: ToastService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -40,12 +42,13 @@ export class LoginComponent {
         if (res.status === 'success') {
           const user = res.data.user;
           const role = user?.role;
-
+          this.toast.show("You've successfully Logged In", 'success');
           this.router.navigate([
             role === 'admin' ? '/admin/dashboard' : '/confessions',
           ]);
         } else {
-          alert('Login failed: ' + res.message);
+          // alert('Login failed: ' + res.message);
+          this.toast.show('Log In failed, try again', 'error');
         }
       },
       error: (err) => {

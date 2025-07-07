@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PlaylistService } from '../../../core/services/playlist.service';
 import { Router } from '@angular/router';
+import { ToastService } from '../../../shared/utils/services/toast.service';
 
 @Component({
   selector: 'app-create-playlist',
@@ -16,7 +22,12 @@ export class CreatePlaylistComponent implements OnInit {
   loading = false;
   episodes: any[] = [];
 
-  constructor(private fb: FormBuilder, private service: PlaylistService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private service: PlaylistService,
+    private router: Router,
+    private toast: ToastService
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -36,10 +47,14 @@ export class CreatePlaylistComponent implements OnInit {
 
     this.service.createPlaylist(this.form.value).subscribe({
       next: () => {
+        this.toast.show('Playlist created!', 'success');
         this.loading = false;
         this.router.navigate(['/admin/playlists']);
       },
-      error: () => (this.loading = false),
+      error: () => {
+        this.toast.show('Failed to create playlist', 'error');
+        this.loading = false;
+      },
     });
   }
 }
