@@ -35,6 +35,13 @@ export const adminRoutes: Routes = [
             (m) => m.CreateTeamComponent
           ),
       },
+      {
+        path: 'team',
+        loadComponent: () =>
+          import('./admin/admin-team/admin-team.component').then(
+            (m) => m.AdminTeamComponent
+          ),
+      },
     ],
   },
 ];

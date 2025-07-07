@@ -60,3 +60,26 @@ export const MOCK_PLAYLISTS: Playlist[] = [
     created_at: '2024-12-05T08:30:00Z',
   },
 ];
+
+export const MOCK_TEAM_MEMBERS = [
+  {
+    id: 1,
+    name: 'Kwame Boateng',
+    bio: 'Sound engineer and podcast host.',
+    image: 'https://i.pravatar.cc/150?img=3',
+    facebook: '',
+    twitter: '',
+    instagram: '',
+    linkedin: '',
+  },
+  {
+    id: 2,
+    name: 'Ama Serwaa',
+    bio: 'Social media manager and voice talent.',
+    image: 'https://i.pravatar.cc/150?img=5',
+    facebook: '',
+    twitter: '',
+    instagram: '',
+    linkedin: '',
+  },
+];

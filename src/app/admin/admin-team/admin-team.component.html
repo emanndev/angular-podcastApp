@@ -1,16 +1,35 @@
-<h2>Team Members</h2>
-<div class="team-grid">
-  <div class="team-card" *ngFor="let member of team">
-    <img [src]="member.image" alt="{{ member.name }}" class="avatar" />
-    <h4>{{ member.name }}</h4>
-    <p>{{ member.bio }}</p>
-    <div class="social-icons">
-      <a *ngIf="member.facebook" [href]="member.facebook" target="_blank">📘</a>
-      <a *ngIf="member.twitter" [href]="member.twitter" target="_blank">🐦</a>
-      <a *ngIf="member.instagram" [href]="member.instagram" target="_blank"
-        >📸</a
-      >
-      <a *ngIf="member.linkedin" [href]="member.linkedin" target="_blank">💼</a>
+<div class="admin-team-container">
+  <h2>Team Members</h2>
+
+  <div *ngIf="loading">Loading team members...</div>
+
+  <div *ngIf="!loading && team.length === 0">No team members found.</div>
+
+  <div class="team-grid" *ngIf="!loading && team.length > 0">
+    <div class="team-card" *ngFor="let member of team">
+      <img class="avatar" [src]="member.image" [alt]="member.name" />
+      <h3>{{ member.name }}</h3>
+      <p>{{ member.bio }}</p>
+
+      <div class="socials">
+        <a *ngIf="member.facebook" [href]="member.facebook" target="_blank" aria-label="Facebook">
+          <img src="/assets/icons/facebook.svg" alt="Facebook" />
+        </a>
+        <a *ngIf="member.twitter" [href]="member.twitter" target="_blank" aria-label="Twitter">
+          <img src="/assets/icons/twitter.svg" alt="Twitter" />
+        </a>
+        <a *ngIf="member.instagram" [href]="member.instagram" target="_blank" aria-label="Instagram">
+          <img src="/assets/icons/instagram.svg" alt="Instagram" />
+        </a>
+        <a *ngIf="member.linkedin" [href]="member.linkedin" target="_blank" aria-label="LinkedIn">
+          <img src="/assets/icons/linkedin.svg" alt="LinkedIn" />
+        </a>
+      </div>
+
+      <div class="actions">
+        <button [routerLink]="['/admin/team/edit', member.id]">Edit</button>
+        <button (click)="deleteMember(member.id)">Delete</button>
+      </div>
     </div>
   </div>
 </div>
