@@ -83,3 +83,15 @@ export interface ApiResponse<T> {
   message?: string;
   status?: string;
 }
+
+export interface Podcast {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  created_at: string;
+  updated_at?: string;
+  episodes: Episode[];
+}
+
