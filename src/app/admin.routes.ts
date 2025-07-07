@@ -5,6 +5,7 @@ import { AdminConfessionsComponent } from './admin/admin-confessions/admin-confe
 import { AdminEpisodesComponent } from './admin/admin-episodes/admin-episodes.component';
 import { AdminPlaylistsComponent } from './admin/admin-playlists/admin-playlists.component';
 import { CreatePlaylistComponent } from './admin/playlists/create-playlist/create-playlist.component';
+import { EditPlaylistComponent } from './admin/playlists/edit-playlist/edit-playlist.component';
 
 export const adminRoutes: Routes = [
   {
@@ -21,7 +22,13 @@ export const adminRoutes: Routes = [
           import(
             './admin/playlists/create-playlist/create-playlist.component'
           ).then((m) => m.CreatePlaylistComponent),
-        //   canActivate: [authGuard],
+      },
+      {
+        path: 'playlists/edit/:id',
+        loadComponent: () =>
+          import(
+            './admin/playlists/edit-playlist/edit-playlist.component'
+          ).then((m) => m.EditPlaylistComponent),
       },
     ],
   },
