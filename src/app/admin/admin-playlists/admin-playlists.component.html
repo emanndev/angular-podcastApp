@@ -11,6 +11,8 @@
       <p>
         <strong>Created:</strong> {{ playlist.created_at | date : "short" }}
       </p>
+      <button [routerLink]="['/admin/playlists/edit', playlist.id]">Edit</button>
+
     </div>
   </div>
 
