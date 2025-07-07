@@ -19,15 +19,10 @@ export class AdminPlaylistsComponent implements OnInit {
   constructor(private playlistService: PlaylistService) {}
 
   ngOnInit(): void {
-    this.playlistService.getAllPlaylists().subscribe({
-      next: (res) => {
-        this.playlists = res;
-        this.loading = false;
-      },
-      error: () => {
-        this.playlists = MOCK_PLAYLISTS;
-        this.loading = false;
-      },
+    this.playlistService.getAllPlaylists().subscribe((res) => {
+      console.log('✅ Playlist result:', res);
+      this.playlists = res;
+      this.loading = false;
     });
   }
 }

@@ -6,8 +6,9 @@ import {
   Episode,
   ApiResponse,
 } from '../../model/podcast.models';
-import { Observable, map } from 'rxjs';
+import { Observable, map, catchError, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { MOCK_PLAYLISTS } from '../../shared/mock-data';
 
 @Injectable({ providedIn: 'root' })
 export class PlaylistService {
@@ -18,7 +19,13 @@ export class PlaylistService {
   getAllPlaylists(): Observable<Playlist[]> {
     return this.http
       .get<ApiResponse<Playlist[]>>(`${this.baseUrl}/playlists`)
-      .pipe(map((res) => res.data));
+      .pipe(
+        map((res) => res.data),
+        catchError((error) => {
+          console.warn('⚠️ API failed, falling back to mock playlists:', error);
+          return of(MOCK_PLAYLISTS);
+        })
+      );
   }
 
   getAllEpisodes(): Observable<Episode[]> {
@@ -36,7 +43,13 @@ export class PlaylistService {
   getPlaylistById(id: number): Observable<Playlist> {
     return this.http
       .get<ApiResponse<Playlist>>(`${this.baseUrl}/playlists/${id}`)
-      .pipe(map((res) => res.data));
+      .pipe(
+        map((res) => res.data),
+        catchError(() => {
+          const fallback = MOCK_PLAYLISTS.find((p) => p.id === id);
+          return of(fallback!);
+        })
+      );
   }
 
   updatePlaylist(id: number, data: PlaylistForm): Observable<Playlist> {

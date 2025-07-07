@@ -1,4 +1,4 @@
-import { Confession, Episode } from '../model/podcast.models';
+import { Confession, Episode, Playlist } from '../model/podcast.models';
 
 export const MOCK_CONFESSIONS: Confession[] = [
   {
@@ -44,7 +44,7 @@ export const MOCK_EPISODES: Episode[] = [
   },
 ];
 
-export const MOCK_PLAYLISTS = [
+export const MOCK_PLAYLISTS: Playlist[] = [
   {
     id: 1,
     title: 'Tech Trends',
