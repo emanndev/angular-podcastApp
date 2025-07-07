@@ -20,7 +20,7 @@ export class AdminPlaylistsComponent implements OnInit {
 
   ngOnInit(): void {
     this.playlistService.getAllPlaylists().subscribe((res) => {
-      console.log('✅ Playlist result:', res);
+      console.log('Playlist result:', res);
       this.playlists = res;
       this.loading = false;
     });

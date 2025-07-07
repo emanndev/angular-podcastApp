@@ -24,7 +24,18 @@ export class AdminEpisodesComponent implements OnInit {
   constructor(private episodeService: EpisodeService, private router: Router) {}
 
   ngOnInit() {
-    this.updatePagination();
+    this.episodeService.getEpisodes().subscribe({
+      next: (res) => {
+        this.episodes = res;
+        this.updatePagination();
+      },
+      error: (err) => {
+        console.error('Failed to load episodes:', err);
+        // fallback mock data
+        this.episodes = MOCK_EPISODES;
+        this.updatePagination();
+      },
+    });
   }
 
   updatePagination(): void {

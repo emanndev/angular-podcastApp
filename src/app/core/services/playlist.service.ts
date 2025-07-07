@@ -20,14 +20,19 @@ export class PlaylistService {
     return this.http
       .get<ApiResponse<Playlist[]>>(`${this.baseUrl}/playlists`)
       .pipe(
-        map((res) => res.data),
+        map((res) => {
+          if (res.data.length === 0) {
+            console.warn(' API returned empty playlists. Using mock data...');
+            return MOCK_PLAYLISTS;
+          }
+          return res.data;
+        }),
         catchError((error) => {
-          console.warn('⚠️ API failed, falling back to mock playlists:', error);
+          console.warn(' API failed, using mock playlists:', error);
           return of(MOCK_PLAYLISTS);
         })
       );
   }
-
   getAllEpisodes(): Observable<Episode[]> {
     return this.http
       .get<ApiResponse<Episode[]>>(`${this.baseUrl}/episodes`)

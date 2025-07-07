@@ -8,7 +8,6 @@ import {
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { EpisodeService } from '../../../core/services/episode.service';
-import { Episode } from '../../../model/podcast.models';
 import { ToastService } from '../../../shared/utils/services/toast.service';
 
 @Component({
@@ -62,7 +61,7 @@ export class EpisodeFormComponent implements OnInit {
         });
     } else {
       this.episodeService.createEpisode(episodeData).subscribe(() => {
-        this.toast.show('Failed to create playlist', 'error');
+        this.toast.show('Episode created!', 'success');
         this.router.navigate(['/admin/episodes']);
       });
     }

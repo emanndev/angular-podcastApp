@@ -41,7 +41,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   private loadStats() {
-    // Replace with real endpoints if they exist
+
     this.http
       .get<any>('https://api.rantsnconfess.com/v1/dashboard/summary')
       .subscribe({
@@ -55,7 +55,7 @@ export class AdminDashboardComponent implements OnInit {
         },
         error: () => {
           console.warn(
-            '⚠️ Failed to load dashboard summary. Using default 0 values.'
+            ' Failed to load dashboard summary. Using default 0 values.'
           );
         },
       });
