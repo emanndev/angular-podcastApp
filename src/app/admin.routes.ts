@@ -4,8 +4,6 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { AdminConfessionsComponent } from './admin/admin-confessions/admin-confessions.component';
 import { AdminEpisodesComponent } from './admin/admin-episodes/admin-episodes.component';
 import { AdminPlaylistsComponent } from './admin/admin-playlists/admin-playlists.component';
-import { CreatePlaylistComponent } from './admin/playlists/create-playlist/create-playlist.component';
-import { EditPlaylistComponent } from './admin/playlists/edit-playlist/edit-playlist.component';
 
 export const adminRoutes: Routes = [
   {
@@ -29,6 +27,13 @@ export const adminRoutes: Routes = [
           import(
             './admin/playlists/edit-playlist/edit-playlist.component'
           ).then((m) => m.EditPlaylistComponent),
+      },
+      {
+        path: 'team/create',
+        loadComponent: () =>
+          import('./admin/team/create-team/create-team.component').then(
+            (m) => m.CreateTeamComponent
+          ),
       },
     ],
   },
