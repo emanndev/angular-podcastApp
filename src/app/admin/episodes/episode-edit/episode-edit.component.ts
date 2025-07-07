@@ -14,10 +14,10 @@ import { ToastService } from '../../../shared/utils/services/toast.service';
   selector: 'app-episode-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
-  templateUrl: './episode-form.component.html',
-  styleUrl: './episode-form.component.scss',
+  templateUrl: './episode-edit.component.html',
+  styleUrl: './episode-edit.component.scss',
 })
-export class EpisodeFormComponent implements OnInit {
+export class EpisodeEditComponent implements OnInit {
   form!: FormGroup;
   isEdit = false;
   episodeId: number | null = null;
@@ -65,5 +65,8 @@ export class EpisodeFormComponent implements OnInit {
         this.router.navigate(['/admin/episodes']);
       });
     }
+  }
+  goBack() {
+    this.router.navigate(['/admin/episodes']);
   }
 }

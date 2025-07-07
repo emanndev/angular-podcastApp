@@ -24,8 +24,8 @@ export const adminRoutes: Routes = [
       {
         path: 'episodes/edit/:id',
         loadComponent: () =>
-          import('./admin/episodes/episode-form/episode-form.component').then(
-            (m) => m.EpisodeFormComponent
+          import('./admin/episodes/episode-edit/episode-edit.component').then(
+            (m) => m.EpisodeEditComponent
           ),
       },
       {
