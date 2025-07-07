@@ -1,0 +1,10 @@
+<div class="card" [routerLink]="['/episodes', podcast.id]">
+  <img [src]="podcast.thumbnailUrl" [alt]="podcast.title" />
+  <div class="info">
+    <h3>{{ podcast.title }}</h3>
+    <p class="description">{{ podcast.description | slice:0:100 }}...</p>
+    <div class="tags">
+      <span *ngFor="let tag of podcast.tags" class="tag">{{ tag }}</span>
+    </div>
+  </div>
+</div>

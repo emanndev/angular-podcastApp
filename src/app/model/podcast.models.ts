@@ -88,10 +88,10 @@ export interface Podcast {
   id: number;
   title: string;
   description: string;
-  image: string;
+  thumbnailUrl: string;
+  audioUrl: string;
   tags: string[];
-  created_at: string;
-  updated_at?: string;
-  episodes: Episode[];
+  date: string;
 }
+
 
