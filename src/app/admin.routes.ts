@@ -15,6 +15,20 @@ export const adminRoutes: Routes = [
       { path: 'episodes', component: AdminEpisodesComponent },
       { path: 'playlists', component: AdminPlaylistsComponent },
       {
+        path: 'episodes/create',
+        loadComponent: () =>
+          import(
+            './admin/episodes/episode-create/episode-create.component'
+          ).then((m) => m.EpisodeCreateComponent),
+      },
+      {
+        path: 'episodes/edit/:id',
+        loadComponent: () =>
+          import('./admin/episodes/episode-form/episode-form.component').then(
+            (m) => m.EpisodeFormComponent
+          ),
+      },
+      {
         path: 'playlists/create',
         loadComponent: () =>
           import(
