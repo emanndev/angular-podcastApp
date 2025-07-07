@@ -22,7 +22,6 @@ export interface LoginResponse {
   };
 }
 
-
 export interface LoginRequest {
   email: string;
   password: string;
@@ -82,4 +81,12 @@ export interface ApiResponse<T> {
   data: T;
   message?: string;
   status?: string;
+}
+//Toast model
+export type ToastType = 'success' | 'error' | 'info';
+
+export interface ToastMessage {
+  id: number;
+  type: ToastType;
+  message: string;
 }

@@ -42,6 +42,14 @@ export const adminRoutes: Routes = [
             './admin/playlists/edit-playlist/edit-playlist.component'
           ).then((m) => m.EditPlaylistComponent),
       },
+
+      {
+        path: 'team',
+        loadComponent: () =>
+          import('./admin/admin-team/admin-team.component').then(
+            (m) => m.AdminTeamComponent
+          ),
+      },
       {
         path: 'team/create',
         loadComponent: () =>
@@ -50,10 +58,10 @@ export const adminRoutes: Routes = [
           ),
       },
       {
-        path: 'team',
+        path: 'team/edit/:id',
         loadComponent: () =>
-          import('./admin/admin-team/admin-team.component').then(
-            (m) => m.AdminTeamComponent
+          import('./admin/team/edit-team/edit-team.component').then(
+            (m) => m.EditTeamComponent
           ),
       },
     ],
