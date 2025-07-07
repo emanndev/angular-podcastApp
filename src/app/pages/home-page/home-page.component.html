@@ -1,0 +1,37 @@
+<!-- Hero section -->
+<section class="home-header">
+  <div class="content">
+    <h1>Welcome to Rants & Confessions</h1>
+    <p>Listen to raw, real, and riveting stories from voices around the world.</p>
+    <button mat-raised-button color="primary" routerLink="/episodes">
+      Browse All Episodes
+    </button>
+  </div>
+</section>
+
+<!-- Search bar -->
+<section class="search-wrapper">
+  <app-search-bar (search)="onSearch($event)"></app-search-bar>
+</section>
+
+<!-- Recent episodes -->
+<section class="recent-episodes">
+  <h2>Recent Episodes</h2>
+
+  <app-loader *ngIf="isLoading"></app-loader>
+
+  <app-empty-state
+    *ngIf="!isLoading && episodes.length === 0"
+    message="No episodes found."
+  ></app-empty-state>
+
+  <div class="grid" *ngIf="!isLoading && episodes.length > 0">
+    <app-podcast-card
+      *ngFor="let episode of episodes"
+      [podcast]="episode"
+    ></app-podcast-card>
+  </div>
+</section>
+
+<!-- Audio player (persistent) -->
+<app-audio-player-bar></app-audio-player-bar>

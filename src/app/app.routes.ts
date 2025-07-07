@@ -1,9 +1,4 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './admin/auth/login/login.component';
-import { authGuard } from './core/guards/auth.guard';
-import { adminRoutes } from './admin.routes';
-import { AdminEpisodesComponent } from './admin/admin-episodes/admin-episodes.component';
-import { EpisodeFormComponent } from './admin/episodes/episode-form/episode-form.component';
 
 export const routes: Routes = [
   {
@@ -35,15 +30,22 @@ export const routes: Routes = [
         (m) => m.EpisodeFormComponent
       ),
   },
-
-  // Admin Routes
   {
     path: 'admin',
-    //canActivate: [authGuard],
+    // canActivate: [authGuard],
     loadChildren: () => import('./admin.routes').then((m) => m.adminRoutes),
   },
 
-  // wildcard routes
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' },
+  // ✅ Home Page Route
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./pages/home-page/home-page.component').then(
+        (m) => m.HomePageComponent
+      ),
+  },
+
+  // Default & Wildcard
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' },
 ];

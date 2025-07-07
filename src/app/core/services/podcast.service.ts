@@ -11,42 +11,46 @@ export class PodcastService {
       id: 1,
       title: 'Life Talks with Mabel',
       description: 'Real stories, real people, real inspiration.',
-      image: 'assets/images/podcast-1.jpg',
+      image: 'https://via.placeholder.com/300x200?text=Podcast+1',
       tags: ['Life', 'Motivation'],
       created_at: '2025-07-01',
-      episodes: [
-        {
-          id: 101,
-          title: 'Start Where You Are',
-          description: 'Let’s talk about the power of small beginnings.',
-          audio_url: 'assets/audio/start-where-you-are.mp3',
-          created_at: '2025-07-02'
-        },
-        {
-          id: 102,
-          title: 'Balance in Chaos',
-          description: 'How to stay grounded in a fast world.',
-          audio_url: 'assets/audio/balance.mp3',
-          created_at: '2025-07-03'
-        }
-      ]
+      episodes: []
     },
     {
       id: 2,
       title: 'Tech Vibes',
-      description: 'Weekly dive into the hottest in tech and gadgets.',
-      image: 'assets/images/podcast-2.jpg',
+      description: 'Weekly dive into tech and gadgets.',
+      image: 'https://via.placeholder.com/300x200?text=Podcast+2',
       tags: ['Tech', 'News'],
       created_at: '2025-06-20',
-      episodes: [
-        {
-          id: 201,
-          title: 'AI in 2025',
-          description: 'Where are we and what’s next?',
-          audio_url: 'assets/audio/ai-2025.mp3',
-          created_at: '2025-06-21'
-        }
-      ]
+      episodes: []
+    },
+    {
+      id: 3,
+      title: 'HealthCast',
+      description: 'Tips on living a healthy lifestyle.',
+      image: 'https://via.placeholder.com/300x200?text=Podcast+3',
+      tags: ['Health', 'Wellness'],
+      created_at: '2025-06-15',
+      episodes: []
+    },
+    {
+      id: 4,
+      title: 'Money Talks',
+      description: 'Personal finance made simple.',
+      image: 'https://via.placeholder.com/300x200?text=Podcast+4',
+      tags: ['Finance', 'Money'],
+      created_at: '2025-06-10',
+      episodes: []
+    },
+    {
+      id: 5,
+      title: 'Bold Women Voices',
+      description: 'Women leading change in Africa.',
+      image: 'https://via.placeholder.com/300x200?text=Podcast+5',
+      tags: ['Women', 'Leadership'],
+      created_at: '2025-06-05',
+      episodes: []
     }
   ];
 
