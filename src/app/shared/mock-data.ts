@@ -27,6 +27,11 @@ export const MOCK_EPISODES: Episode[] = [
     description: 'An introduction to the podcast and what to expect.',
     audio_url: 'https://example.com/audio/episode1.mp3',
     created_at: '2024-12-01T10:00:00Z',
+    img_url: 'https://via.placeholder.com/150',
+    duration: '1800',
+    posted_on: '2024-12-01',
+    season: 1,
+    episode: 1,
   },
   {
     id: 2,
@@ -34,6 +39,11 @@ export const MOCK_EPISODES: Episode[] = [
     description: 'We explore advanced Angular topics in detail.',
     audio_url: 'https://example.com/audio/episode2.mp3',
     created_at: '2024-12-03T09:30:00Z',
+    img_url: 'https://via.placeholder.com/150',
+    duration: '2700',
+    posted_on: '2024-12-03',
+    season: 1,
+    episode: 2,
   },
   {
     id: 3,
@@ -41,6 +51,11 @@ export const MOCK_EPISODES: Episode[] = [
     description: 'Techniques and tools for debugging in web apps.',
     audio_url: 'https://example.com/audio/episode3.mp3',
     created_at: '2024-12-05T15:45:00Z',
+    img_url: 'https://via.placeholder.com/150',
+    duration: '2100',
+    posted_on: '2024-12-05',
+    season: 1,
+    episode: 3,
   },
 ];
 

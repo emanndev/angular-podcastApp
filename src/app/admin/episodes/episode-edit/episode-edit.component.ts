@@ -34,7 +34,14 @@ export class EpisodeEditComponent implements OnInit {
     this.form = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
+      img_url: [''],
       audio_url: ['', Validators.required],
+      duration: [''],
+      posted_on: [''],
+      season: [1],
+      episode: [1],
+      spotify_url: [''],
+      apple_podcasts_url: [''],
     });
 
     this.episodeId = Number(this.route.snapshot.paramMap.get('id'));
