@@ -1,0 +1,15 @@
+@use "src/styles/variables.scss" as *;
+
+.empty-wrapper {
+  @include flex-center;
+  padding: $spacing-lg;
+  text-align: center;
+  min-height: 120px;
+}
+
+.empty-message {
+  font-size: 1rem;
+  color: $text-color;
+  font-family: $font-primary;
+  opacity: 0.7;
+}

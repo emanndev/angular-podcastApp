@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchBarComponent } from 'src/app/shared/components/search-bar/search-bar.component';
-import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
-import { EmptyStateComponent } from 'src/app/shared/components/empty-state/empty-state.component';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 import { PodcastCardComponent } from '../../shared/components/podcast-card/podcast-card.component';
 import { AudioPlayerBarComponent } from 'src/app/shared/components/audio-player-bar/audio-player-bar.component';
 
