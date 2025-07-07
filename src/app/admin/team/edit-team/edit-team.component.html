@@ -1,1 +1,26 @@
-<p>edit-team works!</p>
+<h2>Edit Team Member</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label>Name</label>
+  <input type="text" formControlName="name" />
+
+  <label>Bio</label>
+  <textarea formControlName="bio"></textarea>
+
+  <label>Image URL</label>
+  <input type="text" formControlName="image" />
+
+  <label>Facebook</label>
+  <input type="text" formControlName="facebook" />
+
+  <label>Twitter</label>
+  <input type="text" formControlName="twitter" />
+
+  <label>Instagram</label>
+  <input type="text" formControlName="instagram" />
+
+  <label>LinkedIn</label>
+  <input type="text" formControlName="linkedin" />
+
+  <button type="submit" [disabled]="loading">Update</button>
+</form>

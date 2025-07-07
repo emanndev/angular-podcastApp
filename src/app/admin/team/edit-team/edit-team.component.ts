@@ -15,7 +15,7 @@ import { TeamMember } from '../../../model/podcast.models';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './edit-team.component.html',
-  styleUrls: ['./edit-team.component.scss'],
+  styleUrls: ['../create-team/create-team.component.scss'],
 })
 export class EditTeamComponent implements OnInit {
   form!: FormGroup;
