@@ -57,4 +57,20 @@ export class TeamMembersService {
       .get<ApiResponse<TeamMember>>(`${this.baseUrl}/team/${id}`)
       .pipe(map((res) => res.data));
   }
+
+  //handle logic for edit team memeber component
+  getTeamMemberById(id: number): Observable<TeamMember> {
+    return this.http
+      .get<ApiResponse<TeamMember>>(`${this.baseUrl}/team/${id}`)
+      .pipe(map((res) => res.data));
+  }
+
+  updateTeamMember(
+    id: number,
+    data: Partial<TeamMember>
+  ): Observable<TeamMember> {
+    return this.http
+      .put<ApiResponse<TeamMember>>(`${this.baseUrl}/team/${id}`, data)
+      .pipe(map((res) => res.data));
+  }
 }
