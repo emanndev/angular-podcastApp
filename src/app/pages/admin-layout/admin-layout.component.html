@@ -6,10 +6,20 @@
   <nav class="sidebar" [class.open]="isSidebarOpen">
     <h2 class="sidebar-title">MicDrop Admin</h2>
     <ul class="nav-links">
-      <li><a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a></li>
-      <li><a routerLink="/admin/confessions" routerLinkActive="active">Confessions</a></li>
-      <li><a routerLink="/admin/episodes" routerLinkActive="active">Episodes</a></li>
-      <li><a routerLink="/admin/playlists" routerLinkActive="active">Playlists</a></li>
+      <li>
+        <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
+      <li>
+        <a routerLink="/admin/confessions" routerLinkActive="active"
+          >Confessions</a
+        >
+      </li>
+      <li>
+        <a routerLink="/admin/episodes" routerLinkActive="active">Episodes</a>
+      </li>
+      <li>
+        <a routerLink="/admin/playlists" routerLinkActive="active">Playlists</a>
+      </li>
       <li><a routerLink="/admin/team" routerLinkActive="active">Team</a></li>
       <li><a (click)="logout()">Logout</a></li>
     </ul>
