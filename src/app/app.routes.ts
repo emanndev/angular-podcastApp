@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './admin/auth/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
+import { adminRoutes } from './admin.routes';
+import { AdminEpisodesComponent } from './admin/admin-episodes/admin-episodes.component';
+import { EpisodeFormComponent } from './admin/episodes/episode-form/episode-form.component';
 
 export const routes: Routes = [
   {
@@ -10,58 +13,37 @@ export const routes: Routes = [
         (m) => m.LoginComponent
       ),
   },
-  //   {
-  //     path: 'admin',
-  //     canActivate: [authGuard],
-  //     children: [
-  //       {
-  //         path: '',
-  //         pathMatch: 'full',
-  //         redirectTo: 'dashboard',
-  //       },
-  //       {
-  //         path: 'dashboard',
-  //         loadComponent: () =>
-  //           import('./admin/dashboard/dashboard.component').then(
-  //             (m) => m.DashboardComponent
-  //           ),
-  //       },
-  //       {
-  //         path: 'confessions',
-  //         loadComponent: () =>
-  //           import('./admin/confessions/admin-confessions.component').then(
-  //             (m) => m.AdminConfessionsComponent
-  //           ),
-  //       },
-  //       {
-  //         path: 'episodes',
-  //         loadComponent: () =>
-  //           import('./admin/episodes/admin-episodes.component').then(
-  //             (m) => m.AdminEpisodesComponent
-  //           ),
-  //       },
-  //       {
-  //         path: 'playlists',
-  //         loadComponent: () =>
-  //           import('./admin/playlists/admin-playlists.component').then(
-  //             (m) => m.AdminPlaylistsComponent
-  //           ),
-  //       },
-  //       {
-  //         path: 'team',
-  //         loadComponent: () =>
-  //           import('./admin/team/admin-team.component').then(
-  //             (m) => m.AdminTeamComponent
-  //           ),
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     path: '**',
-  //     loadComponent: () =>
-  //       import('./pages/not-found/not-found.component').then(
-  //         (m) => m.NotFoundComponent
-  //       ),
-  //   },
-  //   },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./admin/auth/register/register.component').then(
+        (m) => m.RegisterComponent
+      ),
+  },
+  {
+    path: 'admin/episodes/create',
+    loadComponent: () =>
+      import('./admin/episodes/episode-create/episode-create.component').then(
+        (m) => m.EpisodeCreateComponent
+      ),
+    // canActivate: [authGuard],
+  },
+  {
+    path: 'admin/episodes/edit/:id',
+    loadComponent: () =>
+      import('./admin/episodes/episode-form/episode-form.component').then(
+        (m) => m.EpisodeFormComponent
+      ),
+  },
+
+  // Admin Routes
+  {
+    path: 'admin',
+    //canActivate: [authGuard],
+    loadChildren: () => import('./admin.routes').then((m) => m.adminRoutes),
+  },
+
+  // wildcard routes
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' },
 ];

@@ -1,0 +1,48 @@
+<div class="admin-confessions">
+  <div class="header-bar">
+    <h2>Confessions</h2>
+    <div class="export-buttons">
+      <button (click)="exportAsCSV()">Export CSV</button>
+      <button (click)="exportAsJSON()">Export JSON</button>
+    </div>
+  </div>
+
+  <input
+    type="text"
+    placeholder="Search confessions..."
+    [(ngModel)]="search"
+    class="search-input"
+  />
+
+  <div *ngIf="loading">Loading confessions...</div>
+  <table
+    *ngIf="!loading && filteredConfessions.length > 0"
+    class="confessions-table"
+  >
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Message</th>
+        <th>Submitted At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of filteredConfessions; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ c.message }}</td>
+        <td>{{ c.created_at | date : "short" }}</td>
+        <td>
+          <button class="delete-btn" (click)="deleteConfession(c.id)">
+            🗑️
+          </button>
+          <button class="flag-btn" (click)="flagConfession(c)">🚩</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && filteredConfessions.length === 0">
+    No confessions available.
+  </div>
+</div>

@@ -1,55 +1,53 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, tap, map } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { LoginResponse } from '../../model/podcast.models';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'https://api.rantsnconfess.com/api';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<any> {
+  login(credentials: {
+    email: string;
+    password: string;
+  }): Observable<LoginResponse> {
     return this.http
-      .post(`${this.baseUrl}/auth/login`, { email, password })
+      .post<LoginResponse>(`${this.baseUrl}/login`, credentials)
       .pipe(
-        tap((response: any) => {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('user', JSON.stringify(response.user));
+        tap((res) => {
+          if (res.status === 'success') {
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user', JSON.stringify(res.data.user));
+
+            //   console.log('Bearer Token:', res.data.token);
+          }
         })
       );
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-  }
-
-  getToken() {
-    return localStorage.getItem('token');
-  }
-
-  getUser() {
-    return JSON.parse(localStorage.getItem('user') || '{}');
-  }
-
-  isAdmin() {
-    const user = this.getUser();
-    return user?.role === 'admin';
   }
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  register(data: {
-  name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-}): Observable<any> {
-  return this.http.post(`${this.baseUrl}/register`, data);
-}
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  getUser(): any {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
+
+  isAdmin(): boolean {
+    const user = this.getUser();
+    return user?.role === 'admin';
+  }
 }

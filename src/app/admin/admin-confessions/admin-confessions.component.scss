@@ -1,0 +1,61 @@
+.admin-confessions {
+  .header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .export-buttons button {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .search-input {
+    margin-bottom: 1rem;
+    padding: 8px 12px;
+    border-radius: 4px;
+    width: 100%;
+    border: 1px solid #ccc;
+  }
+
+  .confessions-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--element-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+
+    th,
+    td {
+      padding: 14px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: var(--bg-color);
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+  }
+
+  button {
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 0.25rem;
+
+    &.delete-btn {
+      color: crimson;
+    }
+
+    &.flag-btn {
+      color: darkorange;
+    }
+  }
+}

@@ -1,0 +1,62 @@
+import { Confession, Episode, Playlist } from '../model/podcast.models';
+
+export const MOCK_CONFESSIONS: Confession[] = [
+  {
+    id: 1,
+    message: 'I once pretended to be sick to skip a family dinner.',
+    created_at: '2024-12-01T12:00:00Z',
+  },
+  {
+    id: 2,
+    message:
+      'Sometimes I listen to my own voice recordings just to feel confident.',
+    created_at: '2024-12-03T14:30:00Z',
+  },
+  {
+    id: 3,
+    message:
+      'I told my boss my WiFi was down so I could nap during work hours.',
+    created_at: '2024-12-05T08:45:00Z',
+  },
+];
+
+export const MOCK_EPISODES: Episode[] = [
+  {
+    id: 1,
+    title: 'First Episode - Welcome!',
+    description: 'An introduction to the podcast and what to expect.',
+    audio_url: 'https://example.com/audio/episode1.mp3',
+    created_at: '2024-12-01T10:00:00Z',
+  },
+  {
+    id: 2,
+    title: 'Deep Dive into Angular',
+    description: 'We explore advanced Angular topics in detail.',
+    audio_url: 'https://example.com/audio/episode2.mp3',
+    created_at: '2024-12-03T09:30:00Z',
+  },
+  {
+    id: 3,
+    title: 'The Art of Debugging',
+    description: 'Techniques and tools for debugging in web apps.',
+    audio_url: 'https://example.com/audio/episode3.mp3',
+    created_at: '2024-12-05T15:45:00Z',
+  },
+];
+
+export const MOCK_PLAYLISTS: Playlist[] = [
+  {
+    id: 1,
+    title: 'Tech Trends',
+    description: 'Latest in tech',
+    episodes: [],
+    created_at: '2024-12-01T12:00:00Z',
+  },
+  {
+    id: 2,
+    title: 'Mindful Moments',
+    description: 'Meditation and wellness',
+    episodes: [],
+    created_at: '2024-12-05T08:30:00Z',
+  },
+];

@@ -1,0 +1,23 @@
+<div class="episode-form-container">
+  <h2>Create New Episode</h2>
+  <form [formGroup]="episodeForm" (ngSubmit)="onSubmit()">
+    <label>
+      Title
+      <input type="text" formControlName="title" />
+    </label>
+
+    <label>
+      Description
+      <textarea rows="4" formControlName="description"></textarea>
+    </label>
+
+    <label>
+      Audio URL
+      <input type="url" formControlName="audio_url" />
+    </label>
+
+    <button type="submit" [disabled]="episodeForm.invalid">
+      Create Episode
+    </button>
+  </form>
+</div>

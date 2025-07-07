@@ -1,0 +1,130 @@
+.edit-playlist {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #fff;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #222;
+    }
+
+    input,
+    textarea,
+    select {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f9f9f9;
+      color: #333;
+      transition: border 0.3s ease;
+
+      &:focus {
+        border-color: #4f46e5;
+        outline: none;
+        background: #fff;
+      }
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    select[multiple] {
+      height: 150px;
+    }
+  }
+
+  button[type="submit"] {
+    padding: 0.75rem 1.25rem;
+    background-color: #4f46e5;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: fit-content;
+    align-self: flex-end;
+
+    &:hover {
+      background-color: #3730a3;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  // Responsive styles
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      font-size: 0.95rem;
+      padding: 0.65rem;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      align-self: stretch;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+
+    h2 {
+      font-size: 18px;
+    }
+
+    form {
+      gap: 1rem;
+    }
+
+    .form-group label {
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      font-size: 0.9rem;
+      padding: 0.6rem;
+    }
+
+    button[type="submit"] {
+      padding: 0.6rem 1rem;
+    }
+  }
+}

@@ -41,16 +41,5 @@ export class RegisterComponent implements OnInit {
     this.errorMessage = null;
 
     const formData = this.registerForm.value;
-
-    this.authService.register(formData).subscribe({
-      next: () => {
-        this.loading = false;
-        this.router.navigate(['/login']);
-      },
-      error: (error) => {
-        this.loading = false;
-        this.errorMessage = error.error?.message || 'Registration failed.';
-      },
-    });
   }
 }

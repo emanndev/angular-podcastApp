@@ -1,0 +1,16 @@
+<div class="episode-form">
+  <h2>{{ isEdit ? "Edit" : "Create" }} Episode</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label>Title</label>
+    <input formControlName="title" type="text" />
+
+    <label>Description</label>
+    <textarea formControlName="description"></textarea>
+
+    <label>Audio URL</label>
+    <input formControlName="audio_url" type="text" />
+
+    <button type="submit">{{ isEdit ? "Update" : "Create" }} Episode</button>
+  </form>
+</div>
