@@ -16,6 +16,27 @@
       <input type="url" formControlName="audio_url" />
     </label>
 
+    <label>Image URL</label>
+    <input formControlName="img_url" type="text" />
+
+    <label>Duration</label>
+    <input formControlName="duration" type="text" placeholder="e.g. 00:45:30" />
+
+    <label>Posted On</label>
+    <input formControlName="posted_on" type="datetime-local" />
+
+    <label>Season</label>
+    <input formControlName="season" type="number" />
+
+    <label>Episode Number</label>
+    <input formControlName="episode" type="number" />
+
+    <label>Spotify URL</label>
+    <input formControlName="spotify_url" type="text" />
+
+    <label>Apple Podcasts URL</label>
+    <input formControlName="apple_podcasts_url" type="text" />
+
     <button type="submit" [disabled]="episodeForm.invalid">
       Create Episode
     </button>

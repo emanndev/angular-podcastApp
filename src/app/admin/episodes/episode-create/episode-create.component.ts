@@ -33,20 +33,26 @@ export class EpisodeCreateComponent {
         '',
         [Validators.required, Validators.pattern(/^https?:\/\/.+/)],
       ],
+      duration: [''],
+      posted_on: [''],
+      season: [1],
+      episode: [1],
+      spotify_url: [''],
+      apple_podcasts_url: [''],
     });
   }
 
-onSubmit(): void {
-  if (this.episodeForm.invalid) return;
+  onSubmit(): void {
+    if (this.episodeForm.invalid) return;
 
-  this.episodeService.createEpisode(this.episodeForm.value).subscribe({
-    next: () => {
-      this.toast.show('Episode created successfully!', 'success');
-      this.router.navigate(['/admin/episodes']);
-    },
-    error: () => {
-      this.toast.show('Failed to create episode', 'error');
-    }
-  });
-}
+    this.episodeService.createEpisode(this.episodeForm.value).subscribe({
+      next: () => {
+        this.toast.show('Episode created successfully!', 'success');
+        this.router.navigate(['/admin/episodes']);
+      },
+      error: () => {
+        this.toast.show('Failed to create episode', 'error');
+      },
+    });
+  }
 }
