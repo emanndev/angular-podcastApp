@@ -1,38 +1,86 @@
-<!-- Hero section -->
-<section class="home-header">
-  <div class="content">
-    <h1>Welcome to Rants & Confessions</h1>
-    <p>Listen to raw, real, and riveting stories from voices around the world.</p>
-    <button mat-raised-button color="primary" routerLink="/episodes">
-      Browse All Episodes
-    </button>
+<!-- Hero Section -->
+<section class="hero">
+  <h1>🎙️ Real Voices. Real Stories.</h1>
+  <p>Welcome to Rants & Confessions – where every episode tells a story worth hearing.</p>
+</section>
+
+<!-- Featured Episodes -->
+<section class="featured" *ngIf="featuredEpisodes.length">
+  <h2>🔥 Featured Episodes</h2>
+  <div class="episode-grid">
+    <div class="episode-card" *ngFor="let episode of featuredEpisodes">
+      <img [src]="getEpisodeImage(episode.img_url)" alt="{{ episode.title }}" />
+
+
+      <div class="episode-content">
+        <h3>{{ episode.title }}</h3>
+        <p>{{ episode.description | slice: 0:100 }}...</p>
+        <audio [src]="episode.audio_url" controls></audio>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Search bar -->
-<section class="search-wrapper">
-  <app-search-bar (search)="onSearch($event)"></app-search-bar>
-</section>
+<!-- Recent Episodes -->
+<section class="latest" *ngIf="latestEpisodes.length">
+  <h2>🎧 Recent Episodes</h2>
+  <div class="episode-grid">
+    <div class="episode-card" *ngFor="let episode of latestEpisodes">
+      <img [src]="getEpisodeImage(episode.img_url)" alt="{{ episode.title }}" />
 
-<!-- Recent episodes -->
-<section class="recent-episodes">
-  <h2>Recent Episodes</h2>
 
-  <app-loader *ngIf="isLoading"></app-loader>
-
-  <app-empty-state
-    *ngIf="!isLoading && episodes.length === 0"
-    message="No episodes found."
-  ></app-empty-state>
-
-  <div class="grid" *ngIf="!isLoading && episodes.length > 0">
-    <app-podcast-card
-      *ngFor="let episode of episodes"
-      [podcast]="episode"
-    ></app-podcast-card>
+      <div class="episode-content">
+        <h3>{{ episode.title }}</h3>
+        <p>{{ episode.description | slice: 0:100 }}...</p>
+        <audio [src]="episode.audio_url" controls></audio>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Audio player (persistent) -->
-<app-audio-player-bar></app-audio-player-bar>
-<app-loader *ngIf="isLoading"></app-loader>
+<!-- Featured Playlists -->
+<section class="playlists" *ngIf="featuredPlaylists.length">
+  <h2>🎵 Featured Playlists</h2>
+  <div class="playlist-grid">
+    <div class="playlist-card" *ngFor="let playlist of featuredPlaylists">
+      <h3>{{ playlist.title }}</h3>
+      <p>{{ playlist.description | slice: 0:100 }}...</p>
+      <a [routerLink]="['/playlists', playlist.id]" class="view-link">View Playlist</a>
+    </div>
+  </div>
+</section>
+
+<!-- Meet the Team -->
+<section class="team" *ngIf="teamMembers.length">
+  <h2>👥 Meet the Team</h2>
+  <div class="team-grid">
+    <div class="team-card" *ngFor="let member of teamMembers">
+      <img [src]="getTeamImage(member.img_url)" alt="{{ member.name }}" />
+
+      <div class="team-info">
+        <h4>{{ member.name }}</h4>
+        <p>{{ member.bio }}</p>
+        <div class="socials">
+          <a *ngIf="member.twitter" [href]="member.twitter" target="_blank" aria-label="Twitter">
+            <img src="assets/icons/twitter.svg" alt="Twitter" />
+          </a>
+          <a *ngIf="member.facebook" [href]="member.facebook" target="_blank" aria-label="Facebook">
+            <img src="assets/icons/facebook.svg" alt="Facebook" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Submit Confession (Now at the bottom) -->
+<section class="confess-cta">
+  <h2> Got something on your mind?</h2>
+  <p>Share your thoughts anonymously with the world.</p>
+  <a routerLink="/confessions" class="confess-button">Submit Your Confession</a>
+</section>
+
+<!-- Error & Loading -->
+<p *ngIf="loading">Loading content...</p>
+<p *ngIf="error" class="error">{{ error }}</p>

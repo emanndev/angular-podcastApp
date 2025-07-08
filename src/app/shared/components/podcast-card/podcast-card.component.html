@@ -1,10 +1,8 @@
-<div class="card" [routerLink]="['/episodes', podcast.id]">
-  <img [src]="podcast.thumbnailUrl" [alt]="podcast.title" />
+<div class="card" [routerLink]="['/episodes', episode.id]">
+  <img [src]="episode.img_url || 'https://via.placeholder.com/300x200'" [alt]="episode.title" />
   <div class="info">
-    <h3>{{ podcast.title }}</h3>
-    <p class="description">{{ podcast.description | slice:0:100 }}...</p>
-    <div class="tags">
-      <span *ngFor="let tag of podcast.tags" class="tag">{{ tag }}</span>
-    </div>
+    <h3>{{ episode.title }}</h3>
+    <p class="description">{{ episode.description | slice: 0:100 }}...</p>
+    <small class="date">{{ episode.created_at | date }}</small>
   </div>
 </div>

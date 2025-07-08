@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Podcast } from '../../../model/podcast.models';
+import { Episode } from '../../../model/podcast.models';
 
 @Component({
   selector: 'app-podcast-card',
@@ -11,5 +11,5 @@ import { Podcast } from '../../../model/podcast.models';
   styleUrls: ['./podcast-card.component.scss']
 })
 export class PodcastCardComponent {
-  @Input() podcast!: Podcast;
+  @Input() episode!: Episode; // ✅ Use correct type with non-null assertion
 }

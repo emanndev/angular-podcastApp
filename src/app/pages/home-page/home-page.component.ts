@@ -1,60 +1,100 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchBarComponent } from 'src/app/shared/components/search-bar/search-bar.component';
-import { LoaderComponent } from '../../shared/components/loader/loader.component';
-import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
-import { PodcastCardComponent } from '../../shared/components/podcast-card/podcast-card.component';
-import { AudioPlayerBarComponent } from 'src/app/shared/components/audio-player-bar/audio-player-bar.component';
+import { RouterModule } from '@angular/router';
+
+import { EpisodeService } from '../../core/services/episode.service';
+import { PlaylistService } from '../../core/services/playlist.service';
+import { TeamMembersService } from '../../core/services/team-members.service';
+
+import { Episode, Playlist, TeamMember } from '../../model/podcast.models';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home-page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    SearchBarComponent,
-    LoaderComponent,
-    EmptyStateComponent,
-    PodcastCardComponent,
-    AudioPlayerBarComponent
-  ],
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
 })
 export class HomePageComponent implements OnInit {
-  episodes: Podcast[] = [];
-  isLoading = true;
+  episodes: Episode[] = [];
+  featuredEpisodes: Episode[] = [];
+  latestEpisodes: Episode[] = [];
+  featuredPlaylists: Playlist[] = [];
+  teamMembers: TeamMember[] = [];
 
-  constructor(private podcastService: PodcastService) {}
+  loading = false;
+  error = '';
 
-  ngOnInit() {
-    this.loadEpisodes();
+  constructor(
+    private episodeService: EpisodeService,
+    private playlistService: PlaylistService,
+    private teamService: TeamMembersService
+  ) {}
+
+  ngOnInit(): void {
+    this.loading = true;
+    this.fetchEpisodes();
+    this.fetchPlaylists();
+    this.fetchTeamMembers();
   }
 
-  loadEpisodes() {
-    this.isLoading = true;
-    this.podcastService.getLatestEpisodes(5).subscribe({
-      next: (data) => {
-        this.episodes = data;
-        this.isLoading = false;
+  private fetchEpisodes(): void {
+    this.episodeService.getEpisodes().subscribe({
+      next: (res: Episode[]) => {
+        this.episodes = res;
+        this.featuredEpisodes = res.slice(0, 3);
+        this.latestEpisodes = res.slice(3);
+        this.loading = false;
       },
       error: () => {
-        this.episodes = [];
-        this.isLoading = false;
-      }
+        this.error = 'Failed to load episodes.';
+        this.loading = false;
+      },
     });
   }
 
-  onSearch(query: string) {
-    this.isLoading = true;
-    this.podcastService.searchEpisodes(query).subscribe({
-      next: (results) => {
-        this.episodes = results;
-        this.isLoading = false;
+  private fetchPlaylists(): void {
+    this.playlistService.getAllPlaylists().subscribe({
+      next: (res: Playlist[]) => {
+        this.featuredPlaylists = res.slice(0, 3);
       },
       error: () => {
-        this.episodes = [];
-        this.isLoading = false;
-      }
+        console.error('Could not load playlists.');
+      },
     });
+  }
+
+  private fetchTeamMembers(): void {
+    this.teamService.getAll().subscribe({
+      next: (res: TeamMember[]) => {
+        this.teamMembers = res;
+      },
+      error: () => {
+        console.error('Failed to fetch team members.');
+      },
+    });
+  }
+
+  // ✅ Updated image methods to handle full URLs or relative paths
+  getEpisodeImage(imagePath: string): string {
+    if (!imagePath) {
+      return 'https://via.placeholder.com/300x200?text=Episode';
+    }
+    return imagePath.startsWith('http') ? imagePath : `${environment.apiUrl}/storage/${imagePath}`;
+  }
+
+  getPlaylistImage(imagePath: string): string {
+    if (!imagePath) {
+      return 'https://via.placeholder.com/300x200?text=Playlist';
+    }
+    return imagePath.startsWith('http') ? imagePath : `${environment.apiUrl}/storage/${imagePath}`;
+  }
+
+  getTeamImage(imagePath: string): string {
+    if (!imagePath) {
+      return 'https://via.placeholder.com/100x100?text=Avatar';
+    }
+    return imagePath.startsWith('http') ? imagePath : `${environment.apiUrl}/storage/${imagePath}`;
   }
 }
