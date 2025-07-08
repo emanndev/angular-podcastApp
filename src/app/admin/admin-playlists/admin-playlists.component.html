@@ -1,20 +1,56 @@
 <div class="admin-playlists-container">
   <h2>Playlists</h2>
 
+  <button mat-flat-button color="primary" (click)="openCreateDialog()">
+    + Add Playlist
+  </button>
+
   <div *ngIf="loading">Loading playlists...</div>
 
-  <div class="playlist-grid" *ngIf="!loading && playlists.length > 0">
-    <div class="playlist-card" *ngFor="let playlist of playlists">
-      <h3>{{ playlist.title }}</h3>
-      <p>{{ playlist.description }}</p>
-      <p><strong>Episodes:</strong> {{ playlist.episodes.length }}</p>
-      <p>
-        <strong>Created:</strong> {{ playlist.created_at | date : "short" }}
-      </p>
-      <button [routerLink]="['/admin/playlists/edit', playlist.id]">Edit</button>
-
-    </div>
+  <div class="playlist-actions">
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['/admin/playlists/create']"
+    >
+      <mat-icon>add</mat-icon> New Playlist
+    </button>
   </div>
 
+  <mat-grid-list
+    cols="1"
+    gutterSize="16px"
+    *ngIf="!loading && playlists.length > 0"
+  >
+    <mat-grid-tile *ngFor="let playlist of playlists">
+      <mat-card class="playlist-card">
+        <mat-card-header>
+          <mat-card-title>{{ playlist.title }}</mat-card-title>
+          <mat-card-subtitle>{{
+            playlist.created_at | date : "short"
+          }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>{{ playlist.description }}</p>
+          <p><strong>Episodes:</strong> {{ playlist.episodes.length }}</p>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button
+            mat-button
+            color="accent"
+            [routerLink]="['/admin/playlists/edit', playlist.id]"
+          >
+            <mat-icon>edit</mat-icon> Edit
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <div *ngIf="!loading && playlists.length === 0" class="empty-message">
+    No playlists available.
+  </div>
   <div *ngIf="!loading && playlists.length === 0">No playlists available.</div>
 </div>

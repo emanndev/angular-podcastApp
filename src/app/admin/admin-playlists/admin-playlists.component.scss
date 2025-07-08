@@ -29,3 +29,20 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 }
+.playlist-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.empty-message {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.playlist-card {
+  max-width: 500px;
+  margin: auto;
+}

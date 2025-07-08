@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 
-export const MATERIAL_MODULES = importProvidersFrom(
+export const material_modules = importProvidersFrom(
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
