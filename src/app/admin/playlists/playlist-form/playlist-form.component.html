@@ -1,57 +1,58 @@
-<div class="dialog-container">
-  <h2 mat-dialog-title>
-    {{ data.playlist ? "Edit Playlist" : "Create New Playlist" }}
-  </h2>
+<h2 mat-dialog-title>
+  {{ data.playlist ? "Edit Playlist" : "Create New Playlist" }}
+</h2>
 
-  <mat-dialog-content>
-    <form [formGroup]="form" class="playlist-form">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Playlist Name</mat-label>
-        <input matInput formControlName="name" placeholder="Enter playlist name" required />
-        <mat-error *ngIf="form.get('name')?.hasError('required')">
-          Playlist name is required
-        </mat-error>
-      </mat-form-field>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Playlist Name</mat-label>
+    <input
+      matInput
+      formControlName="name"
+      placeholder="Enter playlist name"
+      required
+    />
+    <mat-error *ngIf="form.get('name')?.hasError('required')">
+      Playlist name is required
+    </mat-error>
+  </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Description</mat-label>
-        <textarea 
-          matInput 
-          formControlName="description" 
-          placeholder="Enter playlist description"
-          rows="3">
-        </textarea>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Select Episodes</mat-label>
-        <mat-select
-          formControlName="episode_ids"
-          multiple
-          required
-          placeholder="Choose episodes for this playlist"
-        >
-          <mat-option *ngFor="let ep of episodes" [value]="ep.id">
-            {{ ep.title }}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="form.get('episode_ids')?.hasError('required')">
-          At least one episode must be selected
-        </mat-error>
-      </mat-form-field>
-    </form>
-  </mat-dialog-content>
-
-  <mat-dialog-actions align="end">
-    <button mat-button type="button" (click)="cancel()">Cancel</button>
-    <button
-      mat-flat-button
-      color="primary"
-      type="submit"
-      [disabled]="form.invalid"
-      (click)="submit()"
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Description</mat-label>
+    <textarea
+      matInput
+      formControlName="description"
+      placeholder="Enter playlist description"
+      rows="3"
     >
-      {{ data.isEdit ? "Update" : "Create" }}
-    </button>
-  </mat-dialog-actions>
-</div>
+    </textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Select Episodes</mat-label>
+    <mat-select
+      formControlName="episode_ids"
+      multiple
+      required
+      placeholder="Choose episodes for this playlist"
+    >
+      <mat-option *ngFor="let ep of episodes" [value]="ep.id">
+        {{ ep.title }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('episode_ids')?.hasError('required')">
+      At least one episode must be selected
+    </mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="submit()"
+    [disabled]="form.invalid"
+  >
+    {{ data.isEdit ? "Update" : "Create" }}
+  </button>
+</mat-dialog-actions>

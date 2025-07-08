@@ -8,8 +8,7 @@ import {
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
-  MatDialogActions,
-  MatDialogContent,
+  MatDialogModule,
 } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { PlaylistService } from '../../../core/services/playlist.service';
@@ -18,7 +17,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-playlist-form',
@@ -26,15 +24,14 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
-    MatDialogActions,
-    MatDialogContent,
-    MatIconModule,
   ],
   templateUrl: './playlist-form.component.html',
+  styleUrls: ['./playlist-form.component.scss'],
 })
 export class PlaylistFormComponent implements OnInit {
   form!: FormGroup;
@@ -71,7 +68,7 @@ export class PlaylistFormComponent implements OnInit {
       error: (error) => {
         console.error('Error loading episodes:', error);
         this.loading = false;
-      }
+      },
     });
   }
 
@@ -80,14 +77,14 @@ export class PlaylistFormComponent implements OnInit {
   }
 
   submit(): void {
-    if (this.form.invalid) return;
-    
-    const playlistData: PlaylistForm = {
-      name: this.form.value.name.trim(),
-      description: this.form.value.description?.trim() || '',
-      episode_ids: this.form.value.episode_ids,
-    };
-    
-    this.dialogRef.close(playlistData);
+    if (this.form.valid) {
+      const playlistData: PlaylistForm = {
+        name: this.form.value.name.trim(),
+        description: this.form.value.description?.trim() || '',
+        episode_ids: this.form.value.episode_ids,
+      };
+
+      this.dialogRef.close(playlistData);
+    }
   }
 }
