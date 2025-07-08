@@ -64,7 +64,7 @@ export interface Episode {
 
 export interface Playlist {
   id: number;
-  title: string;
+  name: string;
   description: string;
   episodes: Episode[];
   created_at: string;
