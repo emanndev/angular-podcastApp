@@ -2,13 +2,13 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { AdminDashboardComponent } from '../../admin/admin-dashboard/admin-dashboard.component';
 import { ToastService } from '../../shared/utils/services/toast.service';
+import { ThemeToggleComponent } from '../../shared/utils/components/theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, RouterOutlet],
+  imports: [CommonModule, RouterModule, RouterOutlet, ThemeToggleComponent],
   templateUrl: './admin-layout.component.html',
   styleUrls: ['../../admin/admin-dashboard/admin-dashboard.component.scss'],
 })
