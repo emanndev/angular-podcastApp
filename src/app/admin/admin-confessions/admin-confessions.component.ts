@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ConfessionsService } from '../../core/services/confessions.service';
 import { Confession } from '../../model/podcast.models';
 import { FormsModule } from '@angular/forms';
+import { ToastService } from '../../shared/utils/services/toast.service';
 
 @Component({
   selector: 'app-confessions',
@@ -14,17 +15,27 @@ import { FormsModule } from '@angular/forms';
 export class AdminConfessionsComponent implements OnInit {
   confessions: Confession[] = [];
   filteredConfessions: Confession[] = [];
+  paginatedConfessions: Confession[] = [];
+
   loading = true;
   search = '';
-  sortOrder: 'asc' | 'desc' = 'desc';
 
-  constructor(private confessionService: ConfessionsService) {}
+  // sorting/pagination
+  sortColumn: 'created_at' | 'is_approved' = 'created_at';
+  sortAsc = false;
+  currentPage = 1;
+  pageSize = 10;
+  totalPages = 0;
+
+  constructor(
+    private confessionService: ConfessionsService,
+    private toast: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.confessionService.getAllConfessions().subscribe({
       next: (data) => {
         this.confessions = data;
-
         this.applySearchAndSort();
         this.loading = false;
       },
@@ -47,26 +58,57 @@ export class AdminConfessionsComponent implements OnInit {
       },
     ];
     this.confessions = mock;
-
     this.applySearchAndSort();
     this.loading = false;
   }
 
   applySearchAndSort(): void {
-    const filtered = this.confessions.filter((c) =>
+    let filtered = this.confessions.filter((c) =>
       c.message.toLowerCase().includes(this.search.toLowerCase())
     );
 
-    this.filteredConfessions = filtered.sort((a, b) => {
-      const dateA = new Date(a.created_at).getTime();
-      const dateB = new Date(b.created_at).getTime();
-      return this.sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    filtered = filtered.sort((a, b) => {
+      if (this.sortColumn === 'created_at') {
+        const dateA = new Date(a.created_at).getTime();
+        const dateB = new Date(b.created_at).getTime();
+        return this.sortAsc ? dateA - dateB : dateB - dateA;
+      } else if (this.sortColumn === 'is_approved') {
+        const valA = a.is_approved ? 1 : 0;
+        const valB = b.is_approved ? 1 : 0;
+        return this.sortAsc ? valA - valB : valB - valA;
+      }
+      return 0;
     });
+
+    this.filteredConfessions = filtered;
+    this.totalPages = Math.ceil(filtered.length / this.pageSize);
+    this.paginate();
+  }
+
+  paginate(): void {
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedConfessions = this.filteredConfessions.slice(start, end);
+  }
+
+  goToPage(page: number): void {
+    this.currentPage = page;
+    this.paginate();
   }
 
   toggleSortOrder(): void {
-    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.sortAsc = !this.sortAsc;
     this.applySearchAndSort();
+  }
+
+  changeSort(column: 'created_at' | 'is_approved'): void {
+    if (this.sortColumn === column) {
+      this.toggleSortOrder();
+    } else {
+      this.sortColumn = column;
+      this.sortAsc = false;
+      this.applySearchAndSort();
+    }
   }
 
   deleteConfession(id: number): void {
@@ -75,9 +117,12 @@ export class AdminConfessionsComponent implements OnInit {
       this.applySearchAndSort();
     }
   }
+
   approveConfession(confession: Confession): void {
     this.confessionService.approveConfession(confession.id).subscribe(() => {
       confession.is_approved = true;
+      this.toast.show('Confession approved!', 'success');
+      this.applySearchAndSort();
     });
   }
 

@@ -11,13 +11,14 @@
     type="text"
     placeholder="Search confessions..."
     [(ngModel)]="search"
+    (ngModelChange)="applySearchAndSort()"
     class="search-input"
   />
 
   <div *ngIf="loading">Loading confessions...</div>
 
   <table
-    *ngIf="!loading && filteredConfessions.length > 0"
+    *ngIf="!loading && paginatedConfessions.length > 0"
     class="confessions-table"
   >
     <thead>
@@ -26,14 +27,25 @@
         <th>Message</th>
         <th>Category</th>
         <th>Emotion</th>
-        <th>Approved</th>
-        <th>Submitted At</th>
+        <th (click)="changeSort('is_approved')" class="sortable">
+          Approved
+          <span *ngIf="sortColumn === 'is_approved'">
+            {{ sortAsc ? "⬆️" : "⬇️" }}
+          </span>
+        </th>
+        <th (click)="changeSort('created_at')" class="sortable">
+          Submitted At
+          <span *ngIf="sortColumn === 'created_at'">
+            {{ sortAsc ? "⬆️" : "⬇️" }}
+          </span>
+        </th>
         <th>Actions</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr *ngFor="let c of filteredConfessions; index as i">
-        <td>{{ i + 1 }}</td>
+      <tr *ngFor="let c of paginatedConfessions; index as i">
+        <td>{{ i + 1 + (currentPage - 1) * pageSize }}</td>
         <td>{{ c.message }}</td>
         <td>
           <span class="badge category">{{ c.category || "-" }}</span>
@@ -70,7 +82,21 @@
     </tbody>
   </table>
 
-  <div *ngIf="!loading && filteredConfessions.length === 0">
+  <div *ngIf="!loading && paginatedConfessions.length === 0">
     No confessions available.
+  </div>
+
+  <!-- Pagination -->
+  <div
+    class="pagination"
+    *ngIf="!loading && filteredConfessions.length >= pageSize"
+  >
+    <button
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      (click)="goToPage(i + 1)"
+      [class.active]="currentPage === i + 1"
+    >
+      {{ i + 1 }}
+    </button>
   </div>
 </div>
