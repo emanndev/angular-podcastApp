@@ -2,9 +2,6 @@
   <div class="header-bar">
     <h2>Confessions</h2>
     <div class="export-buttons">
-      <button (click)="toggleSortOrder()">
-        Sort: {{ sortOrder === "asc" ? "Oldest" : "Newest" }}
-      </button>
       <button (click)="exportAsCSV()">Export CSV</button>
       <button (click)="exportAsJSON()">Export JSON</button>
     </div>
@@ -14,11 +11,11 @@
     type="text"
     placeholder="Search confessions..."
     [(ngModel)]="search"
-    (ngModelChange)="applySearchAndSort()"
     class="search-input"
   />
 
   <div *ngIf="loading">Loading confessions...</div>
+
   <table
     *ngIf="!loading && filteredConfessions.length > 0"
     class="confessions-table"
@@ -27,6 +24,9 @@
       <tr>
         <th>#</th>
         <th>Message</th>
+        <th>Category</th>
+        <th>Emotion</th>
+        <th>Approved</th>
         <th>Submitted At</th>
         <th>Actions</th>
       </tr>
@@ -35,12 +35,36 @@
       <tr *ngFor="let c of filteredConfessions; index as i">
         <td>{{ i + 1 }}</td>
         <td>{{ c.message }}</td>
+        <td>
+          <span class="badge category">{{ c.category || "-" }}</span>
+        </td>
+        <td>
+          <span class="badge emotion">{{ c.emotion || "-" }}</span>
+        </td>
+        <td>
+          <span
+            class="badge"
+            [ngClass]="{
+              approved: c.is_approved,
+              pending: !c.is_approved
+            }"
+          >
+            {{ c.is_approved ? "Yes" : "No" }}
+          </span>
+        </td>
         <td>{{ c.created_at | date : "short" }}</td>
         <td>
+          <button
+            class="approve-btn"
+            *ngIf="!c.is_approved"
+            (click)="approveConfession(c)"
+          >
+            ✔️
+          </button>
+          <button class="flag-btn" (click)="flagConfession(c)">🚩</button>
           <button class="delete-btn" (click)="deleteConfession(c.id)">
             🗑️
           </button>
-          <button class="flag-btn" (click)="flagConfession(c)">🚩</button>
         </td>
       </tr>
     </tbody>

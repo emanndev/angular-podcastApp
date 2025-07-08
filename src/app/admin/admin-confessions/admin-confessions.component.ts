@@ -24,6 +24,7 @@ export class AdminConfessionsComponent implements OnInit {
     this.confessionService.getAllConfessions().subscribe({
       next: (data) => {
         this.confessions = data;
+
         this.applySearchAndSort();
         this.loading = false;
       },
@@ -39,10 +40,14 @@ export class AdminConfessionsComponent implements OnInit {
       {
         id: 1,
         message: 'I secretly love pineapple on pizza 🍍🍕',
+        category: 'Food',
+        emotion: 'Guilty',
+        is_approved: false,
         created_at: new Date().toISOString(),
       },
     ];
     this.confessions = mock;
+
     this.applySearchAndSort();
     this.loading = false;
   }
@@ -69,6 +74,11 @@ export class AdminConfessionsComponent implements OnInit {
       this.confessions = this.confessions.filter((c) => c.id !== id);
       this.applySearchAndSort();
     }
+  }
+  approveConfession(confession: Confession): void {
+    this.confessionService.approveConfession(confession.id).subscribe(() => {
+      confession.is_approved = true;
+    });
   }
 
   flagConfession(confession: Confession): void {

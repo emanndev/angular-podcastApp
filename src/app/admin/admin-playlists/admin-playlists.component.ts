@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Playlist } from '../../model/podcast.models';
 import { PlaylistService } from '../../core/services/playlist.service';
-import { MOCK_PLAYLISTS } from '../../shared/mock-data';
 import { RouterLink } from '@angular/router';
 
 @Component({

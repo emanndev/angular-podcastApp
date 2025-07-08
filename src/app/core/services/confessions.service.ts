@@ -19,4 +19,10 @@ export class ConfessionsService {
       .get<ApiResponse<Confession[]>>(`${this.baseUrl}/confessions`)
       .pipe(map((res) => res.data));
   }
+  approveConfession(id: number): Observable<Confession> {
+    return this.http.put<Confession>(
+      `${this.baseUrl}/confessions/${id}/approve`,
+      {}
+    );
+  }
 }
