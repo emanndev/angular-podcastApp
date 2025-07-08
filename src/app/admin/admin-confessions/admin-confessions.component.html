@@ -2,6 +2,9 @@
   <div class="header-bar">
     <h2>Confessions</h2>
     <div class="export-buttons">
+      <button (click)="toggleSortOrder()">
+        Sort: {{ sortOrder === "asc" ? "Oldest" : "Newest" }}
+      </button>
       <button (click)="exportAsCSV()">Export CSV</button>
       <button (click)="exportAsJSON()">Export JSON</button>
     </div>
@@ -11,6 +14,7 @@
     type="text"
     placeholder="Search confessions..."
     [(ngModel)]="search"
+    (ngModelChange)="applySearchAndSort()"
     class="search-input"
   />
 

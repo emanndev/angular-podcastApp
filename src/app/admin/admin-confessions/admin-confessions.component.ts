@@ -9,13 +9,14 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './admin-confessions.component.html',
-  styleUrl: './admin-confessions.component.scss',
+  styleUrls: ['./admin-confessions.component.scss'],
 })
 export class AdminConfessionsComponent implements OnInit {
   confessions: Confession[] = [];
   filteredConfessions: Confession[] = [];
   loading = true;
   search = '';
+  sortOrder: 'asc' | 'desc' = 'desc';
 
   constructor(private confessionService: ConfessionsService) {}
 
@@ -23,7 +24,7 @@ export class AdminConfessionsComponent implements OnInit {
     this.confessionService.getAllConfessions().subscribe({
       next: (data) => {
         this.confessions = data;
-        this.filteredConfessions = data;
+        this.applySearchAndSort();
         this.loading = false;
       },
       error: (err) => {
@@ -33,44 +34,40 @@ export class AdminConfessionsComponent implements OnInit {
     });
   }
 
-  loadMockData() {
+  loadMockData(): void {
     const mock: Confession[] = [
       {
         id: 1,
         message: 'I secretly love pineapple on pizza 🍍🍕',
         created_at: new Date().toISOString(),
       },
-      {
-        id: 2,
-        message: 'I talk to myself to sound smarter in meetings 😅',
-        created_at: new Date().toISOString(),
-      },
-      {
-        id: 3,
-        message: 'Sometimes I miss deadlines just to feel something 😬',
-        created_at: new Date().toISOString(),
-      },
     ];
-
     this.confessions = mock;
-    this.filteredConfessions = mock;
+    this.applySearchAndSort();
     this.loading = false;
   }
 
-  ngDoCheck(): void {
-    this.applySearch();
-  }
-
-  applySearch(): void {
-    this.filteredConfessions = this.confessions.filter((c) =>
+  applySearchAndSort(): void {
+    const filtered = this.confessions.filter((c) =>
       c.message.toLowerCase().includes(this.search.toLowerCase())
     );
+
+    this.filteredConfessions = filtered.sort((a, b) => {
+      const dateA = new Date(a.created_at).getTime();
+      const dateB = new Date(b.created_at).getTime();
+      return this.sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    });
+  }
+
+  toggleSortOrder(): void {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.applySearchAndSort();
   }
 
   deleteConfession(id: number): void {
     if (confirm('Are you sure you want to delete this confession?')) {
       this.confessions = this.confessions.filter((c) => c.id !== id);
-      this.applySearch(); // update filtered view
+      this.applySearchAndSort();
     }
   }
 
