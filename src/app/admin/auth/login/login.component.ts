@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../shared/utils/services/toast.service';
@@ -13,11 +13,11 @@ import { ToastService } from '../../../shared/utils/services/toast.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(
@@ -30,6 +30,10 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.authService.simulateAdminSeed();
   }
 
   onSubmit(): void {
@@ -46,14 +50,15 @@ export class LoginComponent {
           this.router.navigate([
             role === 'admin' ? '/admin/dashboard' : '/confessions',
           ]);
-        } else {
-          // alert('Login failed: ' + res.message);
-          this.toast.show('Log In failed, try again', 'error');
+          console.log('User role:', role);
+          console.log('User:', res.data.user);
+          console.log('Token:', localStorage.getItem('token'));
+          console.log('User:', localStorage.getItem('user'));
         }
       },
       error: (err) => {
         console.error('Login failed:', err);
-        alert('Invalid credentials.');
+        this.toast.show('Log In failed, try again', 'error');
       },
     });
   }

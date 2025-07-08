@@ -14,14 +14,12 @@ import { Confession, Episode } from '../../model/podcast.models';
 })
 export class AdminDashboardComponent implements OnInit {
   stats = {
-    episodes: 0,
     confessions: 0,
     playlists: 0,
     team: 0,
   };
 
   recentConfessions: Confession[] = [];
-  recentEpisodes: Episode[] = [];
 
   constructor(
     private authService: AuthService,
@@ -30,35 +28,12 @@ export class AdminDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadStats();
     this.loadRecentConfessions();
-    this.loadRecentEpisodes();
   }
 
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
-  }
-
-  private loadStats() {
-
-    this.http
-      .get<any>('https://api.rantsnconfess.com/v1/dashboard/summary')
-      .subscribe({
-        next: (res) => {
-          this.stats = {
-            episodes: res.episodes || 0,
-            confessions: res.confessions || 0,
-            playlists: res.playlists || 0,
-            team: res.team || 0,
-          };
-        },
-        error: () => {
-          console.warn(
-            ' Failed to load dashboard summary. Using default 0 values.'
-          );
-        },
-      });
   }
 
   private loadRecentConfessions() {
@@ -70,19 +45,6 @@ export class AdminDashboardComponent implements OnInit {
         },
         error: () => {
           this.recentConfessions = [];
-        },
-      });
-  }
-
-  private loadRecentEpisodes() {
-    this.http
-      .get<Episode[]>('https://api.rantsnconfess.com/v1/episodes')
-      .subscribe({
-        next: (episodes) => {
-          this.recentEpisodes = episodes.slice(0, 3);
-        },
-        error: () => {
-          this.recentEpisodes = [];
         },
       });
   }

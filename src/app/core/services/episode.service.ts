@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Episode, ApiResponse } from '../../model/podcast.models';
@@ -24,12 +24,15 @@ export class EpisodeService {
       .pipe(map((res) => res.data));
   }
 
-  createEpisode(data: Partial<Episode>): Observable<any> {
-    return this.http.post(`${this.baseUrl}/episodes`, data);
-  }
-
   updateEpisode(id: number, data: Partial<Episode>): Observable<any> {
-    return this.http.put(`${this.baseUrl}/episodes/${id}`, data);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    console.log('Sending PUT request with token:', token);
+
+    return this.http.put(`${this.baseUrl}/episodes/${id}`, data, { headers });
   }
 
   deleteEpisode(id: number): Observable<any> {
