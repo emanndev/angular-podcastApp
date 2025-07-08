@@ -1,13 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TeamMembersService } from '../../core/services/team-members.service';
 import { TeamMember } from '../../model/podcast.models';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { TeamMemberDialogComponent } from '../team/team-member-dialog/team-member-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { ToastService } from '../../shared/utils/services/toast.service';
 
 @Component({
   selector: 'app-admin-team',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterModule,
+  ],
   templateUrl: './admin-team.component.html',
   styleUrls: ['./admin-team.component.scss'],
 })
@@ -15,24 +26,61 @@ export class AdminTeamComponent implements OnInit {
   team: TeamMember[] = [];
   loading = true;
 
-  constructor(private teamService: TeamMembersService) {}
+  constructor(
+    private teamService: TeamMembersService,
+    private dialog: MatDialog,
+    private toast: ToastService
+  ) {}
 
   ngOnInit(): void {
+    this.loadTeam();
+  }
+
+  loadTeam() {
     this.teamService.getAllTeam().subscribe({
       next: (res) => {
         this.team = res;
         this.loading = false;
       },
-      error: () => {
-        this.loading = false;
-      },
+      error: () => (this.loading = false),
+    });
+  }
+
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(TeamMemberDialogComponent, {
+      width: '600px',
+      data: null,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.teamService.create(result).subscribe(() => {
+          this.toast.show('Team member added!', 'success');
+          this.loadTeam();
+        });
+      }
+    });
+  }
+
+  openEditDialog(member: TeamMember) {
+    const dialogRef = this.dialog.open(TeamMemberDialogComponent, {
+      width: '600px',
+      data: member,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.teamService.update(member.id, result).subscribe(() => {
+          this.toast.show('Team member updated!', 'success');
+          this.loadTeam();
+        });
+      }
     });
   }
 
   deleteMember(id: number) {
-    if (confirm('Are you sure?')) {
+    if (confirm('Delete this member?')) {
       this.teamService.deleteTeamMember(id).subscribe(() => {
-        this.team = this.team.filter((m) => m.id !== id);
+        this.toast.show('Deleted successfully', 'success');
+        this.loadTeam();
       });
     }
   }

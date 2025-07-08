@@ -1,54 +1,36 @@
 <div class="admin-team-container">
   <h2>Team Members</h2>
-
-  <div *ngIf="loading">Loading team members...</div>
-
-  <div *ngIf="!loading && team.length === 0">No team members found.</div>
-
-  <div class="team-grid" *ngIf="!loading && team.length > 0">
-    <div class="team-card" *ngFor="let member of team">
-      <img class="avatar" [src]="member.image" [alt]="member.name" />
-      <h3>{{ member.name }}</h3>
-      <p>{{ member.bio }}</p>
-
+  <button mat-flat-button color="primary" (click)="openCreateDialog()">
+    <mat-icon>person_add</mat-icon> Add Member
+  </button>
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="!loading && team.length === 0">No team found.</div>
+  <div class="team-grid" *ngIf="!loading && team.length">
+    <div class="team-card" *ngFor="let m of team">
+      <img class="avatar" [src]="m.image" alt="{{ m.name }}" />
+      <h3>{{ m.name }}</h3>
+      <p>{{ m.bio }}</p>
       <div class="socials">
-        <a
-          *ngIf="member.facebook"
-          [href]="member.facebook"
-          target="_blank"
-          aria-label="Facebook"
-        >
-          <img src="assets/icons/facebook.svg" alt="Facebook" />
+        <a *ngIf="m.facebook" href="{{ m.facebook }}" target="_blank">
+          <mat-icon>facebook</mat-icon>
         </a>
-        <a
-          *ngIf="member.twitter"
-          [href]="member.twitter"
-          target="_blank"
-          aria-label="Twitter"
-        >
-          <img src="assets/icons/x.svg" alt="Twitter" />
+        <a *ngIf="m.twitter" href="{{ m.twitter }}" target="_blank">
+          <mat-icon>twitter</mat-icon>
         </a>
-        <a
-          *ngIf="member.instagram"
-          [href]="member.instagram"
-          target="_blank"
-          aria-label="Instagram"
-        >
-          <img src="assets/icons/instagram.svg" alt="Instagram" />
+        <a *ngIf="m.instagram" href="{{ m.instagram }}" target="_blank">
+          <mat-icon>instagram</mat-icon>
         </a>
-        <a
-          *ngIf="member.linkedin"
-          [href]="member.linkedin"
-          target="_blank"
-          aria-label="LinkedIn"
-        >
-          <img src="assets/icons/linkedin.svg" alt="LinkedIn" />
+        <a *ngIf="m.linkedin" href="{{ m.linkedin }}" target="_blank">
+          <mat-icon>linkedin</mat-icon>
         </a>
       </div>
-
       <div class="actions">
-        <button [routerLink]="['/admin/team/edit', member.id]">Edit</button>
-        <button (click)="deleteMember(member.id)">Delete</button>
+        <button mat-button color="accent" (click)="openEditDialog(m)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button color="warn" (click)="deleteMember(m.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
     </div>
   </div>
