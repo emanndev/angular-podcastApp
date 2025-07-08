@@ -1,14 +1,13 @@
 .theme-toggle {
   position: relative;
-  left: 97rem;
   border: none;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   background: transparent;
-  padding: 8px 14px;
+  padding: 4px 14px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 300;
 
   &:hover {
     background-color: #cfd1d4bb;

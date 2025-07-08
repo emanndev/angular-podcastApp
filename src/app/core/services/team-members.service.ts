@@ -58,7 +58,6 @@ export class TeamMembersService {
       .pipe(map((res) => res.data));
   }
 
-  //handle logic for edit team memeber component
   getTeamMemberById(id: number): Observable<TeamMember> {
     return this.http
       .get<ApiResponse<TeamMember>>(`${this.baseUrl}/team/${id}`)
