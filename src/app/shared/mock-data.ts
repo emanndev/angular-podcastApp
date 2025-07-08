@@ -62,14 +62,14 @@ export const MOCK_EPISODES: Episode[] = [
 export const MOCK_PLAYLISTS: Playlist[] = [
   {
     id: 1,
-    title: 'Tech Trends',
+    name: 'Tech Trends',
     description: 'Latest in tech',
     episodes: [],
     created_at: '2024-12-01T12:00:00Z',
   },
   {
     id: 2,
-    title: 'Mindful Moments',
+    name: 'Mindful Moments',
     description: 'Meditation and wellness',
     episodes: [],
     created_at: '2024-12-05T08:30:00Z',

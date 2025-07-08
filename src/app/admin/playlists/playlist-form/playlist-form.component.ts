@@ -1,22 +1,24 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatDialogModule,
-} from '@angular/material/dialog';
-import {
   FormBuilder,
   FormGroup,
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogActions,
+  MatDialogContent,
+} from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { PlaylistService } from '../../../core/services/playlist.service';
+import { Episode, PlaylistForm } from '../../../model/podcast.models';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Episode } from '../../../model/podcast.models';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-playlist-form',
@@ -24,47 +26,68 @@ import { Episode } from '../../../model/podcast.models';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatDialogModule,
     MatFormFieldModule,
-    MatInputModule,
     MatSelectModule,
+    MatInputModule,
     MatButtonModule,
+    MatDialogActions,
+    MatDialogContent,
+    MatIconModule,
   ],
   templateUrl: './playlist-form.component.html',
-  styleUrls: ['./playlist-form.component.scss'],
 })
 export class PlaylistFormComponent implements OnInit {
   form!: FormGroup;
-  loading = false;
   episodes: Episode[] = [];
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
-    private playlistService: PlaylistService,
     private dialogRef: MatDialogRef<PlaylistFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: { playlist?: any; isEdit?: boolean },
+    private playlistService: PlaylistService
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      title: [this.data?.playlist?.title || '', Validators.required],
-      description: [this.data?.playlist?.description || ''],
+      name: [this.data.playlist?.name || '', Validators.required],
+      description: [this.data.playlist?.description || ''],
       episode_ids: [
-        this.data?.playlist?.episodes?.map((ep: any) => ep.id) || [],
+        this.data.playlist?.episodes?.map((e: Episode) => e.id) || [],
+        Validators.required,
       ],
     });
 
-    this.playlistService.getAllEpisodes().subscribe((episodes) => {
-      this.episodes = episodes;
+    this.loadEpisodes();
+  }
+
+  loadEpisodes(): void {
+    this.loading = true;
+    this.playlistService.getAllEpisodes().subscribe({
+      next: (episodes) => {
+        this.episodes = episodes;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error loading episodes:', error);
+        this.loading = false;
+      }
     });
   }
 
-  onSubmit(): void {
-    if (this.form.invalid) return;
-    this.dialogRef.close(this.form.value);
+  cancel(): void {
+    this.dialogRef.close();
   }
 
-  onCancel(): void {
-    this.dialogRef.close();
+  submit(): void {
+    if (this.form.invalid) return;
+    
+    const playlistData: PlaylistForm = {
+      name: this.form.value.name.trim(),
+      description: this.form.value.description?.trim() || '',
+      episode_ids: this.form.value.episode_ids,
+    };
+    
+    this.dialogRef.close(playlistData);
   }
 }

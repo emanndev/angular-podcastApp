@@ -18,41 +18,66 @@ export class PlaylistService {
 
   getAllPlaylists(): Observable<Playlist[]> {
     return this.http
-      .get<ApiResponse<Playlist[]>>(`${this.baseUrl}/playlists`)
+      .get<{ data: { data: Playlist[] } }>(`${this.baseUrl}/playlists`)
       .pipe(
         map((res) => {
-          if (res.data.length === 0) {
-            console.warn(' API returned empty playlists. Using mock data...');
+          const playlists = res.data?.data || [];
+          if (playlists.length === 0) {
+            console.warn('API returned empty playlists. Using mock data...');
             return MOCK_PLAYLISTS;
           }
-          return res.data;
+          // Ensure each playlist has an episodes array
+          return playlists.map((playlist) => ({
+            ...playlist,
+            episodes: playlist.episodes || [],
+          }));
         }),
         catchError((error) => {
-          console.warn(' API failed, using mock playlists:', error);
+          console.warn('API failed, using mock playlists:', error);
           return of(MOCK_PLAYLISTS);
         })
       );
   }
+
   getAllEpisodes(): Observable<Episode[]> {
     return this.http
       .get<ApiResponse<Episode[]>>(`${this.baseUrl}/episodes`)
-      .pipe(map((res) => res.data));
+      .pipe(
+        map((res) => res.data || []),
+        catchError((error) => {
+          console.error('Failed to load episodes:', error);
+          return of([]);
+        })
+      );
   }
 
   createPlaylist(data: PlaylistForm): Observable<Playlist> {
     return this.http
       .post<ApiResponse<Playlist>>(`${this.baseUrl}/playlists`, data)
-      .pipe(map((res) => res.data));
+      .pipe(
+        map((res) => ({
+          ...res.data,
+          episodes: res.data.episodes || [],
+        })),
+        catchError((error) => {
+          console.error('Failed to create playlist:', error);
+          throw error;
+        })
+      );
   }
 
   getPlaylistById(id: number): Observable<Playlist> {
     return this.http
       .get<ApiResponse<Playlist>>(`${this.baseUrl}/playlists/${id}`)
       .pipe(
-        map((res) => res.data),
-        catchError(() => {
+        map((res) => ({
+          ...res.data,
+          episodes: res.data.episodes || [],
+        })),
+        catchError((error) => {
+          console.error('Failed to get playlist by ID:', error);
           const fallback = MOCK_PLAYLISTS.find((p) => p.id === id);
-          return of(fallback!);
+          return of(fallback || ({} as Playlist));
         })
       );
   }
@@ -60,10 +85,24 @@ export class PlaylistService {
   updatePlaylist(id: number, data: PlaylistForm): Observable<Playlist> {
     return this.http
       .put<ApiResponse<Playlist>>(`${this.baseUrl}/playlists/${id}`, data)
-      .pipe(map((res) => res.data));
+      .pipe(
+        map((res) => ({
+          ...res.data,
+          episodes: res.data.episodes || [],
+        })),
+        catchError((error) => {
+          console.error('Failed to update playlist:', error);
+          throw error;
+        })
+      );
   }
 
   deletePlaylist(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/playlists/${id}`);
+    return this.http.delete(`${this.baseUrl}/playlists/${id}`).pipe(
+      catchError((error) => {
+        console.error('Failed to delete playlist:', error);
+        throw error;
+      })
+    );
   }
 }

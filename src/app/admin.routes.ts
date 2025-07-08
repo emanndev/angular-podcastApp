@@ -14,21 +14,6 @@ export const adminRoutes: Routes = [
       { path: 'playlists', component: AdminPlaylistsComponent },
 
       {
-        path: 'playlists/create',
-        loadComponent: () =>
-          import(
-            './admin/playlists/create-playlist/create-playlist.component'
-          ).then((m) => m.CreatePlaylistComponent),
-      },
-      {
-        path: 'playlists/edit/:id',
-        loadComponent: () =>
-          import(
-            './admin/playlists/edit-playlist/edit-playlist.component'
-          ).then((m) => m.EditPlaylistComponent),
-      },
-
-      {
         path: 'team',
         loadComponent: () =>
           import('./admin/admin-team/admin-team.component').then(

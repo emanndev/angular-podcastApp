@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ToastService } from '../../shared/utils/services/toast.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-admin-playlists',
@@ -20,6 +21,7 @@ import { ToastService } from '../../shared/utils/services/toast.service';
     MatIconModule,
     MatCardModule,
     MatGridListModule,
+    RouterModule,
   ],
   templateUrl: './admin-playlists.component.html',
   styleUrls: ['./admin-playlists.component.scss'],
@@ -39,16 +41,26 @@ export class AdminPlaylistsComponent implements OnInit {
   }
 
   loadPlaylists(): void {
-    this.playlistService.getAllPlaylists().subscribe((res) => {
-      this.playlists = res;
-      this.loading = false;
+    this.loading = true;
+    this.playlistService.getAllPlaylists().subscribe({
+      next: (res) => {
+        this.playlists = res;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error loading playlists:', error);
+        this.loading = false;
+        this.toast.show('Failed to load playlists', 'error');
+      },
     });
   }
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(PlaylistFormComponent, {
       width: '600px',
-      data: null,
+      maxWidth: '90vw',
+      disableClose: true,
+      data: { playlist: null, isEdit: false },
     });
 
     dialogRef.afterClosed().subscribe((formData) => {
@@ -58,7 +70,8 @@ export class AdminPlaylistsComponent implements OnInit {
             this.toast.show('Playlist created successfully', 'success');
             this.loadPlaylists();
           },
-          error: () => {
+          error: (error) => {
+            console.error('Error creating playlist:', error);
             this.toast.show('Failed to create playlist', 'error');
           },
         });
@@ -69,26 +82,38 @@ export class AdminPlaylistsComponent implements OnInit {
   openEditDialog(playlist: Playlist): void {
     const dialogRef = this.dialog.open(PlaylistFormComponent, {
       width: '600px',
-      data: { playlist },
+      maxWidth: '90vw',
+      disableClose: true,
+      data: { playlist, isEdit: true },
     });
 
     dialogRef.afterClosed().subscribe((formData) => {
       if (formData) {
-        this.playlistService
-          .updatePlaylist(playlist.id, formData)
-          .subscribe(() => {
+        this.playlistService.updatePlaylist(playlist.id, formData).subscribe({
+          next: () => {
             this.toast.show('Playlist updated successfully', 'success');
             this.loadPlaylists();
-          });
+          },
+          error: (error) => {
+            console.error('Error updating playlist:', error);
+            this.toast.show('Failed to update playlist', 'error');
+          },
+        });
       }
     });
   }
 
   deletePlaylist(id: number): void {
     if (confirm('Are you sure you want to delete this playlist?')) {
-      this.playlistService.deletePlaylist(id).subscribe(() => {
-        this.toast.show('Playlist deleted successfully', 'success');
-        this.playlists = this.playlists.filter((p) => p.id !== id);
+      this.playlistService.deletePlaylist(id).subscribe({
+        next: () => {
+          this.toast.show('Playlist deleted successfully', 'success');
+          this.playlists = this.playlists.filter((p) => p.id !== id);
+        },
+        error: (error) => {
+          console.error('Error deleting playlist:', error);
+          this.toast.show('Failed to delete playlist', 'error');
+        },
       });
     }
   }

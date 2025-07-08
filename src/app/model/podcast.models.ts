@@ -68,10 +68,11 @@ export interface Playlist {
   description: string;
   episodes: Episode[];
   created_at: string;
+  updated_at?: string;
 }
 
 export interface PlaylistForm {
-  title: string;
+  name: string;
   description: string;
   episode_ids: number[];
 }
