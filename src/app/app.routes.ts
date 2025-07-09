@@ -37,6 +37,13 @@ export const routes: Routes = [
       ),
   },
 
+  {
+  path: 'confessions',
+  loadComponent: () =>
+    import('./pages/confessions/confessions.component').then((m) => m.ConfessionsComponent),
+},
+
+
   // Default & Wildcard
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home' },
