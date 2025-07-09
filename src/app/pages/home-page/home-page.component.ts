@@ -43,8 +43,8 @@ export class HomePageComponent implements OnInit {
     this.episodeService.getEpisodes().subscribe({
       next: (res: Episode[]) => {
         this.episodes = res;
-        this.featuredEpisodes = res.slice(0, 3);
-        this.latestEpisodes = res.slice(3);
+     
+        this.latestEpisodes = res.slice(0, 3);
         this.loading = false;
       },
       error: () => {
@@ -57,7 +57,8 @@ export class HomePageComponent implements OnInit {
   private fetchPlaylists(): void {
     this.playlistService.getAllPlaylists().subscribe({
       next: (res: Playlist[]) => {
-        this.featuredPlaylists = res.slice(0, 3);
+      
+        this.featuredPlaylists = res.slice(0, 2);
       },
       error: () => {
         console.error('Could not load playlists.');
@@ -76,25 +77,39 @@ export class HomePageComponent implements OnInit {
     });
   }
 
-  // ✅ Updated image methods to handle full URLs or relative paths
+  // Image helper methods
   getEpisodeImage(imagePath: string): string {
     if (!imagePath) {
-      return 'https://via.placeholder.com/300x200?text=Episode';
+      return 'https://via.placeholder.com/400x200?text=Episode&bg=667eea&color=white';
     }
-    return imagePath.startsWith('http') ? imagePath : `${environment.apiUrl}/storage/${imagePath}`;
+    return imagePath.startsWith('http')
+      ? imagePath
+      : `${environment.apiUrl}/storage/${imagePath}`;
   }
 
   getPlaylistImage(imagePath: string): string {
     if (!imagePath) {
-      return 'https://via.placeholder.com/300x200?text=Playlist';
+      return 'https://via.placeholder.com/120x120?text=Playlist&bg=4f46e5&color=white';
     }
-    return imagePath.startsWith('http') ? imagePath : `${environment.apiUrl}/storage/${imagePath}`;
+    return imagePath.startsWith('http')
+      ? imagePath
+      : `${environment.apiUrl}/storage/${imagePath}`;
   }
 
   getTeamImage(imagePath: string): string {
     if (!imagePath) {
-      return 'https://via.placeholder.com/100x100?text=Avatar';
+      return 'https://via.placeholder.com/100x100?text=Team&bg=6b7280&color=white';
     }
-    return imagePath.startsWith('http') ? imagePath : `${environment.apiUrl}/storage/${imagePath}`;
+    return imagePath.startsWith('http')
+      ? imagePath
+      : `${environment.apiUrl}/storage/${imagePath}`;
+  }
+
+  // Utility method to format duration 
+  formatDuration(seconds: number): string {
+    if (!seconds) return '45:30'; 
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs.toString().padStart(2, '0')}`;
   }
 }

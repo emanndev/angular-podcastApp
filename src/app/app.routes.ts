@@ -1,15 +1,12 @@
 import { Routes } from '@angular/router';
-
+import { LoginComponent } from './admin/auth/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
 import { adminRoutes } from './admin.routes';
 
 export const routes: Routes = [
   {
     path: 'login',
-    loadComponent: () =>
-      import('./admin/auth/login/login.component').then(
-        (m) => m.LoginComponent
-      ),
+    component: LoginComponent,
   },
 
   // Admin Routes
