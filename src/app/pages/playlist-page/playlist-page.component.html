@@ -1,0 +1,37 @@
+<div class="playlist-container">
+  <h1>🎵 Featured Playlists</h1>
+  <p class="description">Curated collections of our top episodes for every mood.</p>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search playlists..."
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()"
+    />
+  </div>
+
+   <div class="grid" *ngIf="!loading">
+    <div class="card" *ngFor="let playlist of filteredPlaylists">
+      <div class="image-wrapper">
+  <img
+    [src]="'https://picsum.photos/seed/' + playlist.id + '/600/300'"
+    [alt]="playlist.name"
+  />
+  <span class="badge">{{ playlist.episodes?.length || 0 }} Episodes</span>
+</div>
+
+
+      <div class="card-content">
+        <h2>{{ playlist.name }}</h2>
+        <p>{{ playlist.description | slice: 0:100 }}...</p>
+      
+
+        <a [routerLink]="['/playlists', playlist.id]" class="view-link">View Playlist →</a>
+      </div>
+    </div>
+  </div>
+  <p *ngIf="!loading && filteredPlaylists.length === 0" class="no-results">
+   No playlists found matching "{{ searchTerm }}"
+</p>
+</div>

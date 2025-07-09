@@ -43,6 +43,13 @@ export const routes: Routes = [
     import('./pages/confessions/confessions.component').then((m) => m.ConfessionsComponent),
 },
 
+{
+  path: 'playlists',
+  loadComponent: () =>
+    import('./pages/playlist-page/playlist-page.component').then(
+      (m) => m.PlaylistPageComponent
+    ),
+},
 
   // Default & Wildcard
   { path: '', redirectTo: '/home', pathMatch: 'full' },
