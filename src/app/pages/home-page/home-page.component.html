@@ -1,7 +1,10 @@
 <!-- Hero Section -->
 <section class="hero">
   <h1>🎙️ Real Voices. Real Stories.</h1>
-  <p>Welcome to Rants & Confessions – where every episode tells a story worth hearing.</p>
+  <p>
+    Welcome to Rants & Confessions – where every episode tells a story worth
+    hearing.
+  </p>
 </section>
 
 <!-- Featured Episodes -->
@@ -10,11 +13,14 @@
   <div class="episode-grid">
     <div class="episode-card" *ngFor="let episode of featuredEpisodes">
       <a [routerLink]="['/episode', episode.id]">
-        <img [src]="getEpisodeImage(episode.img_url)" alt="{{ episode.title }}" />
+        <img
+          [src]="getEpisodeImage(episode.img_url)"
+          alt="{{ episode.title }}"
+        />
       </a>
       <div class="episode-content">
         <h3>{{ episode.title }}</h3>
-        <p>{{ episode.description | slice: 0:100 }}...</p>
+        <p>{{ episode.description | slice : 0 : 100 }}...</p>
         <audio [src]="episode.audio_url" controls></audio>
       </div>
     </div>
@@ -27,11 +33,14 @@
   <div class="episode-grid">
     <div class="episode-card" *ngFor="let episode of latestEpisodes">
       <a [routerLink]="['/episode', episode.id]">
-        <img [src]="getEpisodeImage(episode.img_url)" alt="{{ episode.title }}" />
+        <img
+          [src]="getEpisodeImage(episode.img_url)"
+          alt="{{ episode.title }}"
+        />
       </a>
       <div class="episode-content">
         <h3>{{ episode.title }}</h3>
-        <p>{{ episode.description | slice: 0:100 }}...</p>
+        <p>{{ episode.description | slice : 0 : 100 }}...</p>
         <audio [src]="episode.audio_url" controls></audio>
       </div>
     </div>
@@ -43,9 +52,11 @@
   <h2>🎵 Featured Playlists</h2>
   <div class="playlist-grid">
     <div class="playlist-card" *ngFor="let playlist of featuredPlaylists">
-      <h3>{{ playlist.title }}</h3>
-      <p>{{ playlist.description | slice: 0:100 }}...</p>
-      <a [routerLink]="['/playlists', playlist.id]" class="view-link">View Playlist</a>
+      <h3>{{ playlist.name }}</h3>
+      <p>{{ playlist.description | slice : 0 : 100 }}...</p>
+      <a [routerLink]="['/playlists', playlist.id]" class="view-link"
+        >View Playlist</a
+      >
     </div>
   </div>
 </section>
@@ -55,15 +66,25 @@
   <h2>👥 Meet the Team</h2>
   <div class="team-grid">
     <div class="team-card" *ngFor="let member of teamMembers">
-      <img [src]="getTeamImage(member.img_url)" alt="{{ member.name }}" />
+      <img [src]="getTeamImage(member.image)" alt="{{ member.name }}" />
       <div class="team-info">
         <h4>{{ member.name }}</h4>
         <p>{{ member.bio }}</p>
         <div class="socials">
-          <a *ngIf="member.twitter" [href]="member.twitter" target="_blank" aria-label="Twitter">
+          <a
+            *ngIf="member.twitter"
+            [href]="member.twitter"
+            target="_blank"
+            aria-label="Twitter"
+          >
             <img src="assets/icons/twitter.svg" alt="Twitter" />
           </a>
-          <a *ngIf="member.facebook" [href]="member.facebook" target="_blank" aria-label="Facebook">
+          <a
+            *ngIf="member.facebook"
+            [href]="member.facebook"
+            target="_blank"
+            aria-label="Facebook"
+          >
             <img src="assets/icons/facebook.svg" alt="Facebook" />
           </a>
         </div>

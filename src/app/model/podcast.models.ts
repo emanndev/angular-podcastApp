@@ -42,8 +42,6 @@ export interface Confession {
 // Episode
 
 export interface Episode {
-
-
   id: number;
   title: string;
   description: string;
@@ -59,10 +57,8 @@ export interface Episode {
   featured?: number;
   slug?: string;
   created_at: string;
-   img_url: string;
+  updated_at?: string;
 }
-
-
 
 // Playlist
 
@@ -84,7 +80,6 @@ export interface PlaylistForm {
 // Team Member
 
 export interface TeamMember {
-img_url: string;
   id: number;
   name: string;
   bio: string;
@@ -111,7 +106,6 @@ export interface ToastMessage {
   message: string;
 }
 
-
 export interface Podcast {
   id: number;
   title: string;
@@ -122,5 +116,3 @@ export interface Podcast {
   date: string;
   image?: string;
 }
-
-

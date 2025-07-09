@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { adminRoutes } from './admin.routes';
 
-
 export const routes: Routes = [
   {
     path: 'login',
@@ -12,14 +11,6 @@ export const routes: Routes = [
         (m) => m.LoginComponent
       ),
   },
-  {
-    path: 'register',
-    loadComponent: () =>
-      import('./admin/auth/register/register.component').then(
-        (m) => m.RegisterComponent
-      ),
-  },
-
 
   // Admin Routes
   {
@@ -39,11 +30,12 @@ export const routes: Routes = [
   },
 
   {
-  path: 'episode/:id',
-  loadComponent: () =>
-    import('./pages/episode-detail/episode-detail.component').then(m => m.EpisodeDetailComponent),
-},
-
+    path: 'episode/:id',
+    loadComponent: () =>
+      import('./pages/episode-detail/episode-detail.component').then(
+        (m) => m.EpisodeDetailComponent
+      ),
+  },
 
   // Default & Wildcard
   { path: '', redirectTo: '/home', pathMatch: 'full' },
