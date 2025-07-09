@@ -1,0 +1,11 @@
+<div class="audio-bar" *ngIf="currentEpisode">
+  <div class="info">
+    <strong>{{ currentEpisode.title }}</strong>
+  </div>
+
+  <audio id="main-audio" [src]="currentEpisode.audio_url" preload="metadata"></audio>
+
+  <button (click)="togglePlay()">
+    {{ isPlaying ? 'Pause' : 'Play' }}
+  </button>
+</div>

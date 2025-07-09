@@ -1,0 +1,8 @@
+@use "src/styles/variables.scss" as *;
+
+.episodes-list {
+  padding: $spacing-lg;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: $spacing-lg;
+}

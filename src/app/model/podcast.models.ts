@@ -105,3 +105,16 @@ export interface ToastMessage {
   type: ToastType;
   message: string;
 }
+
+
+export interface Podcast {
+  id: number;
+  title: string;
+  description: string;
+  thumbnailUrl: string;
+  audioUrl: string;
+  tags: string[];
+  date: string;
+}
+
+

@@ -1,0 +1,25 @@
+@use "src/styles/variables.scss" as *;
+
+.audio-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: $dark-bg;
+  color: $light-text;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-sm $spacing-md;
+  font-family: $font-primary;
+  z-index: 1000;
+
+  button {
+    @include button($accent-color);
+    font-size: 0.875rem;
+  }
+
+  .info {
+    font-size: 0.9rem;
+  }
+}
