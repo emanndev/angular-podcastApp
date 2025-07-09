@@ -45,6 +45,13 @@ export const routes: Routes = [
       ),
   },
 
+  {
+  path: 'episode/:id',
+  loadComponent: () =>
+    import('./pages/episode-detail/episode-detail.component').then(m => m.EpisodeDetailComponent),
+},
+
+
   // Default & Wildcard
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home' },

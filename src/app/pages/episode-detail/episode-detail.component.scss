@@ -1,0 +1,31 @@
+.error-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: #fff0f0;
+  border: 1px solid #ffcccc;
+  border-radius: 8px;
+  margin: 2rem auto;
+  max-width: 500px;
+}
+
+.error-message {
+  color: #b00020;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.back-home-btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background-color: #004721;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #007a3d;
+  }
+}

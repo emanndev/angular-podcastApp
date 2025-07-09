@@ -9,9 +9,9 @@
   <h2>🔥 Featured Episodes</h2>
   <div class="episode-grid">
     <div class="episode-card" *ngFor="let episode of featuredEpisodes">
-      <img [src]="getEpisodeImage(episode.img_url)" alt="{{ episode.title }}" />
-
-
+      <a [routerLink]="['/episode', episode.id]">
+        <img [src]="getEpisodeImage(episode.img_url)" alt="{{ episode.title }}" />
+      </a>
       <div class="episode-content">
         <h3>{{ episode.title }}</h3>
         <p>{{ episode.description | slice: 0:100 }}...</p>
@@ -26,9 +26,9 @@
   <h2>🎧 Recent Episodes</h2>
   <div class="episode-grid">
     <div class="episode-card" *ngFor="let episode of latestEpisodes">
-      <img [src]="getEpisodeImage(episode.img_url)" alt="{{ episode.title }}" />
-
-
+      <a [routerLink]="['/episode', episode.id]">
+        <img [src]="getEpisodeImage(episode.img_url)" alt="{{ episode.title }}" />
+      </a>
       <div class="episode-content">
         <h3>{{ episode.title }}</h3>
         <p>{{ episode.description | slice: 0:100 }}...</p>
@@ -56,7 +56,6 @@
   <div class="team-grid">
     <div class="team-card" *ngFor="let member of teamMembers">
       <img [src]="getTeamImage(member.img_url)" alt="{{ member.name }}" />
-
       <div class="team-info">
         <h4>{{ member.name }}</h4>
         <p>{{ member.bio }}</p>
@@ -73,10 +72,9 @@
   </div>
 </section>
 
-
-<!-- Submit Confession (Now at the bottom) -->
+<!-- Submit Confession CTA -->
 <section class="confess-cta">
-  <h2> Got something on your mind?</h2>
+  <h2>Got something on your mind?</h2>
   <p>Share your thoughts anonymously with the world.</p>
   <a routerLink="/confessions" class="confess-button">Submit Your Confession</a>
 </section>
