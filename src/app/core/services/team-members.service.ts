@@ -36,6 +36,10 @@ export class TeamMembersService {
       );
   }
 
+  getAllTeamMembers(): Observable<TeamMember[]> {
+    return this.getAll();
+  }
+
   create(member: Partial<TeamMember>): Observable<TeamMember> {
     return this.http
       .post<ApiResponse<TeamMember>>(`${this.baseUrl}/team`, member)

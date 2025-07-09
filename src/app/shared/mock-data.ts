@@ -1,4 +1,4 @@
-import { Confession, Episode, Playlist } from '../model/podcast.models';
+import { Confession, Episode,  Playlist } from '../model/podcast.models';
 
 export const MOCK_CONFESSIONS: Confession[] = [
   {
@@ -19,6 +19,8 @@ export const MOCK_CONFESSIONS: Confession[] = [
     created_at: '2024-12-05T08:45:00Z',
   },
 ];
+
+// import { Episode } from './podcast.models';
 
 export const MOCK_EPISODES: Episode[] = [
   {
@@ -57,6 +59,38 @@ export const MOCK_EPISODES: Episode[] = [
     season: 1,
     episode: 3,
   },
+  {
+    id: 7,
+    title: 'Emotional Intelligence',
+    description: 'In this episode of Rants & Confessions, we dive into emotional intelligence...',
+    img_url: 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_image/9275051/9275051-1745254506840-67418a603bf75.jpg',
+    audio_url: 'https://anchor.fm/s/37e1314c/podcast/play/10157621...',
+    created_at: '2024-02-01'
+  },
+  {
+    id: 8,
+    title: "Checkin' In",
+    description: "How are you doing? How have you been? Today, I talked about a few things that's been going on...",
+    img_url: 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_image/9275051/9275051-1694356087111-9a4f01ea45dd3.jpg',
+    audio_url: 'https://anchor.fm/s/37e1314c/podcast/play/75710918...',
+    created_at: '2024-01-15'
+  },
+  {
+    id: 9,
+    title: 'A Dark Place - Unscripted',
+    description: "This is an unscripted episode. I believe we're not alone...",
+    img_url: 'https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_image/9275051/9275051-1623100356008-3056f1d57f4ba.jpg',
+    audio_url: 'https://anchor.fm/s/37e1314c/podcast/play/35029375...',
+    created_at: '2023-12-10'
+  },
+  {
+    id: 10,
+    title: 'Gender Equality: My Two Cents',
+    description: 'In this episode, I share my views on equality...',
+    img_url: 'https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_image/9275051/9275051-1648253016695-b6924f46eb1bb.jpg',
+    audio_url: 'https://anchor.fm/s/37e1314c/podcast/play/49628761...',
+    created_at: '2023-11-25'
+  }
 ];
 
 export const MOCK_PLAYLISTS: Playlist[] = [

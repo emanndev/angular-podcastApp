@@ -1,65 +1,66 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Podcast } from '../../model/podcast.models';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Episode, Podcast } from '../../model/podcast.models';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PodcastService {
-  private podcasts: Podcast[] = [
-    {
-      id: 1,
-      title: 'Life Talks with Mabel',
-      description: 'Real stories, real people, real inspiration.',
-      image: 'https://via.placeholder.com/300x200?text=Podcast+1',
-      tags: ['Life', 'Motivation'],
-      created_at: '2025-07-01',
-      episodes: []
-    },
-    {
-      id: 2,
-      title: 'Tech Vibes',
-      description: 'Weekly dive into tech and gadgets.',
-      image: 'https://via.placeholder.com/300x200?text=Podcast+2',
-      tags: ['Tech', 'News'],
-      created_at: '2025-06-20',
-      episodes: []
-    },
-    {
-      id: 3,
-      title: 'HealthCast',
-      description: 'Tips on living a healthy lifestyle.',
-      image: 'https://via.placeholder.com/300x200?text=Podcast+3',
-      tags: ['Health', 'Wellness'],
-      created_at: '2025-06-15',
-      episodes: []
-    },
-    {
-      id: 4,
-      title: 'Money Talks',
-      description: 'Personal finance made simple.',
-      image: 'https://via.placeholder.com/300x200?text=Podcast+4',
-      tags: ['Finance', 'Money'],
-      created_at: '2025-06-10',
-      episodes: []
-    },
-    {
-      id: 5,
-      title: 'Bold Women Voices',
-      description: 'Women leading change in Africa.',
-      image: 'https://via.placeholder.com/300x200?text=Podcast+5',
-      tags: ['Women', 'Leadership'],
-      created_at: '2025-06-05',
-      episodes: []
-    }
-  ];
+  private apiUrl = environment.apiUrl;
 
-  getAll(): Observable<Podcast[]> {
-    return of(this.podcasts);
+  constructor(private http: HttpClient) {}
+
+  // 🔹 Get latest episodes
+  getLatestEpisodes(limit: number): Observable<Episode[]> {
+    return this.http
+      .get<{ data: any[] }>(`${this.apiUrl}/episodes?limit=${limit}`)
+      .pipe(
+        map((response) =>
+          response.data.map((episode) => this.transformToEpisode(episode))
+        )
+      );
   }
 
-  getById(id: number): Observable<Podcast | undefined> {
-    const podcast = this.podcasts.find(p => p.id === id);
-    return of(podcast);
+  // 🔹 Search episodes
+  searchEpisodes(query: string): Observable<Episode[]> {
+    return this.http
+      .get<{ data: any[] }>(`${this.apiUrl}/episodes/search?query=${query}`)
+      .pipe(
+        map((response) =>
+          response.data.map((episode) => this.transformToEpisode(episode))
+        )
+      );
   }
+
+  // 🔹 Get all podcasts
+  getAllPodcasts(): Observable<Podcast[]> {
+    return this.http.get<Podcast[]>(`${this.apiUrl}/podcasts`);
+  }
+
+  // 🔹 Get episode by ID
+  getEpisodeById(id: number): Observable<Episode> {
+    return this.http
+      .get<any>(`${this.apiUrl}/episodes/${id}`)
+      .pipe(map(this.transformToEpisode));
+  }
+
+  // 🔹 Get podcast by ID
+  getPodcastById(id: number): Observable<Podcast> {
+    return this.http.get<Podcast>(`${this.apiUrl}/podcasts/${id}`);
+  }
+
+  // 🔁 Helper to format backend response into Episode model
+  private transformToEpisode = (episode: any): Episode => ({
+    id: episode.id,
+    title: episode.title,
+    description: episode.description,
+  
+    img_url: episode.img_url,      // ✅ ensure compatibility if needed elsewhere
+    audio_url: episode.audio_url,
+    created_at: episode.created_at,
+    // updated_at: episode.updated_at || '',
+  });
 }

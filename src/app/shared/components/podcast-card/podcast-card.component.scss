@@ -1,45 +1,33 @@
-@use "src/styles/variables.scss" as *;
-
 .card {
-  @include card;
+  background: #ffffff; /* light-bg */
+  padding: 2rem;       /* spacing-lg */
+  border-radius: 8px;  /* radius-md */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
   cursor: pointer;
-  transition: box-shadow 0.3s ease;
+  transition: transform 0.2s ease;
+}
 
-  &:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  }
+.card:hover {
+  transform: translateY(-5px);
+}
 
-  img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: $radius-sm;
-  }
+.card img {
+  width: 100%;
+  border-radius: 8px;
+}
 
-  .info {
-    margin-top: $spacing-md;
+.card .info {
+  margin-top: 1rem; /* spacing-md */
+}
 
-    h3 {
-      font-family: $font-primary;
-      color: $text-color;
-    }
+.card .description {
+  font-size: 0.9rem;
+  color: #333;
+}
 
-    .description {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    .tags {
-      margin-top: $spacing-sm;
-
-      .tag {
-        background: $accent-color;
-        color: $light-text;
-        padding: 2px 6px;
-        font-size: 0.75rem;
-        border-radius: $radius-sm;
-        margin-right: 0.25rem;
-      }
-    }
-  }
+.card small.date {
+  display: block;
+  margin-top: 0.5rem;
+  color: #888;
 }
