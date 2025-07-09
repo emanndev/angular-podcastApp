@@ -25,4 +25,10 @@ export class ConfessionsService {
       {}
     );
   }
+  // ✅ Submit a new anonymous confession
+submitConfession(data: Partial<Confession>): Observable<Confession> {
+  return this.http.post<Confession>(`${this.baseUrl}/confessions`, data);
+}
+
+
 }
