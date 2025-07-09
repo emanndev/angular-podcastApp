@@ -22,7 +22,6 @@ export interface LoginResponse {
   };
 }
 
-
 export interface LoginRequest {
   email: string;
   password: string;
@@ -33,7 +32,11 @@ export interface LoginRequest {
 export interface Confession {
   id: number;
   message: string;
+  category?: string;
+  emotion?: string;
+  is_approved?: boolean;
   created_at: string;
+  updated_at?: string;
 }
 
 // Episode
@@ -44,7 +47,17 @@ export interface Episode {
   id: number;
   title: string;
   description: string;
+  img_url: string;
   audio_url: string;
+  duration: string;
+  posted_on: string;
+  season: number;
+  episode: number;
+  spotify_url?: string;
+  apple_podcasts_url?: string;
+  archive?: number;
+  featured?: number;
+  slug?: string;
   created_at: string;
    img_url: string;
 }
@@ -55,14 +68,15 @@ export interface Episode {
 
 export interface Playlist {
   id: number;
-  title: string;
+  name: string;
   description: string;
   episodes: Episode[];
   created_at: string;
+  updated_at?: string;
 }
 
 export interface PlaylistForm {
-  title: string;
+  name: string;
   description: string;
   episode_ids: number[];
 }
@@ -88,6 +102,15 @@ export interface ApiResponse<T> {
   message?: string;
   status?: string;
 }
+//Toast model
+export type ToastType = 'success' | 'error' | 'info';
+
+export interface ToastMessage {
+  id: number;
+  type: ToastType;
+  message: string;
+}
+
 
 export interface Podcast {
   id: number;

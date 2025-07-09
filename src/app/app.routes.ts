@@ -1,5 +1,9 @@
 import { Routes } from '@angular/router';
 
+import { authGuard } from './core/guards/auth.guard';
+import { adminRoutes } from './admin.routes';
+
+
 export const routes: Routes = [
   {
     path: 'login',
@@ -15,28 +19,17 @@ export const routes: Routes = [
         (m) => m.RegisterComponent
       ),
   },
-  {
-    path: 'admin/episodes/create',
-    loadComponent: () =>
-      import('./admin/episodes/episode-create/episode-create.component').then(
-        (m) => m.EpisodeCreateComponent
-      ),
-    // canActivate: [authGuard],
-  },
-  {
-    path: 'admin/episodes/edit/:id',
-    loadComponent: () =>
-      import('./admin/episodes/episode-form/episode-form.component').then(
-        (m) => m.EpisodeFormComponent
-      ),
-  },
+
+
+  // Admin Routes
   {
     path: 'admin',
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
+
     loadChildren: () => import('./admin.routes').then((m) => m.adminRoutes),
   },
 
-  // ✅ Home Page Route
+  // Home Page Route
   {
     path: 'home',
     loadComponent: () =>

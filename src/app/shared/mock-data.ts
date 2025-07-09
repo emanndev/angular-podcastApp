@@ -25,51 +25,39 @@ export const MOCK_CONFESSIONS: Confession[] = [
 export const MOCK_EPISODES: Episode[] = [
   {
     id: 1,
-    title: 'Entitlement - My Two Cents',
-    description: "Lately, I've been hearing a lot of conversations about entitlement...",
-    img_url: 'https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_image/9275051/9275051-1652105348300-2d46a38bf696a.jpg',
-    audio_url: 'https://anchor.fm/s/37e1314c/podcast/play/51740900...',
-    created_at: '2024-05-01'
+    title: 'First Episode - Welcome!',
+    description: 'An introduction to the podcast and what to expect.',
+    audio_url: 'https://example.com/audio/episode1.mp3',
+    created_at: '2024-12-01T10:00:00Z',
+    img_url: 'https://via.placeholder.com/150',
+    duration: '1800',
+    posted_on: '2024-12-01',
+    season: 1,
+    episode: 1,
   },
   {
     id: 2,
-    title: 'Trip to Togo',
-    description: 'Late last month, I took a trip to Togo with a few friends...',
-    img_url: 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_image/9275051/9275051-1683579267909-4118292e8f6d1.jpg',
-    audio_url: 'https://anchor.fm/s/37e1314c/podcast/play/70020861...',
-    created_at: '2024-04-28'
+    title: 'Deep Dive into Angular',
+    description: 'We explore advanced Angular topics in detail.',
+    audio_url: 'https://example.com/audio/episode2.mp3',
+    created_at: '2024-12-03T09:30:00Z',
+    img_url: 'https://via.placeholder.com/150',
+    duration: '2700',
+    posted_on: '2024-12-03',
+    season: 1,
+    episode: 2,
   },
   {
     id: 3,
-    title: 'Setting Standards',
-    description: 'Are you tired of settling for less than you deserve?',
-    img_url: 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_image/9275051/9275051-1740170443527-272f6875b8799.jpg',
-    audio_url: 'https://anchor.fm/s/37e1314c/podcast/play/98840449...',
-    created_at: '2024-04-20'
-  },
-  {
-    id: 4,
-    title: 'The Quiet Shape of Grief',
-    description: 'In this episode, we talk about grief, what it feels like, and how to support someone grieving...',
-    img_url: 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_image/9275051/9275051-1751115240877-0dac38085a9dd.jpg',
-    audio_url: 'https://anchor.fm/s/37e1314c/podcast/play/10475619...',
-    created_at: '2024-03-12'
-  },
-  {
-    id: 5,
-    title: 'Aggression',
-    description: 'Aggression is defined as a type of behaviour intended to harm...',
-    img_url: 'https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_image/9275051/9275051-1646306705417-349d4346b876b.jpg',
-    audio_url: 'https://anchor.fm/s/37e1314c/podcast/play/48484496...',
-    created_at: '2024-03-05'
-  },
-  {
-    id: 6,
-    title: 'The Chase',
-    description: "As men, we're constantly told to chase the women we want...",
-    img_url: 'https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_image/9275051/9275051-1648544562854-3d50a8ceb796f.jpg',
-    audio_url: 'https://anchor.fm/s/37e1314c/podcast/play/49782133...',
-    created_at: '2024-02-25'
+    title: 'The Art of Debugging',
+    description: 'Techniques and tools for debugging in web apps.',
+    audio_url: 'https://example.com/audio/episode3.mp3',
+    created_at: '2024-12-05T15:45:00Z',
+    img_url: 'https://via.placeholder.com/150',
+    duration: '2100',
+    posted_on: '2024-12-05',
+    season: 1,
+    episode: 3,
   },
   {
     id: 7,
@@ -108,16 +96,39 @@ export const MOCK_EPISODES: Episode[] = [
 export const MOCK_PLAYLISTS: Playlist[] = [
   {
     id: 1,
-    title: 'Tech Trends',
+    name: 'Tech Trends',
     description: 'Latest in tech',
     episodes: [],
     created_at: '2024-12-01T12:00:00Z',
   },
   {
     id: 2,
-    title: 'Mindful Moments',
+    name: 'Mindful Moments',
     description: 'Meditation and wellness',
     episodes: [],
     created_at: '2024-12-05T08:30:00Z',
+  },
+];
+
+export const MOCK_TEAM_MEMBERS = [
+  {
+    id: 1,
+    name: 'Kwame Boateng',
+    bio: 'Sound engineer and podcast host.',
+    image: 'https://i.pravatar.cc/150?img=3',
+    facebook: '',
+    twitter: '',
+    instagram: '',
+    linkedin: '',
+  },
+  {
+    id: 2,
+    name: 'Ama Serwaa',
+    bio: 'Social media manager and voice talent.',
+    image: 'https://i.pravatar.cc/150?img=5',
+    facebook: '',
+    twitter: '',
+    instagram: '',
+    linkedin: '',
   },
 ];

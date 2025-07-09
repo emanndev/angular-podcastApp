@@ -21,10 +21,10 @@
   .confessions-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: var(--element-bg);
+    background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 
     th,
     td {
@@ -35,12 +35,53 @@
     }
 
     th {
-      background-color: var(--bg-color);
+      background-color: #f2f2f2;
       font-weight: 600;
+
+      &.sortable {
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #e4e4e4;
+        }
+      }
     }
 
     tr:hover {
-      background-color: rgba(0, 0, 0, 0.03);
+      background-color: #fafafa;
+    }
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 12px;
+    background-color: #eee;
+    color: #444;
+    font-weight: 500;
+    text-transform: capitalize;
+
+    &.approved {
+      background-color: #d1fae5;
+      color: #047857;
+    }
+
+    &.pending {
+      background-color: #fef3c7;
+      color: #b45309;
+    }
+
+    &.category {
+      background-color: #e0f2fe;
+      color: #0369a1;
+    }
+
+    &.emotion {
+      background-color: #fce7f3;
+      color: #db2777;
     }
   }
 
@@ -49,6 +90,7 @@
     cursor: pointer;
     font-size: 16px;
     margin-right: 0.25rem;
+    background: none;
 
     &.delete-btn {
       color: crimson;
@@ -56,6 +98,37 @@
 
     &.flag-btn {
       color: darkorange;
+    }
+
+    &.approve-btn {
+      color: green;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+    button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background-color: #f8f8f8;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &.active {
+        background-color: #6366f1;
+        color: white;
+        border-color: #6366f1;
+      }
+
+      &:hover:not(.active) {
+        background-color: #e5e5e5;
+      }
     }
   }
 }

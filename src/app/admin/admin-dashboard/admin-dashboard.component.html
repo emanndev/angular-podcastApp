@@ -1,70 +1,373 @@
-<h1 class="welcome-title">Welcome, Admin 👋</h1>
-<div class="dashboard-grid">
-  <a routerLink="/admin/confessions" class="dashboard-card">📬 Confessions</a>
-  <a routerLink="/admin/episodes" class="dashboard-card">🎙️ Episodes</a>
-  <a routerLink="/admin/playlists" class="dashboard-card">📁 Playlists</a>
-  <a routerLink="/admin/team" class="dashboard-card">👥 Team</a>
-</div>
-
 <div class="dashboard-container">
-  <!-- Summary Cards -->
-  <div class="dashboard-stats">
-    <div class="stat-card">
-      <h3>Total Episodes</h3>
-      <p>{{ stats.episodes }}</p>
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1 class="welcome-title">Good morning, Admin 👋</h1>
+      <p class="welcome-subtitle">
+        Here's what's happening with your podcast today
+      </p>
     </div>
-    <div class="stat-card">
-      <h3>Total Confessions</h3>
-      <p>{{ stats.confessions }}</p>
-    </div>
-    <div class="stat-card">
-      <h3>Total Playlists</h3>
-      <p>{{ stats.playlists }}</p>
-    </div>
-    <div class="stat-card">
-      <h3>Total Team</h3>
-      <p>{{ stats.team }}</p>
+    <div class="header-actions">
+      <button class="btn btn-primary" routerLink="/admin/playlists">
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+        New Playlists
+      </button>
     </div>
   </div>
 
-  <!-- Latest Confessions -->
-  <div class="section">
-    <div class="section-header">
-      <h4>Recent Confessions</h4>
-      <button routerLink="/admin/confessions">View All</button>
+  <!-- Stats Overview -->
+  <div class="stats-grid">
+    <div class="stat-card primary">
+      <div class="stat-icon">
+        <svg
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+          />
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.confessions }}</div>
+        <div class="stat-label">Total Confessions</div>
+        <div class="stat-change positive">
+          <svg
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+            />
+          </svg>
+          +{{ stats.growth.confessions }}% from last month
+        </div>
+      </div>
     </div>
-    <ul *ngIf="recentConfessions.length > 0; else noConfessions">
-      <li *ngFor="let confession of recentConfessions">
-        <p>{{ confession.message }}</p>
-        <span>{{ confession.created_at | date : "short" }}</span>
-      </li>
-    </ul>
-    <ng-template #noConfessions>
-      <p>No recent confessions found.</p>
-    </ng-template>
-  </div>
 
-  <!-- Recent Episodes -->
-  <div class="section">
-    <div class="section-header">
-      <h4>Recent Episodes</h4>
-      <button routerLink="/admin/episodes">View All</button>
+    <div class="stat-card secondary">
+      <div class="stat-icon">
+        <svg
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+          />
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.playlists }}</div>
+        <div class="stat-label">Active Playlists</div>
+        <div class="stat-change positive">
+          <svg
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+            />
+          </svg>
+          +{{ stats.growth.playlists }}% from last month
+        </div>
+      </div>
     </div>
-    <ul *ngIf="recentEpisodes.length > 0; else noEpisodes">
-      <li *ngFor="let episode of recentEpisodes">
-        <strong>{{ episode.title }}</strong>
-        <p>{{ episode.created_at | date : "short" }}</p>
-      </li>
-    </ul>
-    <ng-template #noEpisodes>
-      <p>No recent episodes available.</p>
-    </ng-template>
+
+    <div class="stat-card accent">
+      <div class="stat-icon">
+        <svg
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+          />
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">{{ stats.team }}</div>
+        <div class="stat-label">Team Members</div>
+        <div class="stat-change neutral">
+          <svg
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M20 12H4"
+            />
+          </svg>
+          No change
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card info">
+      <div class="stat-icon">
+        <svg
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+          />
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-value">2.4k</div>
+        <div class="stat-label">Total Listeners</div>
+        <div class="stat-change positive">
+          <svg
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+            />
+          </svg>
+          +18% from last month
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Quick Actions -->
-  <div class="quick-actions">
-    <button routerLink="/admin/episodes/create">+ New Episode</button>
-    <button routerLink="/admin/playlists/create">+ New Playlist</button>
-    <button routerLink="/admin/team/create">+ New Team Member</button>
+  <div class="quick-actions-grid">
+    <a routerLink="/admin/confessions" class="action-card">
+      <div class="action-icon">
+        <svg
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+          />
+        </svg>
+      </div>
+      <div class="action-content">
+        <h3>Manage Confessions</h3>
+        <p>Review and moderate confessions</p>
+      </div>
+    </a>
+
+    <a routerLink="/admin/playlists" class="action-card">
+      <div class="action-icon">
+        <svg
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+          />
+        </svg>
+      </div>
+      <div class="action-content">
+        <h3>Organize Playlists</h3>
+        <p>Create and edit episode playlists</p>
+      </div>
+    </a>
+
+    <a routerLink="/admin/team" class="action-card">
+      <div class="action-icon">
+        <svg
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+          />
+        </svg>
+      </div>
+      <div class="action-content">
+        <h3>Team Management</h3>
+        <p>Add and manage team members</p>
+      </div>
+    </a>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="content-grid">
+    <div class="section recent-confessions">
+      <div class="section-header">
+        <h3>Recent Confessions</h3>
+        <button class="btn btn-secondary" routerLink="/admin/confessions">
+          View All
+        </button>
+      </div>
+
+      <div
+        class="confession-list"
+        *ngIf="!isLoading && recentConfessions.length > 0"
+      >
+        <div
+          class="confession-item"
+          *ngFor="let confession of recentConfessions"
+        >
+          <div class="confession-content">
+            <p class="confession-text">
+              {{ confession.message | slice : 0 : 120
+              }}{{ confession.message.length > 120 ? "..." : "" }}
+            </p>
+            <div class="confession-meta">
+              <span class="confession-time">{{
+                getTimeAgo(confession.created_at)
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="empty-state"
+        *ngIf="!isLoading && recentConfessions.length === 0"
+      >
+        <svg
+          width="48"
+          height="48"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+          />
+        </svg>
+        <p>No confessions yet</p>
+      </div>
+
+      <div class="loading-state" *ngIf="isLoading">
+        <div class="skeleton-loader"></div>
+        <div class="skeleton-loader"></div>
+        <div class="skeleton-loader"></div>
+      </div>
+    </div>
+
+    <div class="section analytics-preview">
+      <div class="section-header">
+        <h3>Analytics Overview</h3>
+      </div>
+
+      <div class="analytics-chart">
+        <div class="chart-placeholder">
+          <svg width="100%" height="200" viewBox="0 0 400 200">
+            <defs>
+              <linearGradient
+                id="chartGradient"
+                x1="0%"
+                y1="0%"
+                x2="0%"
+                y2="100%"
+              >
+                <stop
+                  offset="0%"
+                  style="stop-color: #6366f1; stop-opacity: 0.3"
+                />
+                <stop
+                  offset="100%"
+                  style="stop-color: #6366f1; stop-opacity: 0"
+                />
+              </linearGradient>
+            </defs>
+            <polyline
+              fill="url(#chartGradient)"
+              stroke="#6366f1"
+              stroke-width="2"
+              points="0,150 50,120 100,140 150,90 200,110 250,70 300,95 350,60 400,80 400,200 0,200"
+            />
+          </svg>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-color primary"></div>
+            <span>Confessions</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color secondary"></div>
+            <span>Listeners</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

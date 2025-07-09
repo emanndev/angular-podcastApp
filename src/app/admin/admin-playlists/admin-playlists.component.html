@@ -1,20 +1,67 @@
 <div class="admin-playlists-container">
-  <h2>Playlists</h2>
-
-  <div *ngIf="loading">Loading playlists...</div>
-
-  <div class="playlist-grid" *ngIf="!loading && playlists.length > 0">
-    <div class="playlist-card" *ngFor="let playlist of playlists">
-      <h3>{{ playlist.title }}</h3>
-      <p>{{ playlist.description }}</p>
-      <p><strong>Episodes:</strong> {{ playlist.episodes.length }}</p>
-      <p>
-        <strong>Created:</strong> {{ playlist.created_at | date : "short" }}
-      </p>
-      <button [routerLink]="['/admin/playlists/edit', playlist.id]">Edit</button>
-
-    </div>
+  <div class="header-section">
+    <h2>Playlists</h2>
+    <button mat-flat-button color="primary" (click)="openCreateDialog()">
+      + Add Playlist
+    </button>
   </div>
 
-  <div *ngIf="!loading && playlists.length === 0">No playlists available.</div>
+  <div *ngIf="loading" class="loading-message">
+    <mat-icon>refresh</mat-icon>
+    Loading playlists...
+  </div>
+
+  <div *ngIf="!loading && playlists.length > 0" class="playlist-grid">
+    <mat-card *ngFor="let playlist of playlists" class="playlist-card">
+      <mat-card-header>
+        <mat-card-title>{{ playlist.name }}</mat-card-title>
+        <mat-card-subtitle>
+          Created: {{ playlist.created_at | date : "short" }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p class="description">
+          {{ playlist.description || "No description available" }}
+        </p>
+        <div class="playlist-stats">
+          <span class="episodes-count">
+            <mat-icon>playlist_play</mat-icon>
+            {{ (playlist.episodes && playlist.episodes.length) || 0 }} Episodes
+          </span>
+          <span class="status-badge" [class.active]="playlist.episodes && playlist.episodes.length > 0">
+            {{ playlist.episodes && playlist.episodes.length > 0 ? 'Active' : 'Empty' }}
+          </span>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button 
+          mat-button 
+          color="primary" 
+          [routerLink]="['/admin/playlists', playlist.id]"
+          *ngIf="playlist.episodes && playlist.episodes.length > 0">
+          <mat-icon>visibility</mat-icon>
+          View
+        </button>
+        <button mat-button color="accent" (click)="openEditDialog(playlist)">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+        <button mat-button color="warn" (click)="deletePlaylist(playlist.id)">
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div *ngIf="!loading && playlists.length === 0" class="empty-state">
+    <mat-icon class="empty-icon">playlist_add</mat-icon>
+    <h3>No playlists available</h3>
+    <p>Create your first playlist to get started</p>
+    <button mat-flat-button color="primary" (click)="openCreateDialog()">
+      Create Playlist
+    </button>
+  </div>
 </div>

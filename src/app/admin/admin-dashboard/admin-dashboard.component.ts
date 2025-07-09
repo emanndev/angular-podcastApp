@@ -14,14 +14,18 @@ import { Confession, Episode } from '../../model/podcast.models';
 })
 export class AdminDashboardComponent implements OnInit {
   stats = {
-    episodes: 0,
     confessions: 0,
     playlists: 0,
     team: 0,
+    growth: {
+      confessions: 12,
+      playlists: 8,
+      team: 0,
+    },
   };
 
   recentConfessions: Confession[] = [];
-  recentEpisodes: Episode[] = [];
+  isLoading = true;
 
   constructor(
     private authService: AuthService,
@@ -30,9 +34,7 @@ export class AdminDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadStats();
     this.loadRecentConfessions();
-    this.loadRecentEpisodes();
   }
 
   logout() {
@@ -40,50 +42,44 @@ export class AdminDashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  private loadStats() {
-    // Replace with real endpoints if they exist
-    this.http
-      .get<any>('https://api.rantsnconfess.com/v1/dashboard/summary')
-      .subscribe({
-        next: (res) => {
-          this.stats = {
-            episodes: res.episodes || 0,
-            confessions: res.confessions || 0,
-            playlists: res.playlists || 0,
-            team: res.team || 0,
-          };
-        },
-        error: () => {
-          console.warn(
-            '⚠️ Failed to load dashboard summary. Using default 0 values.'
-          );
-        },
-      });
-  }
-
   private loadRecentConfessions() {
     this.http
       .get<Confession[]>('https://api.rantsnconfess.com/v1/confessions')
       .subscribe({
         next: (confessions) => {
-          this.recentConfessions = confessions.slice(0, 3);
+          this.recentConfessions = confessions.slice(0, 5);
+          this.stats.confessions = confessions.length;
+          this.isLoading = false;
         },
         error: () => {
           this.recentConfessions = [];
+          this.isLoading = false;
         },
       });
   }
 
-  private loadRecentEpisodes() {
-    this.http
-      .get<Episode[]>('https://api.rantsnconfess.com/v1/episodes')
-      .subscribe({
-        next: (episodes) => {
-          this.recentEpisodes = episodes.slice(0, 3);
-        },
-        error: () => {
-          this.recentEpisodes = [];
-        },
-      });
+  getStatusColor(status: string): string {
+    switch (status) {
+      case 'active':
+        return 'green';
+      case 'pending':
+        return 'yellow';
+      case 'inactive':
+        return 'gray';
+      default:
+        return 'gray';
+    }
+  }
+
+  getTimeAgo(date: string): string {
+    const now = new Date();
+    const past = new Date(date);
+    const diffInMs = now.getTime() - past.getTime();
+    const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+
+    if (diffInHours < 1) return 'Just now';
+    if (diffInHours < 24) return `${diffInHours}h ago`;
+    const diffInDays = Math.floor(diffInHours / 24);
+    return `${diffInDays}d ago`;
   }
 }
