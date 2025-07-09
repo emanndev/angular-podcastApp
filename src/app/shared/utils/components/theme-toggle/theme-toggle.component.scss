@@ -1,0 +1,17 @@
+.theme-toggle {
+  position: relative;
+  border: none;
+  margin-bottom: 10px;
+  background: transparent;
+  padding: 4px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 300;
+
+  &:hover {
+    background-color: #cfd1d4bb;
+    transform: scale(1.2);
+    transition: all 0.3s ease;
+  }
+}

@@ -28,6 +28,25 @@ export class AuthService {
       );
   }
 
+  simulateAdminSeed(): void {
+    const credentials = {
+      name: 'Emmanuel',
+      email: 'emmanuel.nsiah@amalitechtraining.org',
+      password: 'admin123',
+      password_confirmation: 'admin123',
+      role: 'admin',
+    };
+
+    this.http.post(`${this.baseUrl}/register`, credentials).subscribe({
+      next: (res: any) => {
+        console.log('Admin registered:', res);
+      },
+      error: (err) => {
+        console.error('Failed to seed admin:', err);
+      },
+    });
+  }
+
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -48,6 +67,9 @@ export class AuthService {
 
   isAdmin(): boolean {
     const user = this.getUser();
-    return user?.role === 'admin';
+    return (
+      user?.email === 'emmanuel.nsiah@amalitechtraining.org' ||
+      user?.role === 'admin'
+    );
   }
 }

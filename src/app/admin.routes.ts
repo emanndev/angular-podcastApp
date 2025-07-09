@@ -1,38 +1,38 @@
 import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './pages/admin-layout/admin-layout.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { AdminConfessionsComponent } from './admin/admin-confessions/admin-confessions.component';
-import { AdminEpisodesComponent } from './admin/admin-episodes/admin-episodes.component';
-import { AdminPlaylistsComponent } from './admin/admin-playlists/admin-playlists.component';
 
 export const adminRoutes: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
     children: [
-      { path: 'dashboard', component: AdminDashboardComponent },
-      { path: 'confessions', component: AdminConfessionsComponent },
-      { path: 'episodes', component: AdminEpisodesComponent },
-      { path: 'playlists', component: AdminPlaylistsComponent },
       {
-        path: 'playlists/create',
+        path: 'dashboard',
         loadComponent: () =>
-          import(
-            './admin/playlists/create-playlist/create-playlist.component'
-          ).then((m) => m.CreatePlaylistComponent),
+          import('./admin/admin-dashboard/admin-dashboard.component').then(
+            (m) => m.AdminDashboardComponent
+          ),
       },
       {
-        path: 'playlists/edit/:id',
+        path: 'confessions',
         loadComponent: () =>
-          import(
-            './admin/playlists/edit-playlist/edit-playlist.component'
-          ).then((m) => m.EditPlaylistComponent),
+          import('./admin/admin-confessions/admin-confessions.component').then(
+            (m) => m.AdminConfessionsComponent
+          ),
       },
       {
-        path: 'team/create',
+        path: 'playlists',
         loadComponent: () =>
-          import('./admin/team/create-team/create-team.component').then(
-            (m) => m.CreateTeamComponent
+          import('./admin/admin-playlists/admin-playlists.component').then(
+            (m) => m.AdminPlaylistsComponent
+          ),
+      },
+      {
+        path: 'team',
+        loadComponent: () =>
+          import('./admin/admin-team/admin-team.component').then(
+            (m) => m.AdminTeamComponent
           ),
       },
     ],
