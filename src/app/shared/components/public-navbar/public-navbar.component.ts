@@ -10,4 +10,14 @@ import { ThemeToggleComponent } from '../../utils/components/theme-toggle/theme-
   templateUrl: './public-navbar.component.html',
   styleUrls: ['./public-navbar.component.scss'],
 })
-export class PublicNavbarComponent {}
+export class PublicNavbarComponent {
+  isMobileMenuOpen = false;
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
+  }
+}
