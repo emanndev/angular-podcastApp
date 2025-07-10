@@ -54,9 +54,27 @@ export class TeamMemberDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  submit() {
-    if (this.form.valid) {
-      this.dialogRef.close(this.form.value);
-    }
+ submit() {
+  if (this.form.valid) {
+    const formValues = this.form.value;
+
+    const social_media_links = [
+      { platform: 'Facebook', url: formValues.facebook },
+      { platform: 'Twitter', url: formValues.twitter },
+      { platform: 'Instagram', url: formValues.instagram },
+      { platform: 'LinkedIn', url: formValues.linkedin },
+    ].filter(link => link.url); // Remove empty URLs
+
+    const payload = {
+      name: formValues.name,
+      role: 'Team Member',
+      bio: formValues.bio,
+      profile_image: formValues.image,
+      social_media_links,
+    };
+
+    this.dialogRef.close(payload);
   }
+}
+
 }

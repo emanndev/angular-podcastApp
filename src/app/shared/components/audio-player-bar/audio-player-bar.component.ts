@@ -34,6 +34,7 @@ export class AudioPlayerBarComponent implements OnInit, OnDestroy {
   progress = 0;
   volume = 1;
   playbackRate = 1;
+  isMobileExpanded = false;
 
   private playbackRates = [0.5, 0.75, 1, 1.25, 1.5, 2];
   private currentRateIndex = 2;
@@ -92,6 +93,10 @@ export class AudioPlayerBarComponent implements OnInit, OnDestroy {
       this.audioElement.nativeElement.pause();
       this.isPlaying = false;
     }
+  }
+
+  toggleMobilePlayer() {
+    this.isMobileExpanded = !this.isMobileExpanded;
   }
 
   closePlayer() {

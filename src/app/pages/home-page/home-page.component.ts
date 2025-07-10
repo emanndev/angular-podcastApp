@@ -5,7 +5,12 @@ import { EpisodeService } from '../../core/services/episode.service';
 import { PlaylistService } from '../../core/services/playlist.service';
 import { TeamMembersService } from '../../core/services/team-members.service';
 import { PublicNavbarComponent } from '../../shared/components/public-navbar/public-navbar.component';
-import { Episode, Playlist, TeamMember } from '../../model/podcast.models';
+import {
+  Episode,
+  Playlist,
+  TeamMember,
+  DisplayPlaylist,
+} from '../../model/podcast.models';
 import { environment } from '../../../environments/environment';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 
@@ -20,7 +25,7 @@ export class HomePageComponent implements OnInit {
   episodes: Episode[] = [];
   featuredEpisodes: Episode[] = [];
   latestEpisodes: Episode[] = [];
-  featuredPlaylists: Playlist[] = [];
+  featuredPlaylists: DisplayPlaylist[] = [];
   teamMembers: TeamMember[] = [];
 
   playlistsLoaded = false;
@@ -65,7 +70,12 @@ export class HomePageComponent implements OnInit {
   private fetchPlaylists(): void {
     this.playlistService.getAllPlaylists().subscribe({
       next: (res: Playlist[]) => {
-        this.featuredPlaylists = res.slice(0, 2);
+        this.featuredPlaylists = res.slice(0, 2).map((playlist) => ({
+          ...playlist,
+          randomImage: `https://picsum.photos/seed/playlist-${
+            playlist.id
+          }-${Math.floor(Math.random() * 10000)}/120/120`,
+        }));
         this.playlistsLoaded = true;
         console.log('Featured playlists loaded:', this.featuredPlaylists);
       },
@@ -77,7 +87,7 @@ export class HomePageComponent implements OnInit {
   }
 
   private fetchTeamMembers(): void {
-    this.teamService.getAll().subscribe({
+    this.teamService.getAllTeam().subscribe({
       next: (res: TeamMember[]) => {
         if (res && res.length > 0) {
           this.teamMembers = res;
@@ -109,7 +119,7 @@ export class HomePageComponent implements OnInit {
         name: 'Sarah Johnson',
         role: 'Host & Producer',
         bio: 'Award-winning journalist with 10+ years in broadcasting',
-        image: '',
+        profile_image: '',
         social_media: [
           {
             id: 1,
@@ -123,7 +133,7 @@ export class HomePageComponent implements OnInit {
         name: 'Mike Chen',
         role: 'Co-Host',
         bio: 'Tech entrepreneur and startup advisor passionate about innovation',
-        image: '',
+        profile_image: '',
         social_media: [
           {
             id: 2,
@@ -137,7 +147,7 @@ export class HomePageComponent implements OnInit {
         name: 'Emma Davis',
         role: 'Audio Engineer',
         bio: 'Professional audio engineer with expertise in podcast production',
-        image: '',
+        profile_image: '',
         social_media: [
           {
             id: 3,
@@ -147,34 +157,6 @@ export class HomePageComponent implements OnInit {
         ],
       },
     ];
-  }
-
-  // Image helper methods
-  getEpisodeImage(imagePath: string): string {
-    if (!imagePath) {
-      return 'https://via.placeholder.com/400x200?text=Episode&bg=667eea&color=white';
-    }
-    return imagePath.startsWith('http')
-      ? imagePath
-      : `${environment.apiUrl}/storage/${imagePath}`;
-  }
-
-  getPlaylistImage(imagePath: string): string {
-    if (!imagePath) {
-      return 'https://via.placeholder.com/120x120?text=Playlist&bg=4f46e5&color=white';
-    }
-    return imagePath.startsWith('http')
-      ? imagePath
-      : `${environment.apiUrl}/storage/${imagePath}`;
-  }
-
-  getTeamImage(imagePath: string): string {
-    if (!imagePath) {
-      return 'https://via.placeholder.com/100x100?text=Team&bg=6b7280&color=white';
-    }
-    return imagePath.startsWith('http')
-      ? imagePath
-      : `${environment.apiUrl}/storage/${imagePath}`;
   }
 
   // Utility method to format duration

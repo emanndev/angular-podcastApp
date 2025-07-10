@@ -4,11 +4,17 @@ import { ToastComponent } from './shared/utils/components/toast/toast.component'
 import { AudioPlayerBarComponent } from './shared/components/audio-player-bar/audio-player-bar.component';
 import { AudioPlayerService } from './core/services/audio-player.service';
 import { AudioPlayerConfig } from './model/podcast.models';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastComponent, AudioPlayerBarComponent],
+  imports: [
+    RouterOutlet,
+    ToastComponent,
+    AudioPlayerBarComponent,
+    CommonModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

@@ -17,13 +17,7 @@ import { AudioPlayerService } from '../../core/services/audio-player.service';
 @Component({
   selector: 'app-episode-detail',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    FooterComponent,
-    PublicNavbarComponent,
-    AudioPlayerBarComponent,
-  ],
+  imports: [CommonModule, RouterModule, FooterComponent, PublicNavbarComponent],
   templateUrl: './episode-detail.component.html',
   styleUrls: ['./episode-detail.component.scss'],
 })

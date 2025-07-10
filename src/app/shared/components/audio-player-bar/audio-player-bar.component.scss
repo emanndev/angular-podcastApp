@@ -298,3 +298,67 @@
     display: none;
   }
 }
+@media (max-width: 768px) {
+  .audio-player-wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 9999;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .audio-player {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 1rem;
+
+    .player-content {
+      display: none;
+    }
+
+    &.expanded .player-content {
+      display: block;
+    }
+
+    .now-playing-badge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      .badge-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 8px;
+          object-fit: cover;
+        }
+
+        .title {
+          font-weight: 600;
+          font-size: 0.95rem;
+        }
+      }
+
+      .badge-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        color: #4f46e5;
+      }
+    }
+  }
+}
