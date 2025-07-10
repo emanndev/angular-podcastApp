@@ -1,7 +1,8 @@
-<!-- Hero Section -->
+<app-public-navbar></app-public-navbar>
+
 <section class="hero">
   <div class="hero-content">
-    <h1>Welcome to PodcastApp</h1>
+    <h1>Welcome to ManBel Pod</h1>
     <p>
       Discover thought-provoking conversations, insights, and stories that
       inspire and inform.
@@ -20,7 +21,7 @@
 <!-- Featured Playlists -->
 <section
   class="featured-playlists section-animate"
-  *ngIf="featuredPlaylists.length && !loading"
+  *ngIf="episodesLoaded && latestEpisodes.length"
 >
   <div class="section-header">
     <h2>Featured Playlists</h2>
@@ -48,7 +49,7 @@
 <!-- Latest Episodes -->
 <section
   class="latest-episodes section-animate"
-  *ngIf="latestEpisodes.length && !loading"
+  *ngIf="playlistsLoaded && featuredPlaylists.length"
 >
   <div class="section-header">
     <h2>Latest Episodes</h2>
@@ -84,7 +85,10 @@
 </section>
 
 <!-- Meet the Team -->
-<section class="team-section section-animate" *ngIf="!loading">
+<section
+  class="team-section section-animate"
+  *ngIf="teamLoaded && teamMembers.length"
+>
   <h2>Meet the Team</h2>
   <div class="team-grid">
     <div class="team-card" *ngFor="let member of teamMembers">
@@ -115,10 +119,19 @@
 </section>
 
 <!-- Error & Loading -->
-<div *ngIf="loading" class="loading-container">
+<section *ngIf="!episodesLoaded" class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Loading episodes...</p>
+</section>
+<section *ngIf="!playlistsLoaded" class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Loading playlists...</p>
+</section>
+<div *ngIf="!teamLoaded" class="loading-container">
   <div class="loading-spinner"></div>
   <p>Loading content...</p>
 </div>
+
 <div *ngIf="error" class="error-container">
   <p class="error">{{ error }}</p>
 </div>

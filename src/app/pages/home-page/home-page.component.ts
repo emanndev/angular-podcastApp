@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { EpisodeService } from '../../core/services/episode.service';
 import { PlaylistService } from '../../core/services/playlist.service';
 import { TeamMembersService } from '../../core/services/team-members.service';
-
+import { PublicNavbarComponent } from '../../shared/components/public-navbar/public-navbar.component';
 import { Episode, Playlist, TeamMember } from '../../model/podcast.models';
 import { environment } from '../../../environments/environment';
 
@@ -14,7 +14,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, PublicNavbarComponent],
 })
 export class HomePageComponent implements OnInit {
   episodes: Episode[] = [];
@@ -23,7 +23,6 @@ export class HomePageComponent implements OnInit {
   featuredPlaylists: Playlist[] = [];
   teamMembers: TeamMember[] = [];
 
-  loading = false;
   playlistsLoaded = false;
   episodesLoaded = false;
   teamLoaded = false;
@@ -36,7 +35,7 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
+    // this.loading = true;
     this.fetchEpisodes();
     this.fetchPlaylists();
     this.fetchTeamMembers();
@@ -83,7 +82,6 @@ export class HomePageComponent implements OnInit {
         if (res && res.length > 0) {
           this.teamMembers = res;
         } else {
-          
           this.teamMembers = this.getFallbackTeamMembers();
         }
         this.teamLoaded = true;
@@ -91,7 +89,7 @@ export class HomePageComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching team members:', error);
-        
+
         this.teamMembers = this.getFallbackTeamMembers();
         this.teamLoaded = true;
       },
@@ -100,7 +98,7 @@ export class HomePageComponent implements OnInit {
 
   private checkAllLoaded(): void {
     if (this.allContentLoaded) {
-      this.loading = false;
+      // this.loading = false;
     }
   }
 

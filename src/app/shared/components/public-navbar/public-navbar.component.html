@@ -1,0 +1,25 @@
+<nav class="navbar">
+  <div class="nav-left">
+    <a routerLink="/" class="brand">🎙️ ManBel Pod</a>
+  </div>
+
+  <ul class="nav-links">
+    <li>
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+    </li>
+    <li><a routerLink="/episodes" routerLinkActive="active">Episodes</a></li>
+    <li><a routerLink="/playlists" routerLinkActive="active">Playlists</a></li>
+    <li>
+      <a routerLink="/confessions" routerLinkActive="active">Confessions</a>
+    </li>
+  </ul>
+
+  <div class="nav-right">
+    <app-theme-toggle></app-theme-toggle>
+  </div>
+</nav>
