@@ -60,7 +60,7 @@
           <div class="episode-actions">
             <button
               class="play-button"
-              *ngIf="episode.audio_url"
+              *ngIf="episode?.audio_url"
               (click)="onPlayEpisode()"
             >
               <svg
@@ -156,10 +156,5 @@
     </div>
   </div>
 </div>
-<app-audio-player-bar
-  *ngIf="showAudioPlayer && playerConfig"
-  [config]="playerConfig"
-  (close)="onClosePlayer()"
-  class="fixed-player-bar"
-></app-audio-player-bar>
+
 <app-footer></app-footer>

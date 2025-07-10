@@ -54,8 +54,8 @@
   min-height: 100vh;
 
   .episode-list-container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1500px;
+    margin: 0 20%;
     padding: 2rem 1rem;
     flex: 2;
 
@@ -127,10 +127,16 @@
       }
     }
 
+    .grid-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      max-width: 1200px;
+    }
+
     .episode-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 5rem;
       margin-bottom: 3rem;
     }
 

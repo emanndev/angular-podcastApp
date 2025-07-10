@@ -7,6 +7,7 @@ import { EpisodeDetailComponent } from './pages/episode-detail/episode-detail.co
 import { ConfessionsComponent } from './pages/confessions/confessions.component';
 import { PlaylistPageComponent } from './pages/playlist-page/playlist-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { PlaylistDetailComponent } from './pages/playlist-detail/playlist-detail.component';
 
 export const routes: Routes = [
   {
@@ -36,13 +37,16 @@ export const routes: Routes = [
   },
 
   {
-    path: 'confessions',
-    component: ConfessionsComponent,
-  },
-
-  {
     path: 'playlists',
     component: PlaylistPageComponent,
+  },
+  {
+    path: 'playlists/:id',
+    component: PlaylistDetailComponent,
+  },
+  {
+    path: 'confessions',
+    component: ConfessionsComponent,
   },
 
   // Default & Wildcard

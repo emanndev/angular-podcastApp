@@ -1,22 +1,38 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ConfessionsService } from '../../core/services/confessions.service';
 import { RouterModule } from '@angular/router';
+import { PublicNavbarComponent } from '../../shared/components/public-navbar/public-navbar.component';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-confession',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    PublicNavbarComponent,
+    FooterComponent,
+  ],
   templateUrl: './confessions.component.html',
-  styleUrls: ['./confessions.component.scss']
+  styleUrls: ['./confessions.component.scss'],
 })
 export class ConfessionsComponent {
   form: FormGroup;
   submitted = false;
   successMessage = '';
 
-  constructor(private fb: FormBuilder, private confessionService: ConfessionsService) {
+  constructor(
+    private fb: FormBuilder,
+    private confessionService: ConfessionsService
+  ) {
     this.form = this.fb.group({
       name: [''],
       email: ['', Validators.email],
@@ -41,7 +57,7 @@ export class ConfessionsComponent {
       },
       error: () => {
         this.successMessage = 'Something went wrong. Please try again.';
-      }
+      },
     });
   }
 }
