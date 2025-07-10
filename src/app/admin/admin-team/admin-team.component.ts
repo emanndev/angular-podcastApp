@@ -84,4 +84,20 @@ export class AdminTeamComponent implements OnInit {
       });
     }
   }
+
+  getSocialIcon(platform: string): string {
+    switch (platform.toLowerCase()) {
+      case 'facebook':
+        return 'facebook.svg';
+      case 'twitter':
+      case 'x':
+        return 'x.svg';
+      case 'instagram':
+        return 'instagram.svg';
+      case 'linkedin':
+        return 'linkedin.svg';
+      default:
+        return 'link.svg';
+    }
+  }
 }

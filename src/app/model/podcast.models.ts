@@ -85,7 +85,7 @@ export interface TeamMember {
   role: string;
   bio: string;
   image: string;
-  social_media: SocialMedia[];
+  social_media?: SocialMedia[];
 }
 
 export interface SocialMedia {

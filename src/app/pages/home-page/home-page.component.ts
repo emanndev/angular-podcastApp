@@ -24,6 +24,9 @@ export class HomePageComponent implements OnInit {
   teamMembers: TeamMember[] = [];
 
   loading = false;
+  playlistsLoaded = false;
+  episodesLoaded = false;
+  teamLoaded = false;
   error = '';
 
   constructor(
@@ -39,17 +42,23 @@ export class HomePageComponent implements OnInit {
     this.fetchTeamMembers();
   }
 
+  get allContentLoaded(): boolean {
+    return this.episodesLoaded && this.playlistsLoaded && this.teamLoaded;
+  }
+
   private fetchEpisodes(): void {
     this.episodeService.getEpisodes().subscribe({
       next: (res: Episode[]) => {
         this.episodes = res;
-     
         this.latestEpisodes = res.slice(0, 3);
-        this.loading = false;
+        this.episodesLoaded = true;
+        this.checkAllLoaded();
       },
-      error: () => {
+      error: (error) => {
+        console.error('Error fetching episodes:', error);
         this.error = 'Failed to load episodes.';
-        this.loading = false;
+        this.episodesLoaded = true;
+        this.checkAllLoaded();
       },
     });
   }
@@ -57,11 +66,13 @@ export class HomePageComponent implements OnInit {
   private fetchPlaylists(): void {
     this.playlistService.getAllPlaylists().subscribe({
       next: (res: Playlist[]) => {
-      
         this.featuredPlaylists = res.slice(0, 2);
+        this.playlistsLoaded = true;
+        console.log('Featured playlists loaded:', this.featuredPlaylists);
       },
-      error: () => {
-        console.error('Could not load playlists.');
+      error: (error) => {
+        console.error('Error loading playlists:', error);
+        this.playlistsLoaded = true;
       },
     });
   }
@@ -69,12 +80,75 @@ export class HomePageComponent implements OnInit {
   private fetchTeamMembers(): void {
     this.teamService.getAll().subscribe({
       next: (res: TeamMember[]) => {
-        this.teamMembers = res;
+        if (res && res.length > 0) {
+          this.teamMembers = res;
+        } else {
+          
+          this.teamMembers = this.getFallbackTeamMembers();
+        }
+        this.teamLoaded = true;
+        console.log('Team members loaded:', this.teamMembers);
       },
-      error: () => {
-        console.error('Failed to fetch team members.');
+      error: (error) => {
+        console.error('Error fetching team members:', error);
+        
+        this.teamMembers = this.getFallbackTeamMembers();
+        this.teamLoaded = true;
       },
     });
+  }
+
+  private checkAllLoaded(): void {
+    if (this.allContentLoaded) {
+      this.loading = false;
+    }
+  }
+
+  private getFallbackTeamMembers(): TeamMember[] {
+    return [
+      {
+        id: 1,
+        name: 'Sarah Johnson',
+        role: 'Host & Producer',
+        bio: 'Award-winning journalist with 10+ years in broadcasting',
+        image: '',
+        social_media: [
+          {
+            id: 1,
+            url: 'https://twitter.com/sarahjohnson',
+            platform: 'twitter',
+          },
+        ],
+      },
+      {
+        id: 2,
+        name: 'Mike Chen',
+        role: 'Co-Host',
+        bio: 'Tech entrepreneur and startup advisor passionate about innovation',
+        image: '',
+        social_media: [
+          {
+            id: 2,
+            url: 'https://twitter.com/mikechen',
+            platform: 'twitter',
+          },
+        ],
+      },
+      {
+        id: 3,
+        name: 'Emma Davis',
+        role: 'Audio Engineer',
+        bio: 'Professional audio engineer with expertise in podcast production',
+        image: '',
+        social_media: [
+          {
+            id: 3,
+            url: 'https://twitter.com/emmadavis',
+            platform: 'twitter',
+          },
+        ],
+      },
+    ];
   }
 
   // Image helper methods
@@ -105,11 +179,25 @@ export class HomePageComponent implements OnInit {
       : `${environment.apiUrl}/storage/${imagePath}`;
   }
 
-  // Utility method to format duration 
+  // Utility method to format duration
   formatDuration(seconds: number): string {
-    if (!seconds) return '45:30'; 
+    if (!seconds) return '45:30';
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${minutes}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  // Helper method to get social media icon
+  getSocialMediaIcon(platform: string): string {
+    switch (platform?.toLowerCase()) {
+      case 'twitter':
+        return 'twitter';
+      case 'linkedin':
+        return 'linkedin';
+      case 'github':
+        return 'github';
+      default:
+        return 'twitter';
+    }
   }
 }

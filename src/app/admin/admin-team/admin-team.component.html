@@ -17,39 +17,18 @@
       <p class="bio">{{ member.bio }}</p>
 
       <div class="social-icons">
-        <a
-          *ngIf="member.facebook"
-          [href]="member.facebook"
-          target="_blank"
-          aria-label="Facebook"
-        >
-          <img src="assets/icons/facebook.svg" alt="Facebook" />
-        </a>
-        <a
-          *ngIf="member.twitter"
-          [href]="member.twitter"
-          target="_blank"
-          aria-label="Twitter"
-        >
-          <img src="assets/icons/x.svg" alt="Twitter" />
-        </a>
-        <a
-          *ngIf="member.instagram"
-          [href]="member.instagram"
-          target="_blank"
-          aria-label="Instagram"
-        >
-          <img src="assets/icons/instagram.svg" alt="Instagram" />
-        </a>
-        <a
-          *ngIf="member.linkedin"
-          [href]="member.linkedin"
-          target="_blank"
-          aria-label="LinkedIn"
-        >
-          <img src="assets/icons/linkedin.svg" alt="LinkedIn" />
-        </a>
-      </div>
+  <a
+    *ngFor="let social of member.social_media"
+    [href]="social.url"
+    target="_blank"
+    [attr.aria-label]="social.platform"
+  >
+    <img
+      [src]="'assets/icons/' + getSocialIcon(social.platform)"
+      [alt]="social.platform"
+    />
+  </a>
+</div>
 
       <div class="actions">
         <button mat-icon-button color="accent" (click)="openEditDialog(member)">
