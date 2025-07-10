@@ -1,26 +1,33 @@
-<!-- Loading Message -->
+<section class="episode-detail-container" *ngIf="!loading && episode">
+  <div class="episode-header">
+    <h1 class="title">{{ episode.title }}</h1>
+    <p class="date">
+      <i class="icon">📅</i> {{ episode.created_at | date : "MMMM d, y" }}
+    </p>
+  </div>
+
+  <div class="episode-content">
+    <div class="episode-image">
+      <img [src]="getEpisodeImage(episode.img_url)" [alt]="episode.title" />
+    </div>
+
+    <div class="episode-info">
+      <p class="description">{{ episode.description }}</p>
+
+      <div class="audio-player" *ngIf="episode.audio_url">
+        <audio controls [src]="episode.audio_url"></audio>
+      </div>
+
+      <button class="back-button" routerLink="/episodes">
+        ← Back to All Episodes
+      </button>
+    </div>
+  </div>
+</section>
+
 <p *ngIf="loading" class="loading-message">Loading episode...</p>
 
-<!-- Error Section -->
 <section *ngIf="error" class="error-container">
   <p class="error-message">{{ error }}</p>
   <a routerLink="/" class="back-home-btn">← Back to Home</a>
 </section>
-
-<!-- Episode Detail -->
-<div *ngIf="episode && !loading" class="episode-detail">
-  <h1>{{ episode.title }}</h1>
-  <img
-    [src]="getEpisodeImage(episode.img_url)"
-    alt="{{ episode.title }}"
-    width="100%"
-    style="max-width: 500px; height: auto;"
-  />
-  <p><strong>Description:</strong> {{ episode.description }}</p>
-  <p><strong>Published:</strong> {{ episode.created_at | date }}</p>
-
-  <audio controls *ngIf="episode.audio_url">
-    <source [src]="episode.audio_url" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
-</div>

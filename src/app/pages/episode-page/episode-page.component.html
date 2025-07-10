@@ -63,7 +63,10 @@
             {{ episode.description | slice : 0 : 120 }}...
           </p>
 
-          <button class="listen-btn" (click)="playEpisode(episode.id)">
+          <button
+            class="listen-btn"
+            (click)="navigatetoEpisodeDetails(episode.id)"
+          >
             > Listen Now
           </button>
         </div>

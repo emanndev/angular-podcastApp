@@ -8,6 +8,7 @@ import { SearchBarComponent } from '../../shared/components/search-bar/search-ba
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { PublicNavbarComponent } from '../../shared/components/public-navbar/public-navbar.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-episode-list-page',
@@ -33,7 +34,11 @@ export class EpisodeListPageComponent implements OnInit {
   currentPage = 1;
   pageSize = 8;
 
-  constructor(private episodeService: EpisodeService) {}
+  constructor(
+    private episodeService: EpisodeService,
+    private route: Router,
+    private activeRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.episodeService.getEpisodes().subscribe({
@@ -86,8 +91,9 @@ export class EpisodeListPageComponent implements OnInit {
     this.currentPage = page;
   }
 
-  playEpisode(episodeId: number): void {
-    console.log('Playing episode:', episodeId);
+  navigatetoEpisodeDetails(episodeId: number): void {
+    this.route.navigate(['/episode', episodeId]);
+    console.log('Navigating to episode:', episodeId);
   }
 
   getEpisodeImage(imgUrl: string): string {

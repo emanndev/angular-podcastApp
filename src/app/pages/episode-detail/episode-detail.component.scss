@@ -1,31 +1,99 @@
-.error-container {
-  text-align: center;
-  padding: 2rem;
-  background-color: #fff0f0;
-  border: 1px solid #ffcccc;
-  border-radius: 8px;
-  margin: 2rem auto;
-  max-width: 500px;
+.episode-detail-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+
+  .episode-header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #1e293b;
+    }
+
+    .date {
+      font-size: 1rem;
+      color: #6b7280;
+    }
+  }
+
+  .episode-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    .episode-image {
+      width: 100%;
+      max-width: 500px;
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .episode-info {
+      text-align: center;
+
+      .description {
+        font-size: 1.1rem;
+        color: #374151;
+        margin-bottom: 1.5rem;
+      }
+
+      .audio-player {
+        margin-bottom: 2rem;
+
+        audio {
+          width: 100%;
+          max-width: 600px;
+        }
+      }
+
+      .back-button {
+        background: #4f46e5;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+          background: #4338ca;
+        }
+      }
+    }
+  }
 }
 
-.error-message {
-  color: #b00020;
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
+// Dark mode
+body.dark {
+  .episode-detail-container {
+    .title {
+      color: #f8fafc;
+    }
 
-.back-home-btn {
-  display: inline-block;
-  padding: 0.6rem 1.2rem;
-  background-color: #004721;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+    .description {
+      color: #cbd5e1;
+    }
 
-  &:hover {
-    background-color: #007a3d;
+    .date {
+      color: #94a3b8;
+    }
+
+    .back-button {
+      background: #6366f1;
+
+      &:hover {
+        background: #4f46e5;
+      }
+    }
   }
 }

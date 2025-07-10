@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
-import { EpisodeService } from '../../core/services/episode.service';
 import { Episode } from '../../model/podcast.models';
+import { EpisodeService } from '../../core/services/episode.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -11,7 +10,7 @@ import { environment } from '../../../environments/environment';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './episode-detail.component.html',
-  styleUrls: ['./episode-detail.component.scss']
+  styleUrls: ['./episode-detail.component.scss'],
 })
 export class EpisodeDetailComponent implements OnInit {
   episode: Episode | null = null;
@@ -25,23 +24,30 @@ export class EpisodeDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.episodeService.getEpisodeById(id).subscribe({
-      next: (data) => {
-        console.log('Episode data:', data);
-        this.episode = data;
+
+    this.episodeService.getEpisodes().subscribe({
+      next: (episodes) => {
+        const found = episodes.find((ep) => ep.id === id);
+        if (found) {
+          this.episode = found;
+        } else {
+          this.error = 'Episode not found.';
+        }
         this.loading = false;
       },
       error: () => {
-        this.error = 'Failed to load episode';
+        this.error = 'Failed to fetch episode data.';
         this.loading = false;
-      }
+      },
     });
   }
 
-  getEpisodeImage(imagePath: string): string {
-    if (!imagePath) {
-      return 'https://via.placeholder.com/300x200?text=Episode';
+  getEpisodeImage(path: string): string {
+    if (!path) {
+      return 'https://via.placeholder.com/500x300?text=Episode';
     }
-    return imagePath.startsWith('http') ? imagePath : `${environment.apiUrl}/storage/${imagePath}`;
+    return path.startsWith('http')
+      ? path
+      : `${environment.apiUrl}/storage/${path}`;
   }
 }
