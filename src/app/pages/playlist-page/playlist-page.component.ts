@@ -25,7 +25,6 @@ export class PlaylistPageComponent implements OnInit {
 
     this.playlistService.getAllPlaylists().subscribe({
       next: (res) => {
-        // Add randomized image URL to each playlist
         this.playlists = res.map((playlist) => ({
           ...playlist,
           image: `https://picsum.photos/seed/${playlist.id}/600/300`,
@@ -42,9 +41,10 @@ export class PlaylistPageComponent implements OnInit {
 
   onSearch(): void {
     const term = this.searchTerm.trim().toLowerCase();
-    this.filteredPlaylists = this.playlists.filter((playlist) =>
-      playlist.name.toLowerCase().includes(term) ||
-      playlist.description.toLowerCase().includes(term)
+    this.filteredPlaylists = this.playlists.filter(
+      (playlist) =>
+        playlist.name.toLowerCase().includes(term) ||
+        playlist.description.toLowerCase().includes(term)
     );
   }
 }

@@ -1,0 +1,29 @@
+<section class="episode-list-container">
+  <h1 class="page-title">All Podcast Episodes</h1>
+
+  <app-search-bar (search)="onSearch($event)"></app-search-bar>
+
+  <div *ngIf="loading" class="loading">Loading episodes...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="episode-grid" *ngIf="filteredEpisodes.length && !loading">
+    <div class="episode-card" *ngFor="let episode of filteredEpisodes">
+      <img [src]="getEpisodeImage(episode.img_url)" alt="{{ episode.title }}" />
+      <div class="info">
+        <h3>{{ episode.title }}</h3>
+        <p>{{ episode.description | slice : 0 : 100 }}...</p>
+        <div class="meta">
+          <span>{{ episode.duration || "45:00" }}</span>
+          <span>{{ episode.created_at | date : "MMM d, y" }}</span>
+        </div>
+        <a [routerLink]="['/episode', episode.id]" class="view-link"
+          >View Episode</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!filteredEpisodes.length && !loading" class="empty">
+    No episodes found.
+  </div>
+</section>

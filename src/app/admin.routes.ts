@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AdminLayoutComponent } from './pages/admin-layout/admin-layout.component';
+import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 
 export const adminRoutes: Routes = [
