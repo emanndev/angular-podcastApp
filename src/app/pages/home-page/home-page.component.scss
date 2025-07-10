@@ -1,306 +1,479 @@
+// Section Animations
+.section-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.featured-playlists.section-animate {
+  animation-delay: 0.2s;
+}
+
+.latest-episodes.section-animate {
+  animation-delay: 0.4s;
+}
+
+.team-section.section-animate {
+  animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Hero Section
 .hero {
-  text-align: center;
-  padding: 3rem 1rem;
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-
-  h1 {
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-  }
-}
-
-.confess-cta {
-  background: #fff3f3;
   text-align: center;
-  padding: 2rem 1rem;
-  margin: 2rem 0;
-  border-radius: 12px;
+  padding: 6rem 2rem;
+  margin-bottom: 4rem;
 
-  h2 {
-    font-size: 1.5rem;
-    color: #b22e2e;
-  }
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
 
-  p {
-    color: #444;
-    margin-bottom: 1rem;
-  }
-
-  .confess-button {
-    background: #b22e2e;
-    color: #fff;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background 0.3s;
-
-    &:hover {
-      background: #8c1f1f;
-    }
-  }
-}
-
-.featured, .latest {
-  padding: 2rem 1rem;
-
-  h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 1.6rem;
-    color: #222;
-  }
-
-  .episode-grid {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
-
-  .episode-card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: translateY(-5px);
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
     }
 
-    img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
+    p {
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+      line-height: 1.6;
     }
 
-    .episode-content {
-      padding: 1rem;
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
 
-      h3 {
+      .btn-primary {
+        background: #4f46e5;
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 8px;
         font-size: 1.1rem;
-        margin-bottom: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+
+        &:hover {
+          background: #4338ca;
+          transform: translateY(-2px);
+        }
       }
 
-      p {
-        font-size: 0.9rem;
-        color: #555;
-      }
+      .btn-secondary {
+        background: transparent;
+        color: white;
+        padding: 1rem 2rem;
+        border: 2px solid white;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
 
-      audio {
-        width: 100%;
-        margin-top: 0.5rem;
+        &:hover {
+          background: white;
+          color: #4f46e5;
+        }
       }
     }
   }
 }
 
-.playlists {
-  padding: 2rem 1rem;
+// Section Headers
+.section-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 2rem;
 
   h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
   }
+
+  .view-all-btn {
+    background: transparent;
+    color: #6b7280;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #f3f4f6;
+      color: #4f46e5;
+    }
+  }
+}
+
+// Featured Playlists
+.featured-playlists {
+  padding: 0 2rem;
+  margin-bottom: 4rem;
 
   .playlist-grid {
     display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  }
-
-  .playlist-card {
-    background: #f8f8f8;
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-
-    h3 {
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      font-size: 0.9rem;
-      color: #444;
-    }
-
-    .view-link {
-      display: inline-block;
-      margin-top: 0.7rem;
-      color: #2c5364;
-      font-weight: 500;
-      text-decoration: underline;
-    }
-  }
-}
-
-.team {
-  padding: 2rem 1rem;
-
-  h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .team-card {
-    text-align: center;
-    padding: 1rem;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-
-    img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 0.8rem;
-    }
-
-    h4 {
-      margin: 0.5rem 0 0.2rem;
-    }
-
-    p {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    .socials {
-      margin-top: 0.5rem;
-
-      a {
-        margin: 0 0.3rem;
-        font-size: 1.2rem;
-        color: #2c5364;
-        text-decoration: none;
-      }
-    }
-  }
-}
-.team {
-  padding: 3rem 1rem;
-  background: #f9f9f9;
-
-  h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
-    color: #2c5364;
-  }
-
-  .team-grid {
-    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .playlist-card {
+      display: flex;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .playlist-image {
+        width: 120px;
+        height: 120px;
+        flex-shrink: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .playlist-info {
+        padding: 1.5rem;
+        flex: 1;
+
+        h3 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #1f2937;
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          color: #6b7280;
+          line-height: 1.5;
+          margin-bottom: 0.75rem;
+        }
+
+        .episode-count {
+          color: #4f46e5;
+          font-size: 0.9rem;
+          font-weight: 500;
+        }
+      }
+    }
   }
+}
 
-  .team-card {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-    text-align: center;
-    transition: transform 0.3s;
+// Latest Episodes
+.latest-episodes {
+  padding: 0 2rem;
+  margin-bottom: 4rem;
 
-    &:hover {
-      transform: translateY(-4px);
-    }
+  .episode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 
-    .avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 1rem;
-      border: 3px solid #009c4a;
-    }
+    .episode-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
 
-    .team-info {
-      h4 {
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-        color: #222;
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
       }
 
-      p {
-        font-size: 0.9rem;
-        color: #666;
-        margin-bottom: 0.75rem;
+      .episode-image {
+        width: 100%;
+        height: 200px;
+        position: relative;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
 
-      .socials {
+      .episode-meta {
         display: flex;
-        justify-content: center;
-        gap: 1rem;
+        justify-content: space-between;
+        padding: 1rem 1.5rem 0;
+        font-size: 0.9rem;
+        color: #6b7280;
 
-        a {
-          display: inline-flex;
+        .episode-date,
+        .episode-duration {
+          display: flex;
           align-items: center;
-          justify-content: center;
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          background: #e1e1e1;
-          transition: background 0.3s ease;
+          gap: 0.5rem;
+        }
+      }
 
-          img {
-            width: 18px;
-            height: 18px;
-          }
+      .episode-content {
+        padding: 1rem 1.5rem 1.5rem;
+
+        h3 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #1f2937;
+          margin-bottom: 0.75rem;
+          line-height: 1.3;
+        }
+
+        p {
+          color: #6b7280;
+          line-height: 1.5;
+          margin-bottom: 1.5rem;
+        }
+
+        .listen-btn {
+          background: #4f46e5;
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border: none;
+          border-radius: 6px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: inline-block;
 
           &:hover {
-            background: #009c4a;
+            background: #4338ca;
           }
         }
       }
     }
   }
 }
-.confession-section {
-  margin: 4rem auto;
-  padding: 2rem 1rem;
-  background: linear-gradient(to right, #ff6f61, #ff9472); // soft coral-pink gradient
-  border-radius: 1rem;
-  color: #fff;
-  text-align: center;
-  max-width: 700px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+
+// Team Section
+.team-section {
+  padding: 4rem 2rem;
+  background: #f9fafb;
 
   h2 {
-    font-size: 1.8rem;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 3rem;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+
+    .team-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .team-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        overflow: hidden;
+        border: 4px solid #e5e7eb;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .team-info {
+        h4 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #1f2937;
+          margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+          color: #4f46e5;
+          font-weight: 500;
+          margin-bottom: 1rem;
+        }
+
+        .team-bio {
+          color: #6b7280;
+          line-height: 1.5;
+          margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+
+          .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            color: #6b7280;
+            transition: all 0.3s ease;
+
+            &:hover {
+              background: #4f46e5;
+              color: white;
+              transform: translateY(-2px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Loading and Error States
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  color: #6b7280;
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e5e7eb;
+    border-top: 4px solid #4f46e5;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
     margin-bottom: 1rem;
   }
 
-  p {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+
+  .error {
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    border: 1px solid #fecaca;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 1rem;
+
+    .hero-content {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+
+        .btn-primary,
+        .btn-secondary {
+          width: 100%;
+          max-width: 300px;
+        }
+      }
+    }
   }
 
-  a {
-    display: inline-block;
-    background: #fff;
-    color: #ff6f61;
-    padding: 0.6rem 1.2rem;
-    font-weight: bold;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background 0.3s ease;
+  .featured-playlists,
+  .latest-episodes {
+    padding: 0 1rem;
 
-    &:hover {
-      background: #ffe8e3;
+    .playlist-grid,
+    .episode-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .team-section {
+    padding: 2rem 1rem;
+
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    .view-all-btn {
+      align-self: flex-end;
     }
   }
 }

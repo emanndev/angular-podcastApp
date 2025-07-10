@@ -1,91 +1,116 @@
-<!-- Hero Section -->
+<app-public-navbar></app-public-navbar>
+
 <section class="hero">
-  <h1>🎙️ Real Voices. Real Stories.</h1>
-  <p>
-    Welcome to Rants & Confessions – where every episode tells a story worth
-    hearing.
-  </p>
-</section>
-
-<!-- Featured Episodes -->
-<section class="featured" *ngIf="featuredEpisodes.length">
-  <h2>🔥 Featured Episodes</h2>
-  <div class="episode-grid">
-    <div class="episode-card" *ngFor="let episode of featuredEpisodes">
-      <a [routerLink]="['/episode', episode.id]">
-        <img
-          [src]="getEpisodeImage(episode.img_url)"
-          alt="{{ episode.title }}"
-        />
-      </a>
-      <div class="episode-content">
-        <h3>{{ episode.title }}</h3>
-        <p>{{ episode.description | slice : 0 : 100 }}...</p>
-        <audio [src]="episode.audio_url" controls></audio>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Recent Episodes -->
-<section class="latest" *ngIf="latestEpisodes.length">
-  <h2>🎧 Recent Episodes</h2>
-  <div class="episode-grid">
-    <div class="episode-card" *ngFor="let episode of latestEpisodes">
-      <a [routerLink]="['/episode', episode.id]">
-        <img
-          [src]="getEpisodeImage(episode.img_url)"
-          alt="{{ episode.title }}"
-        />
-      </a>
-      <div class="episode-content">
-        <h3>{{ episode.title }}</h3>
-        <p>{{ episode.description | slice : 0 : 100 }}...</p>
-        <audio [src]="episode.audio_url" controls></audio>
-      </div>
+  <div class="hero-content">
+    <h1>Welcome to ManBel Pod</h1>
+    <p>
+      Discover thought-provoking conversations, insights, and stories that
+      inspire and inform.
+    </p>
+    <div class="hero-buttons">
+      <button class="btn-primary" routerLink="/episodes">
+        Browse Episodes
+      </button>
+      <button class="btn-secondary" routerLink="/confessions">
+        Share Your Story
+      </button>
     </div>
   </div>
 </section>
 
 <!-- Featured Playlists -->
-<section class="playlists" *ngIf="featuredPlaylists.length">
-  <h2>🎵 Featured Playlists</h2>
+<section
+  class="featured-playlists section-animate"
+  *ngIf="episodesLoaded && latestEpisodes.length"
+>
+  <div class="section-header">
+    <h2>Featured Playlists</h2>
+    <button class="view-all-btn" routerLink="/playlists">View All</button>
+  </div>
   <div class="playlist-grid">
     <div class="playlist-card" *ngFor="let playlist of featuredPlaylists">
-      <h3>{{ playlist.name }}</h3>
-      <p>{{ playlist.description | slice : 0 : 100 }}...</p>
-      <a [routerLink]="['/playlists', playlist.id]" class="view-link"
-        >View Playlist</a
-      >
+      <div class="playlist-image">
+        <!-- <img
+          [src]="getPlaylistImage(playlist.image)"
+          alt="{{ playlist.name }}"
+        /> -->
+      </div>
+      <div class="playlist-info">
+        <h3>{{ playlist.name }}</h3>
+        <p>{{ playlist.description }}</p>
+        <span class="episode-count"
+          >{{ playlist.episodes.length || 0 }} episodes</span
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Latest Episodes -->
+<section
+  class="latest-episodes section-animate"
+  *ngIf="playlistsLoaded && featuredPlaylists.length"
+>
+  <div class="section-header">
+    <h2>Latest Episodes</h2>
+    <button class="view-all-btn" routerLink="/episodes">View All</button>
+  </div>
+  <div class="episode-grid">
+    <div class="episode-card" *ngFor="let episode of latestEpisodes">
+      <div class="episode-image">
+        <img
+          [src]="getEpisodeImage(episode.img_url)"
+          alt="{{ episode.title }}"
+        />
+      </div>
+      <div class="episode-meta">
+        <div class="episode-date">
+          <span class="date-icon">📅</span>
+          <span>{{ episode.created_at | date : "M/d/yyyy" }}</span>
+        </div>
+        <div class="episode-duration">
+          <span class="duration-icon">⏱️</span>
+          <span>{{ episode.duration || "45:30" }}</span>
+        </div>
+      </div>
+      <div class="episode-content">
+        <h3>{{ episode.title }}</h3>
+        <p>{{ episode.description | slice : 0 : 120 }}...</p>
+        <button class="listen-btn" [routerLink]="['/episode', episode.id]">
+          Listen Now
+        </button>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Meet the Team -->
-<section class="team" *ngIf="teamMembers.length">
-  <h2>👥 Meet the Team</h2>
+<section
+  class="team-section section-animate"
+  *ngIf="teamLoaded && teamMembers.length"
+>
+  <h2>Meet the Team</h2>
   <div class="team-grid">
     <div class="team-card" *ngFor="let member of teamMembers">
-      <img [src]="getTeamImage(member.image)" alt="{{ member.name }}" />
+      <div class="team-avatar">
+        <img [src]="getTeamImage(member.image)" alt="{{ member.name }}" />
+      </div>
       <div class="team-info">
         <h4>{{ member.name }}</h4>
-        <p>{{ member.bio }}</p>
-        <div class="socials">
+        <p class="team-role">{{ member.role || "Team Member" }}</p>
+        <p class="team-bio">{{ member.bio }}</p>
+        <div class="social-links">
           <a
-            *ngIf="member.twitter"
-            [href]="member.twitter"
+            *ngIf="member.social_media?.[0]?.url"
+            [href]="member.social_media?.[0]?.url"
             target="_blank"
-            aria-label="Twitter"
+            class="social-link"
           >
-            <img src="assets/icons/twitter.svg" alt="Twitter" />
-          </a>
-          <a
-            *ngIf="member.facebook"
-            [href]="member.facebook"
-            target="_blank"
-            aria-label="Facebook"
-          >
-            <img src="assets/icons/facebook.svg" alt="Facebook" />
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+              />
+            </svg>
           </a>
         </div>
       </div>
@@ -93,13 +118,20 @@
   </div>
 </section>
 
-<!-- Submit Confession CTA -->
-<section class="confess-cta">
-  <h2>Got something on your mind?</h2>
-  <p>Share your thoughts anonymously with the world.</p>
-  <a routerLink="/confessions" class="confess-button">Submit Your Confession</a>
-</section>
-
 <!-- Error & Loading -->
-<p *ngIf="loading">Loading content...</p>
-<p *ngIf="error" class="error">{{ error }}</p>
+<section *ngIf="!episodesLoaded" class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Loading episodes...</p>
+</section>
+<section *ngIf="!playlistsLoaded" class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Loading playlists...</p>
+</section>
+<div *ngIf="!teamLoaded" class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Loading content...</p>
+</div>
+
+<div *ngIf="error" class="error-container">
+  <p class="error">{{ error }}</p>
+</div>

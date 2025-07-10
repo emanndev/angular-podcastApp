@@ -82,12 +82,16 @@ export interface PlaylistForm {
 export interface TeamMember {
   id: number;
   name: string;
+  role: string;
   bio: string;
   image: string;
-  facebook?: string;
-  twitter?: string;
-  instagram?: string;
-  linkedin?: string;
+  social_media?: SocialMedia[];
+}
+
+export interface SocialMedia {
+  id: number;
+  platform: string;
+  url: string;
 }
 
 // Generic API Response

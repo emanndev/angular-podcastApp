@@ -82,21 +82,29 @@ export const MOCK_TEAM_MEMBERS = [
   {
     id: 1,
     name: 'Kwame Boateng',
+    role: 'Host',
     bio: 'Sound engineer and podcast host.',
     image: 'https://i.pravatar.cc/150?img=3',
-    facebook: '',
-    twitter: '',
-    instagram: '',
-    linkedin: '',
+    socialMedia: [
+      {
+        id: 1,
+        platform: 'Instagram',
+        url: 'https://www.instagram.com/kwameboateng/',
+      },
+    ],
   },
   {
     id: 2,
     name: 'Ama Serwaa',
+    role: 'Voice Talent',
     bio: 'Social media manager and voice talent.',
     image: 'https://i.pravatar.cc/150?img=5',
-    facebook: '',
-    twitter: '',
-    instagram: '',
-    linkedin: '',
+    socialMedia: [
+      {
+        id: 2,
+        platform: 'Instagram',
+        url: 'https://www.instagram.com/amaserwaa/',
+      },
+    ],
   },
 ];
