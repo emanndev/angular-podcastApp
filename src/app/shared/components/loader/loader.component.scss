@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: var(--spacing-xl);
   font-size: 1.2rem;
-  color: #727bde;
+  color: var(--loader-color);
 }

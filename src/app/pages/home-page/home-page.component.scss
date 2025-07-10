@@ -1,4 +1,4 @@
-// Section Animations
+/* Section Animations */
 .section-animate {
   opacity: 0;
   transform: translateY(30px);
@@ -24,13 +24,13 @@
   }
 }
 
-// Hero Section
+/* Hero Section */
 .hero {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--bg-hero);
+  color: var(--text-hero);
   text-align: center;
   padding: 6rem 2rem;
-  margin-bottom: 4rem;
+  margin-bottom: var(--spacing-3xl);
 
   .hero-content {
     max-width: 800px;
@@ -39,120 +39,120 @@
     h1 {
       font-size: 3.5rem;
       font-weight: 700;
-      margin-bottom: 1.5rem;
+      margin-bottom: var(--spacing-lg);
       line-height: 1.2;
     }
 
     p {
       font-size: 1.3rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: var(--spacing-xl);
       opacity: 0.9;
       line-height: 1.6;
     }
 
     .hero-buttons {
       display: flex;
-      gap: 1rem;
+      gap: var(--spacing-md);
       justify-content: center;
       flex-wrap: wrap;
 
       .btn-primary {
-        background: #4f46e5;
-        color: white;
-        padding: 1rem 2rem;
+        background: var(--primary-color);
+        color: var(--text-inverse);
+        padding: var(--spacing-md) var(--spacing-xl);
         border: none;
-        border-radius: 8px;
+        border-radius: var(--radius-md);
         font-size: 1.1rem;
         font-weight: 600;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all var(--transition-normal);
         text-decoration: none;
         display: inline-block;
 
         &:hover {
-          background: #4338ca;
+          background: var(--primary-hover);
           transform: translateY(-2px);
         }
       }
 
       .btn-secondary {
         background: transparent;
-        color: white;
-        padding: 1rem 2rem;
-        border: 2px solid white;
-        border-radius: 8px;
+        color: var(--text-inverse);
+        padding: var(--spacing-md) var(--spacing-xl);
+        border: 2px solid var(--text-inverse);
+        border-radius: var(--radius-md);
         font-size: 1.1rem;
         font-weight: 600;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all var(--transition-normal);
         text-decoration: none;
         display: inline-block;
 
         &:hover {
-          background: white;
-          color: #4f46e5;
+          background: var(--text-inverse);
+          color: var(--primary-color);
         }
       }
     }
   }
 }
 
-// Section Headers
+/* Section Headers */
 .section-header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-xl);
 
   h2 {
     font-size: 2rem;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--text-primary);
     margin: 0;
   }
 
   .view-all-btn {
     background: transparent;
-    color: #6b7280;
+    color: var(--text-secondary);
     border: none;
     font-size: 1rem;
     cursor: pointer;
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    transition: all 0.3s ease;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-normal);
 
     &:hover {
-      background: #f3f4f6;
-      color: #4f46e5;
+      background: var(--hover-bg);
+      color: var(--hover-text);
     }
   }
 }
 
-// Featured Playlists
+/* Featured Playlists */
 .featured-playlists {
   padding: 0 2rem;
-  margin-bottom: 4rem;
+  margin-bottom: var(--spacing-3xl);
 
   .playlist-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 2rem;
+    gap: var(--spacing-xl);
     max-width: 1200px;
     margin: 0 auto;
 
     .playlist-card {
       display: flex;
-      background: white;
-      border-radius: 12px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-normal);
       cursor: pointer;
 
       &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--shadow-card-hover);
       }
 
       .playlist-image {
@@ -168,24 +168,24 @@
       }
 
       .playlist-info {
-        padding: 1.5rem;
+        padding: var(--spacing-lg);
         flex: 1;
 
         h3 {
           font-size: 1.25rem;
           font-weight: 600;
-          color: #1f2937;
-          margin-bottom: 0.5rem;
+          color: var(--text-primary);
+          margin-bottom: var(--spacing-sm);
         }
 
         p {
-          color: #6b7280;
+          color: var(--text-secondary);
           line-height: 1.5;
-          margin-bottom: 0.75rem;
+          margin-bottom: var(--spacing-sm);
         }
 
         .episode-count {
-          color: #4f46e5;
+          color: var(--primary-color);
           font-size: 0.9rem;
           font-weight: 500;
         }
@@ -194,28 +194,28 @@
   }
 }
 
-// Latest Episodes
+/* Latest Episodes */
 .latest-episodes {
   padding: 0 2rem;
-  margin-bottom: 4rem;
+  margin-bottom: var(--spacing-3xl);
 
   .episode-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    gap: var(--spacing-xl);
     max-width: 1200px;
     margin: 0 auto;
 
     .episode-card {
-      background: white;
-      border-radius: 12px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-normal);
 
       &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--shadow-card-hover);
       }
 
       .episode-image {
@@ -233,49 +233,49 @@
       .episode-meta {
         display: flex;
         justify-content: space-between;
-        padding: 1rem 1.5rem 0;
+        padding: var(--spacing-md) var(--spacing-lg) 0;
         font-size: 0.9rem;
-        color: #6b7280;
+        color: var(--text-secondary);
 
         .episode-date,
         .episode-duration {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: var(--spacing-sm);
         }
       }
 
       .episode-content {
-        padding: 1rem 1.5rem 1.5rem;
+        padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
 
         h3 {
           font-size: 1.25rem;
           font-weight: 600;
-          color: #1f2937;
-          margin-bottom: 0.75rem;
+          color: var(--text-primary);
+          margin-bottom: var(--spacing-sm);
           line-height: 1.3;
         }
 
         p {
-          color: #6b7280;
+          color: var(--text-secondary);
           line-height: 1.5;
-          margin-bottom: 1.5rem;
+          margin-bottom: var(--spacing-md);
         }
 
         .listen-btn {
-          background: #4f46e5;
-          color: white;
-          padding: 0.75rem 1.5rem;
+          background: var(--primary-color);
+          color: var(--text-inverse);
+          padding: var(--spacing-sm) var(--spacing-md);
           border: none;
-          border-radius: 6px;
+          border-radius: var(--radius-sm);
           font-weight: 600;
           cursor: pointer;
-          transition: all 0.3s ease;
+          transition: all var(--transition-normal);
           text-decoration: none;
           display: inline-block;
 
           &:hover {
-            background: #4338ca;
+            background: var(--primary-hover);
           }
         }
       }
@@ -283,46 +283,46 @@
   }
 }
 
-// Team Section
+/* Team Section */
 .team-section {
-  padding: 4rem 2rem;
-  background: #f9fafb;
+  padding: var(--spacing-3xl) 2rem;
+  background: var(--bg-secondary);
 
   h2 {
     text-align: center;
     font-size: 2.5rem;
     font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 3rem;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-2xl);
   }
 
   .team-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    gap: var(--spacing-xl);
     max-width: 1000px;
     margin: 0 auto;
 
     .team-card {
-      background: white;
-      border-radius: 16px;
-      padding: 2rem;
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-xl);
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-normal);
 
       &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--shadow-card-hover);
       }
 
       .team-avatar {
         width: 100px;
         height: 100px;
         border-radius: 50%;
-        margin: 0 auto 1.5rem;
+        margin: 0 auto var(--spacing-lg);
         overflow: hidden;
-        border: 4px solid #e5e7eb;
+        border: 4px solid var(--border-primary);
 
         img {
           width: 100%;
@@ -335,26 +335,26 @@
         h4 {
           font-size: 1.5rem;
           font-weight: 600;
-          color: #1f2937;
-          margin-bottom: 0.5rem;
+          color: var(--text-primary);
+          margin-bottom: var(--spacing-sm);
         }
 
         .team-role {
-          color: #4f46e5;
+          color: var(--primary-color);
           font-weight: 500;
-          margin-bottom: 1rem;
+          margin-bottom: var(--spacing-md);
         }
 
         .team-bio {
-          color: #6b7280;
+          color: var(--text-secondary);
           line-height: 1.5;
-          margin-bottom: 1.5rem;
+          margin-bottom: var(--spacing-md);
         }
 
         .social-links {
           display: flex;
           justify-content: center;
-          gap: 1rem;
+          gap: var(--spacing-md);
 
           .social-link {
             display: flex;
@@ -363,13 +363,13 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #f3f4f6;
-            color: #6b7280;
-            transition: all 0.3s ease;
+            background: var(--hover-bg);
+            color: var(--text-secondary);
+            transition: all var(--transition-normal);
 
             &:hover {
-              background: #4f46e5;
-              color: white;
+              background: var(--primary-color);
+              color: var(--text-inverse);
               transform: translateY(-2px);
             }
           }
@@ -379,53 +379,44 @@
   }
 }
 
-// Loading and Error States
+/* Loading and Error States */
 .loading-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem;
-  color: #6b7280;
+  padding: var(--spacing-3xl) 2rem;
+  color: var(--loading-text);
 
   .loading-spinner {
     width: 40px;
     height: 40px;
-    border: 4px solid #e5e7eb;
-    border-top: 4px solid #4f46e5;
+    border: 4px solid var(--loading-bg);
+    border-top: 4px solid var(--loading-spinner);
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin-bottom: 1rem;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+    margin-bottom: var(--spacing-md);
   }
 }
 
 .error-container {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  padding: var(--spacing-xl);
 
   .error {
-    background: #fee2e2;
-    color: #dc2626;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    border: 1px solid #fecaca;
+    background: var(--error-bg);
+    color: var(--error-text);
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--error-border);
   }
 }
 
-// Responsive Design
+/* Responsive styles */
 @media (max-width: 768px) {
   .hero {
-    padding: 4rem 1rem;
+    padding: var(--spacing-3xl) var(--spacing-md);
 
     .hero-content {
       h1 {
@@ -451,7 +442,7 @@
 
   .featured-playlists,
   .latest-episodes {
-    padding: 0 1rem;
+    padding: 0 var(--spacing-md);
 
     .playlist-grid,
     .episode-grid {
@@ -460,7 +451,7 @@
   }
 
   .team-section {
-    padding: 2rem 1rem;
+    padding: var(--spacing-xl) var(--spacing-md);
 
     .team-grid {
       grid-template-columns: 1fr;
@@ -470,7 +461,7 @@
   .section-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: var(--spacing-md);
 
     .view-all-btn {
       align-self: flex-end;

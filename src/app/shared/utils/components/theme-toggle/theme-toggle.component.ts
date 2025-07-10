@@ -12,8 +12,15 @@ export class ThemeToggleComponent implements OnInit {
   currentTheme: 'light' | 'dark' = 'light';
 
   ngOnInit() {
-    this.currentTheme =
-      (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
+    if (savedTheme) {
+      this.currentTheme = savedTheme;
+    } else {
+      const prefersDark = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      ).matches;
+      this.currentTheme = prefersDark ? 'dark' : 'light';
+    }
     this.applyTheme();
   }
 
@@ -24,11 +31,10 @@ export class ThemeToggleComponent implements OnInit {
   }
 
   private applyTheme() {
-    const body = document.body;
     if (this.currentTheme === 'dark') {
-      body.classList.add('dark-theme');
+      document.documentElement.setAttribute('data-theme', 'dark');
     } else {
-      body.classList.remove('dark-theme');
+      document.documentElement.removeAttribute('data-theme');
     }
   }
 }
