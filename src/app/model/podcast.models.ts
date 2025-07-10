@@ -98,6 +98,14 @@ export interface SocialMedia {
   url: string;
 }
 
+export interface CreateTeamMemberPayload {
+  name: string;
+  role: string;
+  bio: string;
+  profile_image: string;
+  social_media_links: { platform: string; url: string }[];
+}
+
 // Generic API Response
 
 export interface ApiResponse<T> {

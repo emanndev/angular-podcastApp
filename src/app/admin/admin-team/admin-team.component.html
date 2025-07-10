@@ -12,23 +12,23 @@
 
   <div class="team-grid" *ngIf="!loading && team.length">
     <div class="team-card" *ngFor="let member of team">
-      <img class="avatar" [src]="member.image" [alt]="member.name" />
+      <img class="avatar" [src]="member.profile_image" [alt]="member.name" />
       <h3>{{ member.name }}</h3>
       <p class="bio">{{ member.bio }}</p>
 
       <div class="social-icons">
-  <a
-    *ngFor="let social of member.social_media"
-    [href]="social.url"
-    target="_blank"
-    [attr.aria-label]="social.platform"
-  >
-    <img
-      [src]="'assets/icons/' + getSocialIcon(social.platform)"
-      [alt]="social.platform"
-    />
-  </a>
-</div>
+        <a
+          *ngFor="let social of member.social_media"
+          [href]="social.url"
+          target="_blank"
+          [attr.aria-label]="social.platform"
+        >
+          <img
+            [src]="'assets/icons/' + getSocialIcon(social.platform)"
+            [alt]="social.platform"
+          />
+        </a>
+      </div>
 
       <div class="actions">
         <button mat-icon-button color="accent" (click)="openEditDialog(member)">

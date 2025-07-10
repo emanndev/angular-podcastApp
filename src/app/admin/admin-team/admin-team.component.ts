@@ -68,7 +68,7 @@ export class AdminTeamComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.teamService.update(member.id, result).subscribe(() => {
+        this.teamService.updateTeamMember(member.id, result).subscribe(() => {
           this.toast.show('Team member updated!', 'success');
           this.loadTeam();
         });

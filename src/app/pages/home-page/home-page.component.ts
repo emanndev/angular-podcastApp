@@ -87,7 +87,7 @@ export class HomePageComponent implements OnInit {
   }
 
   private fetchTeamMembers(): void {
-    this.teamService.getAll().subscribe({
+    this.teamService.getAllTeam().subscribe({
       next: (res: TeamMember[]) => {
         if (res && res.length > 0) {
           this.teamMembers = res;
