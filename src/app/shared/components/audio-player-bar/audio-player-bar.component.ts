@@ -6,6 +6,8 @@ import {
   ViewChild,
   ElementRef,
   ChangeDetectorRef,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AudioPlayerConfig } from '../../../model/podcast.models';
@@ -21,6 +23,7 @@ export class AudioPlayerBarComponent implements OnInit, OnDestroy {
   @Input() config!: AudioPlayerConfig;
   @ViewChild('audioElement', { static: true })
   audioElement!: ElementRef<HTMLAudioElement>;
+  @Output() close = new EventEmitter<void>();
 
   isPlaying = false;
   isLoaded = false;
@@ -52,6 +55,9 @@ export class AudioPlayerBarComponent implements OnInit, OnDestroy {
     }
   }
 
+  closePlayer() {
+    this.close.emit();
+  }
   private setupAudioElement() {
     const audio = this.audioElement.nativeElement;
     audio.volume = this.volume;

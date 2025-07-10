@@ -1,197 +1,202 @@
-<div class="audio-player">
-  <audio
-    #audioElement
-    [src]="config.src"
-    [autoplay]="config.autoplay"
-    [loop]="config.loop"
-    (loadedmetadata)="onLoadedMetadata()"
-    (timeupdate)="onTimeUpdate()"
-    (ended)="onEnded()"
-    (play)="onPlay()"
-    (pause)="onPause()"
-  ></audio>
+<div class="audio-player-wrapper">
+  <div class="audio-player">
+    <div class="close-btn" (click)="closePlayer()">×</div>
+    <audio
+      #audioElement
+      [src]="config.src"
+      [autoplay]="config.autoplay"
+      [loop]="config.loop"
+      (loadedmetadata)="onLoadedMetadata()"
+      (timeupdate)="onTimeUpdate()"
+      (ended)="onEnded()"
+      (play)="onPlay()"
+      (pause)="onPause()"
+    ></audio>
 
-  <div class="player-content">
-    <!-- Cover Image -->
-    <div class="cover-image">
-      <img
-        [src]="config.coverImage || 'assets/default-cover.jpg'"
-        [alt]="config.title"
-        (error)="onImageError($event)"
-      />
-    </div>
-
-    <!-- Track Info -->
-    <div class="track-info">
-      <h3 class="track-title">{{ config.title }}</h3>
-      <p class="track-description" *ngIf="config.description">
-        {{ config.description }}
-      </p>
-    </div>
-
-    <!-- Controls -->
-    <div class="controls">
-      <button
-        class="control-btn skip-btn"
-        (click)="skipBackward()"
-        [disabled]="!isLoaded"
-      >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M19 20L9 12l10-8v16z" />
-          <path d="M5 19V5" />
-        </svg>
-      </button>
-
-      <button
-        class="control-btn play-btn"
-        (click)="togglePlay()"
-        [disabled]="!isLoaded"
-      >
-        <svg
-          *ngIf="!isPlaying"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <polygon points="5,3 19,12 5,21" />
-        </svg>
-        <svg
-          *ngIf="isPlaying"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <rect x="6" y="4" width="4" height="16" />
-          <rect x="14" y="4" width="4" height="16" />
-        </svg>
-      </button>
-
-      <button
-        class="control-btn skip-btn"
-        (click)="skipForward()"
-        [disabled]="!isLoaded"
-      >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M5 4l10 8-10 8V4z" />
-          <path d="M19 5v14" />
-        </svg>
-      </button>
-    </div>
-
-    <!-- Progress Bar -->
-    <div class="progress-container">
-      <div class="progress-bar" (click)="seekTo($event)">
-        <div class="progress-fill" [style.width.%]="progress"></div>
-        <div class="progress-handle" [style.left.%]="progress"></div>
-      </div>
-    </div>
-
-    <!-- Time Display -->
-    <div class="time-display">
-      <span class="current-time">{{ formatTime(currentTime) }}</span>
-      <span class="duration">{{ formatTime(duration) }}</span>
-    </div>
-
-    <!-- Additional Controls -->
-    <div class="additional-controls">
-      <button class="control-btn volume-btn" (click)="toggleMute()">
-        <svg
-          *ngIf="!isMuted && volume > 0.5"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" />
-          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
-        </svg>
-        <svg
-          *ngIf="!isMuted && volume <= 0.5 && volume > 0"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" />
-          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-        </svg>
-        <svg
-          *ngIf="isMuted || volume === 0"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" />
-          <line x1="23" y1="9" x2="17" y2="15" />
-          <line x1="17" y1="9" x2="23" y2="15" />
-        </svg>
-      </button>
-
-      <div class="volume-slider" *ngIf="showVolumeSlider">
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.1"
-          [value]="volume"
-          (input)="onVolumeChange($event)"
+    <div class="player-content">
+      <!-- Cover Image -->
+      <div class="cover-image">
+        <img
+          [src]="config.coverImage || 'assets/default-cover.jpg'"
+          [alt]="config.title"
+          (error)="onImageError($event)"
         />
       </div>
 
-      <button
-        *ngIf="config.showSpeed"
-        class="control-btn speed-btn"
-        (click)="toggleSpeed()"
-      >
-        {{ playbackRate }}x
-      </button>
+      <!-- Track Info -->
+      <div class="track-info">
+        <div class="track-details">
+          <h3 class="track-title">{{ config.title }}</h3>
+          <p class="track-description" *ngIf="config.description">
+            {{ config.description }}
+          </p>
+        </div>
 
-      <button
-        *ngIf="config.showDownload"
-        class="control-btn download-btn"
-        (click)="downloadAudio()"
-      >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div class="progress-bar" (click)="seekTo($event)">
+            <div class="progress-fill" [style.width.%]="progress"></div>
+            <div class="progress-handle" [style.left.%]="progress"></div>
+          </div>
+        </div>
+
+        <!-- Time Display -->
+        <div class="time-display">
+          <span class="current-time">{{ formatTime(currentTime) }}</span>
+          <span class="duration">{{ formatTime(duration) }}</span>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <button
+          class="control-btn skip-btn"
+          (click)="skipBackward()"
+          [disabled]="!isLoaded"
         >
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-          <polyline points="7,10 12,15 17,10" />
-          <line x1="12" y1="15" x2="12" y2="3" />
-        </svg>
-      </button>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 20L9 12l10-8v16z" />
+            <path d="M5 19V5" />
+          </svg>
+        </button>
+
+        <button
+          class="control-btn play-btn"
+          (click)="togglePlay()"
+          [disabled]="!isLoaded"
+        >
+          <svg
+            *ngIf="!isPlaying"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polygon points="5,3 19,12 5,21" />
+          </svg>
+          <svg
+            *ngIf="isPlaying"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="6" y="4" width="4" height="16" />
+            <rect x="14" y="4" width="4" height="16" />
+          </svg>
+        </button>
+
+        <button
+          class="control-btn skip-btn"
+          (click)="skipForward()"
+          [disabled]="!isLoaded"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M5 4l10 8-10 8V4z" />
+            <path d="M19 5v14" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Additional Controls -->
+      <div class="additional-controls">
+        <button class="control-btn volume-btn" (click)="toggleMute()">
+          <svg
+            *ngIf="!isMuted && volume > 0.5"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+          <svg
+            *ngIf="!isMuted && volume <= 0.5 && volume > 0"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+          </svg>
+          <svg
+            *ngIf="isMuted || volume === 0"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" />
+            <line x1="23" y1="9" x2="17" y2="15" />
+            <line x1="17" y1="9" x2="23" y2="15" />
+          </svg>
+        </button>
+
+        <div class="volume-slider" *ngIf="showVolumeSlider">
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            [value]="volume"
+            (input)="onVolumeChange($event)"
+          />
+        </div>
+
+        <button
+          *ngIf="config.showSpeed"
+          class="control-btn speed-btn"
+          (click)="toggleSpeed()"
+        >
+          {{ playbackRate }}x
+        </button>
+
+        <button
+          *ngIf="config.showDownload"
+          class="control-btn download-btn"
+          (click)="downloadAudio()"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7,10 12,15 17,10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </div>
