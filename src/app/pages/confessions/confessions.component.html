@@ -1,0 +1,57 @@
+<app-public-navbar></app-public-navbar>
+<section class="confession-page">
+  <h1>Share Your Confession</h1>
+  <p class="subtitle">
+    Have something to share? Submit your anonymous confession and it might be
+    featured on our podcast.
+  </p>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="confession-form">
+    <h2>Submit Confession</h2>
+    <p class="note">
+      All fields are optional. Your confession will be reviewed before being
+      featured.
+    </p>
+
+    <label>
+      Name (Optional)
+      <input type="text" formControlName="name" placeholder="Your name" />
+    </label>
+
+    <label>
+      Email (Optional)
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="your@email.com"
+      />
+      <span
+        class="error"
+        *ngIf="form.controls['email'].invalid && form.controls['email'].touched"
+      >
+        Invalid email format
+      </span>
+    </label>
+
+    <label>
+      Your Confession
+      <textarea
+        rows="5"
+        formControlName="message"
+        placeholder="Share your story..."
+      ></textarea>
+      <span
+        class="error"
+        *ngIf="
+          form.controls['message'].invalid && form.controls['message'].touched
+        "
+      >
+        Confession must be at least 10 characters.
+      </span>
+    </label>
+
+    <button type="submit" [disabled]="form.invalid">Submit Confession</button>
+    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+  </form>
+</section>
+<app-footer></app-footer>

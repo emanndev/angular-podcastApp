@@ -1,12 +1,34 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ToastComponent } from './shared/utils/components/toast/toast.component';
+import { AudioPlayerBarComponent } from './shared/components/audio-player-bar/audio-player-bar.component';
+import { AudioPlayerService } from './core/services/audio-player.service';
+import { AudioPlayerConfig } from './model/podcast.models';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    ToastComponent,
+    AudioPlayerBarComponent,
+    CommonModule,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'angular-podcastApp';
+  showAudioPlayer = false;
+  config: AudioPlayerConfig | null = null;
+
+  constructor(private audioService: AudioPlayerService) {
+    this.audioService.visible$.subscribe((visible) => {
+      this.showAudioPlayer = visible;
+    });
+
+    this.audioService.config$.subscribe((config) => {
+      this.config = config;
+    });
+  }
 }

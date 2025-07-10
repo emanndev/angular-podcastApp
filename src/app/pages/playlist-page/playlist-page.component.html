@@ -1,0 +1,60 @@
+<app-public-navbar></app-public-navbar>
+
+<div class="playlist-container">
+  <div class="header">
+    <h1>Playlists</h1>
+    <p class="description">
+      Curated collections of episodes organized by topic and description.
+    </p>
+  </div>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search playlists..."
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()"
+    />
+  </div>
+  <div class="grid-wrapper">
+    <div class="grid" *ngIf="!loading">
+      <div
+        class="card"
+        *ngFor="let playlist of filteredPlaylists"
+        [routerLink]="['/playlists', playlist.id]"
+      >
+        <div class="image-wrapper">
+          <img
+            [src]="'https://picsum.photos/seed/' + playlist.id + '/600/300'"
+            [alt]="playlist.name"
+          />
+          <span class="badge"
+            >{{ playlist.episodes.length || 0 }} episodes</span
+          >
+        </div>
+
+        <div class="card-content">
+          <h2>{{ playlist.name }}</h2>
+          <p class="description">{{ playlist.description }}</p>
+
+          <div class="tags">
+            <span
+              class="tag"
+              *ngFor="let tag of getTagsForPlaylist(playlist)"
+              >{{ tag }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="loading" *ngIf="loading">
+      <p>Loading playlists...</p>
+    </div>
+
+    <p *ngIf="!loading && filteredPlaylists.length === 0" class="no-results">
+      No playlists found matching "{{ searchTerm }}"
+    </p>
+  </div>
+</div>
+<app-footer></app-footer>

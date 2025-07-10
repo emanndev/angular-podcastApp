@@ -1,0 +1,102 @@
+<div class="admin-confessions">
+  <div class="header-bar">
+    <h2>Confessions</h2>
+    <div class="export-buttons">
+      <button (click)="exportAsCSV()">Export CSV</button>
+      <button (click)="exportAsJSON()">Export JSON</button>
+    </div>
+  </div>
+
+  <input
+    type="text"
+    placeholder="Search confessions..."
+    [(ngModel)]="search"
+    (ngModelChange)="applySearchAndSort()"
+    class="search-input"
+  />
+
+  <div *ngIf="loading">Loading confessions...</div>
+
+  <table
+    *ngIf="!loading && paginatedConfessions.length > 0"
+    class="confessions-table"
+  >
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Message</th>
+        <th>Category</th>
+        <th>Emotion</th>
+        <th (click)="changeSort('is_approved')" class="sortable">
+          Approved
+          <span *ngIf="sortColumn === 'is_approved'">
+            {{ sortAsc ? "⬆️" : "⬇️" }}
+          </span>
+        </th>
+        <th (click)="changeSort('created_at')" class="sortable">
+          Submitted At
+          <span *ngIf="sortColumn === 'created_at'">
+            {{ sortAsc ? "⬆️" : "⬇️" }}
+          </span>
+        </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let c of paginatedConfessions; index as i">
+        <td>{{ i + 1 + (currentPage - 1) * pageSize }}</td>
+        <td>{{ c.message }}</td>
+        <td>
+          <span class="badge category">{{ c.category || "-" }}</span>
+        </td>
+        <td>
+          <span class="badge emotion">{{ c.emotion || "-" }}</span>
+        </td>
+        <td>
+          <span
+            class="badge"
+            [ngClass]="{
+              approved: c.is_approved,
+              pending: !c.is_approved
+            }"
+          >
+            {{ c.is_approved ? "Yes" : "No" }}
+          </span>
+        </td>
+        <td>{{ c.created_at | date : "short" }}</td>
+        <td>
+          <button
+            class="approve-btn"
+            *ngIf="!c.is_approved"
+            (click)="approveConfession(c)"
+          >
+            ✔️
+          </button>
+          <button class="flag-btn" (click)="flagConfession(c)">🚩</button>
+          <button class="delete-btn" (click)="deleteConfession(c.id)">
+            🗑️
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && paginatedConfessions.length === 0">
+    No confessions available.
+  </div>
+
+  <!-- Pagination -->
+  <div
+    class="pagination"
+    *ngIf="!loading && filteredConfessions.length >= pageSize"
+  >
+    <button
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      (click)="goToPage(i + 1)"
+      [class.active]="currentPage === i + 1"
+    >
+      {{ i + 1 }}
+    </button>
+  </div>
+</div>

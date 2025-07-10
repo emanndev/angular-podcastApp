@@ -1,0 +1,470 @@
+/* Section Animations */
+.section-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.featured-playlists.section-animate {
+  animation-delay: 0.2s;
+}
+
+.latest-episodes.section-animate {
+  animation-delay: 0.4s;
+}
+
+.team-section.section-animate {
+  animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero Section */
+.hero {
+  background: var(--bg-hero);
+  color: var(--text-hero);
+  text-align: center;
+  padding: 6rem 2rem;
+  margin-bottom: var(--spacing-3xl);
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-lg);
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 1.3rem;
+      margin-bottom: var(--spacing-xl);
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: var(--spacing-md);
+      justify-content: center;
+      flex-wrap: wrap;
+
+      .btn-primary {
+        background: var(--primary-color);
+        color: var(--text-inverse);
+        padding: var(--spacing-md) var(--spacing-xl);
+        border: none;
+        border-radius: var(--radius-md);
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition-normal);
+        text-decoration: none;
+        display: inline-block;
+
+        &:hover {
+          background: var(--primary-hover);
+          transform: translateY(-2px);
+        }
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-inverse);
+        padding: var(--spacing-md) var(--spacing-xl);
+        border: 2px solid var(--text-inverse);
+        border-radius: var(--radius-md);
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition-normal);
+        text-decoration: none;
+        display: inline-block;
+
+        &:hover {
+          background: var(--text-inverse);
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+}
+
+/* Section Headers */
+.section-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .view-all-btn {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-normal);
+
+    &:hover {
+      background: var(--hover-bg);
+      color: var(--hover-text);
+    }
+  }
+}
+
+/* Featured Playlists */
+.featured-playlists {
+  padding: 0 2rem;
+  margin-bottom: var(--spacing-3xl);
+
+  .playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .playlist-card {
+      display: flex;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-normal);
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-card-hover);
+      }
+
+      .playlist-image {
+        width: 120px;
+        height: 120px;
+        flex-shrink: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .playlist-info {
+        padding: var(--spacing-lg);
+        flex: 1;
+
+        h3 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          margin-bottom: var(--spacing-sm);
+        }
+
+        p {
+          color: var(--text-secondary);
+          line-height: 1.5;
+          margin-bottom: var(--spacing-sm);
+        }
+
+        .episode-count {
+          color: var(--primary-color);
+          font-size: 0.9rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+/* Latest Episodes */
+.latest-episodes {
+  padding: 0 2rem;
+  margin-bottom: var(--spacing-3xl);
+
+  .episode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .episode-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-normal);
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-card-hover);
+      }
+
+      .episode-image {
+        width: 100%;
+        height: 200px;
+        position: relative;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .episode-meta {
+        display: flex;
+        justify-content: space-between;
+        padding: var(--spacing-md) var(--spacing-lg) 0;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+
+        .episode-date,
+        .episode-duration {
+          display: flex;
+          align-items: center;
+          gap: var(--spacing-sm);
+        }
+      }
+
+      .episode-content {
+        padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
+
+        h3 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          margin-bottom: var(--spacing-sm);
+          line-height: 1.3;
+        }
+
+        p {
+          color: var(--text-secondary);
+          line-height: 1.5;
+          margin-bottom: var(--spacing-md);
+        }
+
+        .listen-btn {
+          background: var(--primary-color);
+          color: var(--text-inverse);
+          padding: var(--spacing-sm) var(--spacing-md);
+          border: none;
+          border-radius: var(--radius-sm);
+          font-weight: 600;
+          cursor: pointer;
+          transition: all var(--transition-normal);
+          text-decoration: none;
+          display: inline-block;
+
+          &:hover {
+            background: var(--primary-hover);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Team Section */
+.team-section {
+  padding: var(--spacing-3xl) 2rem;
+  background: var(--bg-secondary);
+
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+    max-width: 1000px;
+    margin: 0 auto;
+
+    .team-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-xl);
+      text-align: center;
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-normal);
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-card-hover);
+      }
+
+      .team-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 0 auto var(--spacing-lg);
+        overflow: hidden;
+        border: 4px solid var(--border-primary);
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .team-info {
+        h4 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          margin-bottom: var(--spacing-sm);
+        }
+
+        .team-role {
+          color: var(--primary-color);
+          font-weight: 500;
+          margin-bottom: var(--spacing-md);
+        }
+
+        .team-bio {
+          color: var(--text-secondary);
+          line-height: 1.5;
+          margin-bottom: var(--spacing-md);
+        }
+
+        .social-links {
+          display: flex;
+          justify-content: center;
+          gap: var(--spacing-md);
+
+          .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--hover-bg);
+            color: var(--text-secondary);
+            transition: all var(--transition-normal);
+
+            &:hover {
+              background: var(--primary-color);
+              color: var(--text-inverse);
+              transform: translateY(-2px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Loading and Error States */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3xl) 2rem;
+  color: var(--loading-text);
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--loading-bg);
+    border-top: 4px solid var(--loading-spinner);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-xl);
+
+  .error {
+    background: var(--error-bg);
+    color: var(--error-text);
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--error-border);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .hero {
+    padding: var(--spacing-3xl) var(--spacing-md);
+
+    .hero-content {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+
+        .btn-primary,
+        .btn-secondary {
+          width: 100%;
+          max-width: 300px;
+        }
+      }
+    }
+  }
+
+  .featured-playlists,
+  .latest-episodes {
+    padding: 0 var(--spacing-md);
+
+    .playlist-grid,
+    .episode-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .team-section {
+    padding: var(--spacing-xl) var(--spacing-md);
+
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+
+    .view-all-btn {
+      align-self: flex-end;
+    }
+  }
+}

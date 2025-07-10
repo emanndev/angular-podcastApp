@@ -1,0 +1,134 @@
+.admin-confessions {
+  .header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+
+    .export-buttons button {
+      margin-left: var(--spacing-sm);
+    }
+  }
+
+  .search-input {
+    margin-bottom: var(--spacing-md);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    width: 100%;
+    border: 1px solid var(--border-light);
+  }
+
+  .confessions-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-primary);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+
+    th,
+    td {
+      padding: 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-medium);
+      font-size: 14px;
+    }
+
+    th {
+      background-color: var(--bg-light-gray);
+      font-weight: 600;
+
+      &.sortable {
+        cursor: pointer;
+        user-select: none;
+        transition: background-color var(--transition-normal);
+
+        &:hover {
+          background-color: var(--hover-bg-light);
+        }
+      }
+    }
+
+    tr:hover {
+      background-color: var(--gray-50);
+    }
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 12px;
+    background-color: var(--bg-tertiary);
+    color: var(--badge-neutral);
+    font-weight: 500;
+    text-transform: capitalize;
+
+    &.approved {
+      background-color: var(--badge-approved-bg);
+      color: var(--badge-approved);
+    }
+
+    &.pending {
+      background-color: var(--badge-pending-bg);
+      color: var(--badge-pending);
+    }
+
+    &.category {
+      background-color: var(--badge-category-bg);
+      color: var(--badge-category);
+    }
+
+    &.emotion {
+      background-color: var(--badge-emotion-bg);
+      color: var(--badge-emotion);
+    }
+  }
+
+  button {
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: var(--spacing-xs);
+    background: none;
+
+    &.delete-btn {
+      color: var(--error-alternate);
+    }
+
+    &.flag-btn {
+      color: var(--warning-color);
+    }
+
+    &.approve-btn {
+      color: var(--success-color);
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+
+    button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+      background-color: var(--bg-button);
+      cursor: pointer;
+      transition: background-color var(--transition-fast);
+
+      &.active {
+        background-color: var(--primary-color);
+        color: var(--text-inverse);
+        border-color: var(--primary-color);
+      }
+
+      &:hover:not(.active) {
+        background-color: var(--hover-bg-button);
+      }
+    }
+  }
+}

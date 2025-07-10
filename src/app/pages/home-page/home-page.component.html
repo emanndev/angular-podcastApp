@@ -1,0 +1,139 @@
+<app-public-navbar></app-public-navbar>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Welcome to ManBel Pod</h1>
+    <p>
+      Discover thought-provoking conversations, insights, and stories that
+      inspire and inform.
+    </p>
+    <div class="hero-buttons">
+      <button class="btn-primary" routerLink="/episodes">
+        Browse Episodes
+      </button>
+      <button class="btn-secondary" routerLink="/confessions">
+        Share Your Story
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Playlists -->
+<section
+  class="featured-playlists section-animate"
+  *ngIf="episodesLoaded && latestEpisodes.length"
+>
+  <div class="section-header">
+    <h2>Featured Playlists</h2>
+    <button class="view-all-btn" routerLink="/playlists">View All</button>
+  </div>
+  <div class="playlist-grid">
+    <div class="playlist-card" *ngFor="let playlist of featuredPlaylists">
+      <div class="playlist-image">
+        <img
+          [src]="playlist.randomImage"
+          alt="{{ playlist.name }}"
+          (error)="
+            playlist.randomImage =
+              'https://via.placeholder.com/120x120?text=Playlist'
+          "
+        />
+      </div>
+      <div class="playlist-info">
+        <h3>{{ playlist.name }}</h3>
+        <p>{{ playlist.description }}</p>
+        <span class="episode-count"
+          >{{ playlist.episodes.length || 0 }} episodes</span
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Latest Episodes -->
+<section
+  class="latest-episodes section-animate"
+  *ngIf="playlistsLoaded && featuredPlaylists.length"
+>
+  <div class="section-header">
+    <h2>Latest Episodes</h2>
+    <button class="view-all-btn" routerLink="/episodes">View All</button>
+  </div>
+  <div class="episode-grid">
+    <div class="episode-card" *ngFor="let episode of latestEpisodes">
+      <div class="episode-image">
+        <img [src]="episode.img_url" alt="{{ episode.title }}" />
+      </div>
+      <div class="episode-meta">
+        <div class="episode-date">
+          <span class="date-icon">📅</span>
+          <span>{{ episode.created_at | date : "M/d/yyyy" }}</span>
+        </div>
+        <div class="episode-duration">
+          <span class="duration-icon">⏱️</span>
+          <span>{{ episode.duration || "45:30" }}</span>
+        </div>
+      </div>
+      <div class="episode-content">
+        <h3>{{ episode.title }}</h3>
+        <p>{{ episode.description | slice : 0 : 120 }}...</p>
+        <button class="listen-btn" [routerLink]="['/episode', episode.id]">
+          Listen Now
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Meet the Team -->
+<section
+  class="team-section section-animate"
+  *ngIf="teamLoaded && teamMembers.length"
+>
+  <h2>Meet the Team</h2>
+  <div class="team-grid">
+    <div class="team-card" *ngFor="let member of teamMembers">
+      <div class="team-avatar">
+        <img [src]="member.profile_image" alt="{{ member.name }}" />
+      </div>
+      <div class="team-info">
+        <h4>{{ member.name }}</h4>
+        <p class="team-role">{{ member.role || "Team Member" }}</p>
+        <p class="team-bio">{{ member.bio }}</p>
+        <div class="social-links">
+          <a
+            *ngIf="member.social_media?.[0]?.url"
+            [href]="member.social_media?.[0]?.url"
+            target="_blank"
+            class="social-link"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Error & Loading -->
+<section *ngIf="!episodesLoaded" class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Loading episodes...</p>
+</section>
+<section *ngIf="!playlistsLoaded" class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Loading playlists...</p>
+</section>
+<div *ngIf="!teamLoaded" class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Loading content...</p>
+</div>
+
+<div *ngIf="error" class="error-container">
+  <p class="error">{{ error }}</p>
+</div>
+<app-footer></app-footer>

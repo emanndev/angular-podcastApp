@@ -1,0 +1,16 @@
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin: var(--spacing-md) 0;
+}
+
+input {
+  width: 80%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  font-size: 14px;
+  margin-bottom: var(--spacing-md);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}

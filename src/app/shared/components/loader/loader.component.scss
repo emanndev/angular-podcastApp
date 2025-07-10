@@ -1,0 +1,8 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl);
+  font-size: 1.2rem;
+  color: var(--loader-color);
+}

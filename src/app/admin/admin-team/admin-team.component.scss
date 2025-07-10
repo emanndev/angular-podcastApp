@@ -1,0 +1,105 @@
+.admin-team-container {
+  padding: var(--spacing-xl);
+
+  h2 {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  button {
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+.empty-message {
+  text-align: center;
+  margin-top: var(--spacing-xl);
+  font-size: 1.2rem;
+  color: var(--text-gray);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+}
+
+.team-card {
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform var(--transition-fast);
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 0.75rem;
+    border: 3px solid var(--border-medium);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: var(--spacing-sm) 0;
+    text-align: center;
+  }
+
+  .bio {
+    font-size: 0.95rem;
+    color: var(--text-dark-gray);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    min-height: 60px;
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: var(--spacing-md);
+
+    a {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      transition: transform var(--transition-fast);
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: grayscale(0);
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-card {
+    padding: var(--spacing-md);
+  }
+}
