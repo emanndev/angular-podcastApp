@@ -32,7 +32,7 @@ export class EpisodeListPageComponent implements OnInit {
   currentFilter = 'all';
 
   currentPage = 1;
-  pageSize = 8;
+  pageSize = 9;
 
   constructor(
     private episodeService: EpisodeService,

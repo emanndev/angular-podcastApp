@@ -33,46 +33,46 @@
     </div>
 
     <div *ngIf="error" class="error">{{ error }}</div>
-
-    <div class="episode-grid" *ngIf="paginatedEpisodes.length && !loading">
-      <div class="episode-card" *ngFor="let episode of paginatedEpisodes">
-        <div class="episode-image">
-          <img
-            [src]="getEpisodeImage(episode.img_url)"
-            alt="{{ episode.title }}"
-          />
-          <div class="category-badge">
-            {{ getCategoryFromTitle(episode.title) }}
-          </div>
-        </div>
-
-        <div class="episode-content">
-          <div class="episode-meta">
-            <span class="date">
-              <i class="calendar-icon"></i>
-              {{ episode.posted_on | date : "M/d/yyyy" }}
-            </span>
-            <span class="duration">
-              <i class="clock-icon"></i>
-              {{ episode.duration || "55:36" }}
-            </span>
+    <div class="grid-wrapper">
+      <div class="episode-grid" *ngIf="paginatedEpisodes.length && !loading">
+        <div class="episode-card" *ngFor="let episode of paginatedEpisodes">
+          <div class="episode-image">
+            <img
+              [src]="getEpisodeImage(episode.img_url)"
+              alt="{{ episode.title }}"
+            />
+            <div class="category-badge">
+              {{ getCategoryFromTitle(episode.title) }}
+            </div>
           </div>
 
-          <h3 class="episode-title">{{ episode.title }}</h3>
-          <p class="episode-description">
-            {{ episode.description | slice : 0 : 120 }}...
-          </p>
+          <div class="episode-content">
+            <div class="episode-meta">
+              <span class="date">
+                <i class="calendar-icon"></i>
+                {{ episode.posted_on | date : "M/d/yyyy" }}
+              </span>
+              <span class="duration">
+                <i class="clock-icon"></i>
+                {{ episode.duration || "55:36" }}
+              </span>
+            </div>
 
-          <button
-            class="listen-btn"
-            (click)="navigatetoEpisodeDetails(episode.id)"
-          >
-            > Listen Now
-          </button>
+            <h3 class="episode-title">{{ episode.title }}</h3>
+            <p class="episode-description">
+              {{ episode.description | slice : 0 : 120 }}...
+            </p>
+
+            <button
+              class="listen-btn"
+              (click)="navigatetoEpisodeDetails(episode.id)"
+            >
+              > Listen Now
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
     <div *ngIf="!filteredEpisodes.length && !loading" class="empty-state">
       <div class="empty-icon">🎧</div>
       <h3>No episodes found</h3>
