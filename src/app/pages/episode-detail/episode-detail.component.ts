@@ -12,6 +12,7 @@ import { environment } from '../../../environments/environment';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { PublicNavbarComponent } from '../../shared/components/public-navbar/public-navbar.component';
 import { AudioPlayerBarComponent } from '../../shared/components/audio-player-bar/audio-player-bar.component';
+import { AudioPlayerService } from '../../core/services/audio-player.service';
 
 @Component({
   selector: 'app-episode-detail',
@@ -35,11 +36,13 @@ export class EpisodeDetailComponent implements OnInit {
   showAudioPlayer = false;
   playerConfig: AudioPlayerConfig | null = null;
   isPlaying = false;
+  audioServiceVisible = false;
 
   constructor(
     private route: ActivatedRoute,
     private episodeService: EpisodeService,
-    private playlistService: PlaylistService
+    private playlistService: PlaylistService,
+    private audioService: AudioPlayerService
   ) {}
 
   ngOnInit(): void {
@@ -75,6 +78,10 @@ export class EpisodeDetailComponent implements OnInit {
         this.error = 'Failed to load episode';
         this.loading = false;
       },
+    });
+
+    this.audioService.visible$.subscribe((visible) => {
+      this.audioServiceVisible = visible;
     });
   }
 
@@ -208,7 +215,7 @@ export class EpisodeDetailComponent implements OnInit {
 
   onPlayEpisode(): void {
     if (this.episode?.audio_url) {
-      this.playerConfig = {
+      this.audioService.play({
         src: this.episode.audio_url,
         title: this.episode.title,
         description: this.episode.description,
@@ -217,9 +224,7 @@ export class EpisodeDetailComponent implements OnInit {
         loop: false,
         showDownload: true,
         showSpeed: true,
-      };
-      this.showAudioPlayer = true;
-      this.isPlaying = true;
+      });
     }
   }
 
