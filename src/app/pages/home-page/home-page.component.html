@@ -30,10 +30,14 @@
   <div class="playlist-grid">
     <div class="playlist-card" *ngFor="let playlist of featuredPlaylists">
       <div class="playlist-image">
-        <!-- <img
-          [src]="getPlaylistImage(playlist.image)"
+        <img
+          [src]="playlist.randomImage"
           alt="{{ playlist.name }}"
-        /> -->
+          (error)="
+            playlist.randomImage =
+              'https://via.placeholder.com/120x120?text=Playlist'
+          "
+        />
       </div>
       <div class="playlist-info">
         <h3>{{ playlist.name }}</h3>
@@ -58,10 +62,7 @@
   <div class="episode-grid">
     <div class="episode-card" *ngFor="let episode of latestEpisodes">
       <div class="episode-image">
-        <img
-          [src]="getEpisodeImage(episode.img_url)"
-          alt="{{ episode.title }}"
-        />
+        <img [src]="episode.img_url" alt="{{ episode.title }}" />
       </div>
       <div class="episode-meta">
         <div class="episode-date">
@@ -93,7 +94,7 @@
   <div class="team-grid">
     <div class="team-card" *ngFor="let member of teamMembers">
       <div class="team-avatar">
-        <img [src]="getTeamImage(member.image)" alt="{{ member.name }}" />
+        <img [src]="member.profile_image" alt="{{ member.name }}" />
       </div>
       <div class="team-info">
         <h4>{{ member.name }}</h4>

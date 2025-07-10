@@ -13,23 +13,32 @@ export class TeamMembersService {
 
   getAllTeam(): Observable<TeamMember[]> {
     return this.http
-      .get<ApiResponse<TeamMember[]>>(`${this.baseUrl}/team`)
+      .get<ApiResponse<TeamMember[]>>(`${this.baseUrl}/team-members`)
       .pipe(
         map((res) => res.data),
         catchError((err) => {
           console.warn('⚠️ API failed, using mock team data', err);
-          return of(MOCK_TEAM_MEMBERS);
+
+          const mapped = MOCK_TEAM_MEMBERS.map((member: any) => ({
+            id: member.id,
+            name: member.name,
+            role: member.role,
+            bio: member.bio,
+            profile_image: member.image,
+            social_media: member.socialMedia,
+          }));
+          return of(mapped);
         })
       );
   }
 
   deleteTeamMember(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/team/${id}`);
+    return this.http.delete(`${this.baseUrl}/team-members/${id}`);
   }
 
   getAll(): Observable<TeamMember[]> {
     return this.http
-      .get<ApiResponse<TeamMember[]>>(`${this.baseUrl}/team`)
+      .get<ApiResponse<TeamMember[]>>(`${this.baseUrl}/team-members`)
       .pipe(
         map((res) => res.data),
         catchError(() => of([]))
@@ -42,29 +51,32 @@ export class TeamMembersService {
 
   create(member: Partial<TeamMember>): Observable<TeamMember> {
     return this.http
-      .post<ApiResponse<TeamMember>>(`${this.baseUrl}/team`, member)
+      .post<ApiResponse<TeamMember>>(`${this.baseUrl}/team-members`, member)
       .pipe(map((res) => res.data));
   }
 
   update(id: number, member: Partial<TeamMember>): Observable<TeamMember> {
     return this.http
-      .put<ApiResponse<TeamMember>>(`${this.baseUrl}/team/${id}`, member)
+      .put<ApiResponse<TeamMember>>(
+        `${this.baseUrl}/team-members/${id}`,
+        member
+      )
       .pipe(map((res) => res.data));
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/team/${id}`);
+    return this.http.delete(`${this.baseUrl}/team-members/${id}`);
   }
 
   getById(id: number): Observable<TeamMember> {
     return this.http
-      .get<ApiResponse<TeamMember>>(`${this.baseUrl}/team/${id}`)
+      .get<ApiResponse<TeamMember>>(`${this.baseUrl}/team-members/${id}`)
       .pipe(map((res) => res.data));
   }
 
   getTeamMemberById(id: number): Observable<TeamMember> {
     return this.http
-      .get<ApiResponse<TeamMember>>(`${this.baseUrl}/team/${id}`)
+      .get<ApiResponse<TeamMember>>(`${this.baseUrl}/team-members/${id}`)
       .pipe(map((res) => res.data));
   }
 
@@ -73,7 +85,7 @@ export class TeamMembersService {
     data: Partial<TeamMember>
   ): Observable<TeamMember> {
     return this.http
-      .put<ApiResponse<TeamMember>>(`${this.baseUrl}/team/${id}`, data)
+      .put<ApiResponse<TeamMember>>(`${this.baseUrl}/team-members/${id}`, data)
       .pipe(map((res) => res.data));
   }
 }

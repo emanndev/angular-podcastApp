@@ -77,6 +77,10 @@ export interface PlaylistForm {
   episode_ids: number[];
 }
 
+export interface DisplayPlaylist extends Playlist {
+  randomImage: string;
+}
+
 // Team Member
 
 export interface TeamMember {
@@ -84,7 +88,7 @@ export interface TeamMember {
   name: string;
   role: string;
   bio: string;
-  image: string;
+  profile_image: string;
   social_media?: SocialMedia[];
 }
 
