@@ -3,15 +3,26 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { EpisodeService } from '../../core/services/episode.service';
 import { PlaylistService } from '../../core/services/playlist.service';
-import { Episode, Playlist } from '../../model/podcast.models';
+import {
+  Episode,
+  Playlist,
+  AudioPlayerConfig,
+} from '../../model/podcast.models';
 import { environment } from '../../../environments/environment';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { PublicNavbarComponent } from '../../shared/components/public-navbar/public-navbar.component';
+import { AudioPlayerBarComponent } from '../../shared/components/audio-player-bar/audio-player-bar.component';
 
 @Component({
   selector: 'app-episode-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, FooterComponent, PublicNavbarComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FooterComponent,
+    PublicNavbarComponent,
+    AudioPlayerBarComponent,
+  ],
   templateUrl: './episode-detail.component.html',
   styleUrls: ['./episode-detail.component.scss'],
 })
@@ -21,6 +32,9 @@ export class EpisodeDetailComponent implements OnInit {
   error = '';
   relatedPlaylists: Playlist[] = [];
   episodeTags: string[] = [];
+  showAudioPlayer = false;
+  playerConfig: AudioPlayerConfig | null = null;
+  isPlaying = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -166,12 +180,6 @@ export class EpisodeDetailComponent implements OnInit {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   }
 
-  onPlayEpisode(): void {
-    if (this.episode?.audio_url) {
-      console.log('Playing episode:', this.episode.title);
-    }
-  }
-
   onShareEpisode(): void {
     if (navigator.share && this.episode) {
       navigator
@@ -196,5 +204,28 @@ export class EpisodeDetailComponent implements OnInit {
         console.log('URL copied to clipboard');
       });
     }
+  }
+
+  onPlayEpisode(): void {
+    if (this.episode?.audio_url) {
+      this.playerConfig = {
+        src: this.episode.audio_url,
+        title: this.episode.title,
+        description: this.episode.description,
+        coverImage: this.episode.img_url,
+        autoplay: true,
+        loop: false,
+        showDownload: true,
+        showSpeed: true,
+      };
+      this.showAudioPlayer = true;
+      this.isPlaying = true;
+    }
+  }
+
+  onClosePlayer(): void {
+    this.showAudioPlayer = false;
+    this.isPlaying = false;
+    this.playerConfig = null;
   }
 }
