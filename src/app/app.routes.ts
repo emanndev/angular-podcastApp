@@ -2,6 +2,11 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './admin/auth/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
 import { adminRoutes } from './admin.routes';
+import { EpisodeListPageComponent } from './pages/episode-page/episode-page.component';
+import { EpisodeDetailComponent } from './pages/episode-detail/episode-detail.component';
+import { ConfessionsComponent } from './pages/confessions/confessions.component';
+import { PlaylistPageComponent } from './pages/playlist-page/playlist-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 export const routes: Routes = [
   {
@@ -20,33 +25,25 @@ export const routes: Routes = [
   // Home Page Route
   {
     path: 'home',
-    loadComponent: () =>
-      import('./pages/home-page/home-page.component').then(
-        (m) => m.HomePageComponent
-      ),
+    component: HomePageComponent,
   },
+
+  { path: 'episodes', component: EpisodeListPageComponent },
 
   {
     path: 'episode/:id',
-    loadComponent: () =>
-      import('./pages/episode-detail/episode-detail.component').then(
-        (m) => m.EpisodeDetailComponent
-      ),
+    component: EpisodeDetailComponent,
   },
 
   {
-  path: 'confessions',
-  loadComponent: () =>
-    import('./pages/confessions/confessions.component').then((m) => m.ConfessionsComponent),
-},
+    path: 'confessions',
+    component: ConfessionsComponent,
+  },
 
-{
-  path: 'playlists',
-  loadComponent: () =>
-    import('./pages/playlist-page/playlist-page.component').then(
-      (m) => m.PlaylistPageComponent
-    ),
-},
+  {
+    path: 'playlists',
+    component: PlaylistPageComponent,
+  },
 
   // Default & Wildcard
   { path: '', redirectTo: '/home', pathMatch: 'full' },

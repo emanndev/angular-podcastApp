@@ -18,12 +18,6 @@ export class EpisodeService {
       .pipe(map((res) => res.data));
   }
 
-  getEpisodeById(id: number): Observable<Episode> {
-    return this.http
-      .get<ApiResponse<Episode>>(`${this.baseUrl}/episodes/${id}`)
-      .pipe(map((res) => res.data));
-  }
-
   updateEpisode(id: number, data: Partial<Episode>): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({

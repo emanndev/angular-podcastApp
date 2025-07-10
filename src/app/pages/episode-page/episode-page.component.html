@@ -1,0 +1,91 @@
+<app-public-navbar></app-public-navbar>
+<div class="page-layout">
+  <section class="episode-list-container">
+    <div class="header-section">
+      <h1 class="page-title">All Episodes</h1>
+      <p class="page-subtitle">
+        Discover our collection of thought-provoking conversations and insights.
+      </p>
+    </div>
+
+    <div class="search-section">
+      <app-search-bar
+        (search)="onSearch($event)"
+        placeholder="Search episodes..."
+      ></app-search-bar>
+    </div>
+
+    <div class="filter-tabs">
+      <button class="tab-btn active" (click)="setFilter('all')">All</button>
+      <button class="tab-btn" (click)="setFilter('technology')">
+        Technology
+      </button>
+      <button class="tab-btn" (click)="setFilter('health')">Health</button>
+      <button class="tab-btn" (click)="setFilter('business')">Business</button>
+      <button class="tab-btn" (click)="setFilter('lifestyle')">
+        Lifestyle
+      </button>
+    </div>
+
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Loading episodes...</p>
+    </div>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="episode-grid" *ngIf="paginatedEpisodes.length && !loading">
+      <div class="episode-card" *ngFor="let episode of paginatedEpisodes">
+        <div class="episode-image">
+          <img
+            [src]="getEpisodeImage(episode.img_url)"
+            alt="{{ episode.title }}"
+          />
+          <div class="category-badge">
+            {{ getCategoryFromTitle(episode.title) }}
+          </div>
+        </div>
+
+        <div class="episode-content">
+          <div class="episode-meta">
+            <span class="date">
+              <i class="calendar-icon"></i>
+              {{ episode.posted_on | date : "M/d/yyyy" }}
+            </span>
+            <span class="duration">
+              <i class="clock-icon"></i>
+              {{ episode.duration || "55:36" }}
+            </span>
+          </div>
+
+          <h3 class="episode-title">{{ episode.title }}</h3>
+          <p class="episode-description">
+            {{ episode.description | slice : 0 : 120 }}...
+          </p>
+
+          <button
+            class="listen-btn"
+            (click)="navigatetoEpisodeDetails(episode.id)"
+          >
+            > Listen Now
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!filteredEpisodes.length && !loading" class="empty-state">
+      <div class="empty-icon">🎧</div>
+      <h3>No episodes found</h3>
+      <p>Try adjusting your search or filter criteria.</p>
+    </div>
+
+    <app-pagination
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      (pageChange)="onPageChange($event)"
+      *ngIf="filteredEpisodes.length > pageSize"
+    ></app-pagination>
+  </section>
+
+  <app-footer></app-footer>
+</div>

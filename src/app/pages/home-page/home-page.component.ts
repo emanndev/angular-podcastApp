@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
 import { EpisodeService } from '../../core/services/episode.service';
 import { PlaylistService } from '../../core/services/playlist.service';
 import { TeamMembersService } from '../../core/services/team-members.service';
 import { PublicNavbarComponent } from '../../shared/components/public-navbar/public-navbar.component';
 import { Episode, Playlist, TeamMember } from '../../model/podcast.models';
 import { environment } from '../../../environments/environment';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, PublicNavbarComponent],
+  imports: [CommonModule, RouterModule, PublicNavbarComponent, FooterComponent],
 })
 export class HomePageComponent implements OnInit {
   episodes: Episode[] = [];

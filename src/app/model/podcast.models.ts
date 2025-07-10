@@ -120,3 +120,14 @@ export interface Podcast {
   date: string;
   image?: string;
 }
+
+export interface AudioPlayerConfig {
+  src: string;
+  title: string;
+  description?: string;
+  coverImage?: string;
+  autoplay?: boolean;
+  loop?: boolean;
+  showDownload?: boolean;
+  showSpeed?: boolean;
+}
