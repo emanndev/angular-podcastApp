@@ -4,14 +4,35 @@
   margin-bottom: 10px;
   background: transparent;
   padding: 4px 14px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 20px;
   font-weight: 300;
+  transition: all var(--transition-normal);
 
   &:hover {
-    background-color: #cfd1d4bb;
+    background-color: var(--hover-bg-translucent);
     transform: scale(1.2);
-    transition: all 0.3s ease;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-theme-toggle .theme-toggle {
+    width: 100%;
+    padding: var(--spacing-md);
+    font-size: 24px;
+    background-color: var(--navbar-mobile-hover);
+    border: 1px solid var(--navbar-mobile-border);
+    border-radius: var(--radius-md);
+    margin-bottom: 0;
+
+    &:hover {
+      background-color: var(--hover-bg);
+      transform: scale(1.05);
+    }
+  }
+
+  .desktop-theme-toggle .theme-toggle {
+    display: none;
   }
 }

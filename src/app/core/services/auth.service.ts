@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap, map } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LoginResponse } from '../../model/podcast.models';
 
@@ -21,29 +21,38 @@ export class AuthService {
           if (res.status === 'success') {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', JSON.stringify(res.data.user));
-
-            //   console.log('Bearer Token:', res.data.token);
           }
         })
       );
   }
 
   simulateAdminSeed(): void {
-    const credentials = {
-      name: 'Emmanuel',
-      email: 'emmanuel.nsiah@amalitechtraining.org',
-      password: 'admin123',
-      password_confirmation: 'admin123',
-      role: 'admin',
-    };
+    const credentials = [
+      {
+        name: 'Emmanuel',
+        email: 'emmanuel.nsiah@amalitechtraining.org',
+        password: 'admin123',
+        password_confirmation: 'admin123',
+        role: 'admin',
+      },
+      {
+        name: 'Mabel',
+        email: 'mabel.hackman@amalitechtraining.org',
+        password: 'admin123',
+        password_confirmation: 'admin123',
+        role: 'admin',
+      },
+    ];
 
-    this.http.post(`${this.baseUrl}/register`, credentials).subscribe({
-      next: (res: any) => {
-        console.log('Admin registered:', res);
-      },
-      error: (err) => {
-        console.error('Failed to seed admin:', err);
-      },
+    credentials.forEach((admin) => {
+      this.http.post(`${this.baseUrl}/register`, admin).subscribe({
+        next: (res: any) => {
+          console.log('Admin registered:', res);
+        },
+        error: (err) => {
+          console.error('Failed to seed admin:', err);
+        },
+      });
     });
   }
 
@@ -69,6 +78,7 @@ export class AuthService {
     const user = this.getUser();
     return (
       user?.email === 'emmanuel.nsiah@amalitechtraining.org' ||
+      user?.email === 'mabel.hackman@amalitechtraining.org' ||
       user?.role === 'admin'
     );
   }

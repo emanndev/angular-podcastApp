@@ -3,7 +3,8 @@
     <a routerLink="/" class="brand">🎙️ ManBel Pod</a>
   </div>
 
-  <ul class="nav-links">
+  <!-- Desktop Navigation -->
+  <ul class="nav-links desktop-nav">
     <li>
       <a
         routerLink="/"
@@ -20,6 +21,51 @@
   </ul>
 
   <div class="nav-right">
-    <app-theme-toggle></app-theme-toggle>
+    <!-- Desktop Theme Toggle -->
+    <app-theme-toggle class="desktop-theme-toggle"></app-theme-toggle>
+    
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+      <span class="hamburger-line" [class.open]="isMobileMenuOpen"></span>
+      <span class="hamburger-line" [class.open]="isMobileMenuOpen"></span>
+      <span class="hamburger-line" [class.open]="isMobileMenuOpen"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Sidebar Overlay -->
+  <div class="mobile-overlay" [class.open]="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
+  
+  <!-- Mobile Sidebar -->
+  <div class="mobile-sidebar" [class.open]="isMobileMenuOpen">
+    <div class="mobile-sidebar-header">
+      <h3>Menu</h3>
+      <button class="close-btn" (click)="closeMobileMenu()">×</button>
+    </div>
+    
+    <ul class="mobile-nav-links">
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMobileMenu()"
+          >Home</a
+        >
+      </li>
+      <li>
+        <a routerLink="/episodes" routerLinkActive="active" (click)="closeMobileMenu()">Episodes</a>
+      </li>
+      <li>
+        <a routerLink="/playlists" routerLinkActive="active" (click)="closeMobileMenu()">Playlists</a>
+      </li>
+      <li>
+        <a routerLink="/confessions" routerLinkActive="active" (click)="closeMobileMenu()">Confessions</a>
+      </li>
+    </ul>
+    
+    <!-- Mobile Theme Toggle -->
+    <div class="mobile-theme-section">
+      <app-theme-toggle class="mobile-theme-toggle"></app-theme-toggle>
+    </div>
   </div>
 </nav>

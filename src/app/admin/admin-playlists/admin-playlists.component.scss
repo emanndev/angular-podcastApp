@@ -1,5 +1,5 @@
 .admin-playlists-container {
-  padding: 2rem;
+  padding: var(--spacing-xl);
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -8,12 +8,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-xl);
 
   h2 {
     font-size: 2rem;
     font-weight: 600;
-    color: #333;
+    color: var(--text-dark);
     margin: 0;
   }
 
@@ -28,9 +28,9 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  padding: 3rem;
+  padding: var(--spacing-3xl);
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-medium);
 
   mat-icon {
     animation: spin 1s linear infinite;
@@ -49,46 +49,46 @@
 .playlist-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+  gap: var(--spacing-lg);
 }
 
 .playlist-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border: 1px solid #e0e0e0;
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  border: 1px solid var(--border-light-gray);
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-card-hover);
   }
 
   mat-card-header {
-    padding-bottom: 1rem;
+    padding-bottom: var(--spacing-md);
 
     mat-card-title {
       font-size: 1.2rem;
       font-weight: 600;
-      color: #333;
-      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+      margin-bottom: var(--spacing-sm);
     }
 
     mat-card-subtitle {
-      color: #666;
+      color: var(--text-medium);
       font-size: 0.9rem;
     }
   }
 
   mat-card-content {
     padding-top: 0;
-    padding-bottom: 1rem;
+    padding-bottom: var(--spacing-md);
 
     .description {
-      color: #555;
+      color: var(--text-dark-gray);
       font-size: 0.95rem;
       line-height: 1.4;
-      margin-bottom: 1rem;
+      margin-bottom: var(--spacing-md);
       display: -webkit-box;
       line-clamp: 3;
       -webkit-line-clamp: 3;
@@ -99,13 +99,13 @@
     .playlist-stats {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: var(--spacing-md);
 
       .episodes-count {
         display: flex;
         align-items: center;
         gap: 6px;
-        color: #666;
+        color: var(--text-medium);
         font-size: 0.9rem;
 
         mat-icon {
@@ -118,8 +118,8 @@
   }
 
   mat-card-actions {
-    border-top: 1px solid #f0f0f0;
-    padding-top: 1rem;
+    border-top: 1px solid var(--border-lighter);
+    padding-top: var(--spacing-md);
     gap: 8px;
 
     button {
@@ -142,27 +142,27 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem;
+  padding: var(--spacing-3xl) var(--spacing-xl);
   text-align: center;
 
   .empty-icon {
     font-size: 4rem;
     width: 4rem;
     height: 4rem;
-    color: #ccc;
-    margin-bottom: 1rem;
+    color: var(--border-light);
+    margin-bottom: var(--spacing-md);
   }
 
   h3 {
     font-size: 1.5rem;
-    color: #666;
-    margin: 0 0 0.5rem 0;
+    color: var(--text-medium);
+    margin: 0 0 var(--spacing-sm) 0;
   }
 
   p {
-    color: #888;
+    color: var(--text-gray);
     font-size: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-xl);
   }
 
   button {
@@ -175,30 +175,30 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: var(--spacing-md);
 }
 
 .status-badge {
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 0.8rem;
-  background-color: #f5f5f5;
-  color: #666;
+  background-color: var(--bg-neutral);
+  color: var(--text-medium);
 
   &.active {
-    background-color: #e8f5e8;
-    color: #2e7d32;
+    background-color: var(--badge-active-bg);
+    color: var(--badge-active);
   }
 }
 
 @media (max-width: 768px) {
   .admin-playlists-container {
-    padding: 1rem;
+    padding: var(--spacing-md);
   }
 
   .header-section {
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--spacing-md);
     align-items: stretch;
 
     h2 {
