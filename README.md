@@ -90,8 +90,10 @@ Mock data fallback is included in services for development purposes.
 Confessions submitted from users require approval in admin.
 
 🧑‍💻 Author
-Emann – GitHub
-Built as part of a full-stack podcast platform project.
+emanndev – GitHub
+
+🧑‍💻 Collaborator
+EsiHackman – GitHub
 
 📜 License
 No license.
