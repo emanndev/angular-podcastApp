@@ -11,7 +11,6 @@ import {
 import { environment } from '../../../environments/environment';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { PublicNavbarComponent } from '../../shared/components/public-navbar/public-navbar.component';
-import { AudioPlayerBarComponent } from '../../shared/components/audio-player-bar/audio-player-bar.component';
 import { AudioPlayerService } from '../../core/services/audio-player.service';
 
 @Component({
@@ -54,7 +53,6 @@ export class EpisodeDetailComponent implements OnInit {
         this.episode = found;
         this.generateTags(found);
 
-        // Now fetch all playlists and filter for those including this episode
         this.playlistService.getAllPlaylists().subscribe({
           next: (playlists) => {
             this.relatedPlaylists = playlists.filter((p) =>
@@ -226,5 +224,10 @@ export class EpisodeDetailComponent implements OnInit {
     this.showAudioPlayer = false;
     this.isPlaying = false;
     this.playerConfig = null;
+  }
+
+  
+  trackByPlaylistId(index: number, playlist: Playlist): number {
+    return playlist.id;
   }
 }

@@ -82,4 +82,8 @@ export class PlaylistPageComponent implements OnInit {
 
     return ['Podcast', 'Episodes'];
   }
+  trackByPlaylistId(index: number, playlist: Playlist): number {
+  return playlist.id;
+}
+
 }

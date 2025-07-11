@@ -131,4 +131,8 @@ export class PlaylistDetailComponent implements OnInit {
 
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   }
+  trackByEpisodeId(index: number, episode: Episode): number {
+  return episode.id;
+}
+
 }

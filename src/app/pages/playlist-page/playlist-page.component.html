@@ -20,7 +20,8 @@
     <div class="grid" *ngIf="!loading">
       <div
         class="card"
-        *ngFor="let playlist of filteredPlaylists"
+        *ngFor="let playlist of filteredPlaylists; trackBy: trackByPlaylistId"
+
         [routerLink]="['/playlists', playlist.id]"
       >
         <div class="image-wrapper">

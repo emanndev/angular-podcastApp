@@ -113,7 +113,8 @@
           >
             <div
               class="playlist-item"
-              *ngFor="let playlist of relatedPlaylists"
+             class="playlist-item" *ngFor="let playlist of relatedPlaylists; trackBy: trackByPlaylistId">
+
             >
               <img
                 [src]="getPlaylistImage(playlist.id)"
