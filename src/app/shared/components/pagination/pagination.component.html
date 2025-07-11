@@ -4,7 +4,7 @@
   </button>
 
   <button
-    *ngFor="let page of pages"
+    *ngFor="let page of pages; trackBy: trackByPage"
     (click)="goToPage(page)"
     [class.active]="page === currentPage"
   >

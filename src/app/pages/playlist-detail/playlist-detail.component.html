@@ -56,10 +56,11 @@
         </div>
 
         <div class="episode-list">
-          <div
-            class="episode-item"
-            *ngFor="let episode of playlist.episodes; let i = index"
-          >
+         <div
+  class="episode-item"
+  *ngFor="let episode of playlist.episodes; let i = index; trackBy: trackByEpisodeId"
+>
+
             <div class="episode-number">{{ i + 1 }}</div>
             <img
               class="episode-thumbnail"

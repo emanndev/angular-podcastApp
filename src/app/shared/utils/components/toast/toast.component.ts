@@ -25,4 +25,7 @@ export class ToastComponent implements OnInit {
   close(id: number) {
     this.toastService.dismiss(id);
   }
+  trackByToastId(index: number, toast: ToastMessage): number {
+    return toast.id;
+  }
 }

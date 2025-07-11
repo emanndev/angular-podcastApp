@@ -31,4 +31,8 @@ export class PaginationComponent {
 
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }
+  trackByPage(index: number, page: number): number {
+  return page;
+}
+
 }

@@ -1,7 +1,7 @@
 <div class="toast-wrapper">
   <div
     class="toast"
-    *ngFor="let toast of toasts"
+    *ngFor="let toast of toasts; trackBy: trackByToastId"
     [ngClass]="toast.type"
     (click)="close(toast.id)"
   >
